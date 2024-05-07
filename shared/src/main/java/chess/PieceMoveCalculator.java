@@ -18,6 +18,10 @@ public class PieceMoveCalculator {
                 PawnMoveCalculator pawnMoveCalculator = new PawnMoveCalculator();
                 moves.addAll(pawnMoveCalculator.pieceMoves(board, position));
                 break;
+            case ROOK:
+                RookMoveCalculator rookMoveCalculator = new RookMoveCalculator();
+                moves.addAll(rookMoveCalculator.pieceMoves(board, position));
+                break;
         }
         return moves;
 
