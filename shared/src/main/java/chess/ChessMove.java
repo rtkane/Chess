@@ -12,6 +12,26 @@ public class ChessMove {
     private ChessPosition endPosition;
 
 
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + startPosition.hashCode();
+        result = 31 * result + endPosition.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        ChessMove other = (ChessMove) obj;
+        return startPosition.equals(other.startPosition) &&
+                endPosition.equals(other.endPosition);
+    }
+
+
     public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
                      ChessPiece.PieceType promotionPiece) {
         this.startPosition = startPosition;
@@ -44,4 +64,6 @@ public class ChessMove {
     public ChessPiece.PieceType getPromotionPiece() {
         throw new RuntimeException("Not implemented");
     }
+
+
 }
