@@ -13,6 +13,11 @@ public class PieceMoveCalculator {
             case BISHOP:
                 BishopMoveCalculator bishopMoveCalculator = new BishopMoveCalculator();
                 moves.addAll(bishopMoveCalculator.pieceMoves(board, position));
+                break;
+            case PAWN:
+                PawnMoveCalculator pawnMoveCalculator = new PawnMoveCalculator();
+                moves.addAll(pawnMoveCalculator.pieceMoves(board, position));
+                break;
         }
         return moves;
 
