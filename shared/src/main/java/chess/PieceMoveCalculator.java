@@ -22,6 +22,19 @@ public class PieceMoveCalculator {
                 RookMoveCalculator rookMoveCalculator = new RookMoveCalculator();
                 moves.addAll(rookMoveCalculator.pieceMoves(board, position));
                 break;
+            case KING:
+                KingMoveCalculator kingMoveCalculator = new KingMoveCalculator();
+                moves.addAll(kingMoveCalculator.pieceMoves(board, position));
+                break;
+            case KNIGHT:
+                KnightsMoveCalculator knightsMoveCalculator = new KnightsMoveCalculator();
+                moves.addAll(knightsMoveCalculator.pieceMoves(board,position));
+                break;
+            case QUEEN:
+                QueenMoveCalculator queenMoveCalculator = new QueenMoveCalculator();
+                moves.addAll(queenMoveCalculator.pieceMoves(board,position));
+                break;
+
         }
         return moves;
 
