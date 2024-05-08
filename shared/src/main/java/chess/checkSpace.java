@@ -15,7 +15,8 @@ public class checkSpace {
     }
 
     public static Boolean isSpaceEmpty(ChessBoard board, ChessPosition newPosition){
-        if (newPosition.getRow() == 8 || newPosition.getColumn() == 8){
+        if (newPosition.getRow() ==
+                8 || newPosition.getColumn() == 8){
             return true;
         }
         if (board.getPiece(newPosition) == null){

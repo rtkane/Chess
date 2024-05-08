@@ -31,6 +31,28 @@ RookMoveTests {
         );
     }
 
+    @Test
+    public void rookMoveUntilEdge2() {
+
+        validateMoves("""
+                        | | | | | | | |R|
+                        | | | | | | | | |
+                        | | | | | | | | |
+                        | | | | | | | | |
+                        | | | | | | | | |
+                        | | | | | | | | |
+                        | | | | | | | | |
+                        | | | | | | | | |
+                        """,
+                new ChessPosition(8, 8),
+                new int[][]{
+                        {8, 7}, {8,6}, {8,5}, {8,4},{8, 3}, {8,2 },{8,1},
+                        {7, 8}, {6, 8}, {5, 8}, {4, 8},{3, 8}, {2, 8},{1, 8},
+
+                }
+        );
+    }
+
 
     @Test
     public void rookCaptureEnemy() {

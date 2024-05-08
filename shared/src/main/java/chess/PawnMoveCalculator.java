@@ -18,17 +18,47 @@ public class PawnMoveCalculator {
                 for (int i = 0; i < 2; ++i) {
                     currRow += 1;
                     ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                    validMoves.add(move);
+                    if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol))){
+                        validMoves.add(move);
+                    }
+                    else {
+                        break;
+                    }
 
 
                 }
                 return validMoves;
             } else {
-                currRow += 1;
-                ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                validMoves.add(move);
-
-                return validMoves;
+                for (int i = 0; i < 3; i++) {
+                    if (i == 0) {
+                        currRow += 1;
+                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                        if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol))) {
+                            validMoves.add(move);
+                        }
+                        return validMoves;
+                    }
+                    if (i == 1){
+                        currRow += 1;
+                        currCol += 1;
+                        if (!checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                            if (checkSpace.checkValidMove(board,new ChessPosition(currRow,currCol), position)){
+                                ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
+                                validMoves.add(move);
+                            }
+                        }
+                    }
+                    if (i == 2){
+                        currRow += 1;
+                        currCol -= 1;
+                        if (!checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                            if (checkSpace.checkValidMove(board,new ChessPosition(currRow,currCol), position)){
+                                ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
+                                validMoves.add(move);
+                            }
+                        }
+                    }
+                }
             }
 
 
@@ -39,14 +69,21 @@ public class PawnMoveCalculator {
                 for (int i = 0; i < 2; i++){
                     currRow -= 1;
                     ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                    validMoves.add(move);
+                    if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))) {
+                        validMoves.add(move);
+                    }
+                    else {
+                        break;
+                    }
                 }
                 return validMoves;
             }
             else {
                 currRow -= 1;
                 ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                validMoves.add(move);
+                if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))) {
+                    validMoves.add(move);
+                }
                 return validMoves;
             }
 
