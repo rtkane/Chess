@@ -17,17 +17,41 @@ public class BishopMoveCalculator {
             currRow += 1;
             currCol += 1;
             ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-            validMoves.add(move);
+
+            if (isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
+                validMoves.add(move);
+            }
+            else{
+                if (checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
+                    break;
+                }
+                else {
+                    validMoves.add(move);
+                    break;
+                }
+            }
+
         }
 
         currRow = position.getRow();
         currCol = position.getColumn();
 
-        while (currRow > 0 && currCol < 8){
+        while (currRow > 1 && currCol < 8){
             currRow -= 1;
             currCol += 1;
             ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-            validMoves.add(move);
+            if (isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
+                validMoves.add(move);
+            }
+            else{
+                if (checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
+                    break;
+                }
+                else {
+                    validMoves.add(move);
+                    break;
+                }
+            }
         }
 
         currRow = position.getRow();
@@ -37,17 +61,39 @@ public class BishopMoveCalculator {
             currRow -= 1;
             currCol -= 1;
             ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-            validMoves.add(move);
+            if (isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
+                validMoves.add(move);
+            }
+            else{
+                if (checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
+                    break;
+                }
+                else {
+                    validMoves.add(move);
+                    break;
+                }
+            }
         }
 
         currRow = position.getRow();
         currCol = position.getColumn();
 
-        while (currRow < 8 && currCol > 0){
+        while (currRow < 8 && currCol > 1){
             currRow += 1;
             currCol -= 1;
             ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-            validMoves.add(move);
+            if (isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
+                validMoves.add(move);
+            }
+            else{
+                if (checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
+                    break;
+                }
+                else {
+                    validMoves.add(move);
+                    break;
+                }
+            }
         }
 
 
@@ -57,6 +103,30 @@ public class BishopMoveCalculator {
 
         System.out.println(validMoves);
         return validMoves;
+    }
+
+
+    private Boolean checkValidMove(ChessBoard board, ChessPosition newPosition, ChessPosition position){
+        if (board.getPiece(newPosition).getTeamColor().equals(ChessGame.TeamColor.WHITE) == board.getPiece(position).getTeamColor().equals(ChessGame.TeamColor.WHITE)){
+            return false;
+        }
+        if (board.getPiece(newPosition).getTeamColor().equals(ChessGame.TeamColor.BLACK) == board.getPiece(position).getTeamColor().equals(ChessGame.TeamColor.BLACK)){
+            return false;
+        }
+
+
+        return true;
+    }
+
+    private Boolean isSpaceEmpty(ChessBoard board, ChessPosition newPosition){
+        if (newPosition.getRow() == 8 || newPosition.getColumn() == 8){
+            return true;
+        }
+        if (board.getPiece(newPosition) == null){
+            return true;
+        }
+        return false;
+
     }
 
 
