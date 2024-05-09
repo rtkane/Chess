@@ -148,8 +148,6 @@ public class RookMoveCalculator {
     }
 
     private Boolean isSpaceEmpty(ChessBoard board, ChessPosition position){
-        int currRow = position.getRow() - 1;
-        int currCol = position.getColumn() - 1;
 
         if (board.getPiece(position) == null){
             return true;
