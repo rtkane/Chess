@@ -14,83 +14,262 @@ public class PawnMoveCalculator {
         ChessPiece piece = board.getPiece(position);
 
         if (piece.getTeamColor().equals(ChessGame.TeamColor.WHITE)) {
-            if (currRow == 2) {
-                for (int i = 0; i < 2; ++i) {
+            for (int i = 0; i < 4; i++){
+                currRow = position.getRow();
+                currCol = position.getColumn();
+
+                // Two Space move. There won't be an enemy capture.
+                if (i == 0){
+                    if ( currRow == 2){
+                        currRow += 1;
+                        if (inBounds(new ChessPosition(currRow,currCol))){
+                            if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                                currRow += 1;
+                                if (inBounds(new ChessPosition(currRow, currCol))){
+                                    if (isSpaceEmpty(board, new ChessPosition(currRow, currCol))){
+                                        ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                        validMoves.add(moves);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                // Normal move for pawn.
+                if (i == 1){
                     currRow += 1;
-                    ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                    if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol))){
-                        validMoves.add(move);
-                    }
-                    else {
-                        break;
-                    }
+                    if (inBounds(new ChessPosition(currRow, currCol))){
+                        if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
 
+                            // Promotion
+                            if (currRow == 8){
 
-                }
-                return validMoves;
-            } else {
-                for (int i = 0; i < 3; i++) {
-                    if (i == 0) {
-                        currRow += 1;
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol))) {
-                            validMoves.add(move);
-                        }
-                        return validMoves;
-                    }
-                    if (i == 1){
-                        currRow += 1;
-                        currCol += 1;
-                        if (!checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                            if (checkSpace.checkValidMove(board,new ChessPosition(currRow,currCol), position)){
-                                ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                                validMoves.add(move);
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.QUEEN));
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.BISHOP));
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.KNIGHT));
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.ROOK));
+                            }
+                            else {
+                                ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                validMoves.add(moves);
                             }
                         }
                     }
-                    if (i == 2){
-                        currRow += 1;
-                        currCol -= 1;
-                        if (!checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                            if (checkSpace.checkValidMove(board,new ChessPosition(currRow,currCol), position)){
-                                ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                                validMoves.add(move);
+
+                }
+
+                // Capture up to the Right.
+                if (i == 2){
+                    currRow += 1;
+                    currCol += 1;
+                    if (inBounds(new ChessPosition(currRow,currCol))){
+                        if (!isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                            if (checkTeamColor(board, new ChessPosition(currRow,currCol), position)){
+
+                                // Capture into a promotion
+                                if (currRow == 8){
+
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.QUEEN));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.BISHOP));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.KNIGHT));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.ROOK));
+                                }
+                                else {
+                                    ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                    validMoves.add(moves);
+                                }
                             }
                         }
                     }
+
                 }
+                // Capture up to the Left.
+                if (i == 3){
+                    currRow += 1;
+                    currCol -= 1;
+                    if (inBounds(new ChessPosition(currRow,currCol))){
+                        if (!isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                            if (checkTeamColor(board, new ChessPosition(currRow,currCol), position)){
+
+                                // Capture into a promotion
+                                if (currRow == 8){
+
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.QUEEN));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.BISHOP));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.KNIGHT));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.ROOK));
+                                }
+                                else {
+                                    ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                    validMoves.add(moves);
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+
+
+
+
+
             }
 
-
+            return validMoves;
         }
 
         if (piece.getTeamColor().equals(ChessGame.TeamColor.BLACK)) {
-            if (currRow == 7){
-                for (int i = 0; i < 2; i++){
+            for (int i = 0; i < 4; i++){
+                currRow = position.getRow();
+                currCol = position.getColumn();
+
+                // Two Space move. There won't be an enemy capture.
+                if (i == 0){
+                    if ( currRow == 7){
+                        currRow -= 1;
+                        if (inBounds(new ChessPosition(currRow,currCol))){
+                            if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                                currRow -= 1;
+                                if (inBounds(new ChessPosition(currRow, currCol))){
+                                    if (isSpaceEmpty(board, new ChessPosition(currRow, currCol))){
+                                        ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                        validMoves.add(moves);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                // Normal move for pawn.
+                if (i == 1){
                     currRow -= 1;
-                    ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                    if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))) {
-                        validMoves.add(move);
+                    if (inBounds(new ChessPosition(currRow, currCol))){
+                        if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+
+                            // Promotion
+                            if (currRow == 1){
+
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.QUEEN));
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.BISHOP));
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.KNIGHT));
+                                validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.ROOK));
+                            }
+                            else {
+                                ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                validMoves.add(moves);
+                            }
+                        }
                     }
-                    else {
-                        break;
+
+                }
+
+                // Capture Down to the Right.
+                if (i == 2){
+                    currRow -= 1;
+                    currCol -= 1;
+                    if (inBounds(new ChessPosition(currRow,currCol))){
+                        if (!isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                            if (checkTeamColor(board, new ChessPosition(currRow,currCol), position)){
+
+                                // Capture into a promotion
+                                if (currRow == 1){
+
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.QUEEN));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.BISHOP));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.KNIGHT));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.ROOK));
+                                }
+                                else {
+                                    ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                    validMoves.add(moves);
+                                }
+                            }
+                        }
                     }
+
                 }
-                return validMoves;
-            }
-            else {
-                currRow -= 1;
-                ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow,currCol))) {
-                    validMoves.add(move);
+                // Capture Down to the Left.
+                if (i == 3){
+                    currRow -= 1;
+                    currCol += 1;
+                    if (inBounds(new ChessPosition(currRow,currCol))){
+                        if (!isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
+                            if (checkTeamColor(board, new ChessPosition(currRow,currCol), position)){
+
+                                // Capture into a promotion
+                                if (currRow == 1){
+
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.QUEEN));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.BISHOP));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.KNIGHT));
+                                    validMoves.add(new ChessMove(position, new ChessPosition(currRow,currCol), ChessPiece.PieceType.ROOK));
+                                }
+                                else {
+                                    ChessMove moves = new ChessMove(position, new ChessPosition(currRow, currCol), null);
+                                    validMoves.add(moves);
+                                }
+                            }
+                        }
+                    }
+
                 }
-                return validMoves;
+
+
+
+
+
+
             }
 
+            return validMoves;
         }
 
         return validMoves;
 
 
+    }
+
+
+
+
+    private Boolean inBounds(ChessPosition position){
+        if (position.getRow() > 8){
+            return false;
+        }
+        if (position.getColumn() > 8){
+            return false;
+        }
+        if (position.getRow() < 1){
+            return false;
+        }
+        if (position.getColumn() < 1){
+            return false;
+        }
+        return true;
+    }
+
+    private Boolean isSpaceEmpty(ChessBoard board, ChessPosition position){
+
+        if (board.getPiece(position) == null){
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean checkTeamColor(ChessBoard board, ChessPosition newPosition, ChessPosition position){
+        if (board.getPiece(newPosition).getTeamColor().equals(ChessGame.TeamColor.WHITE) == board.getPiece(position).getTeamColor().equals(ChessGame.TeamColor.WHITE)){
+            return false;
+        }
+        if (board.getPiece(newPosition).getTeamColor().equals(ChessGame.TeamColor.BLACK) == board.getPiece(position).getTeamColor().equals(ChessGame.TeamColor.BLACK)){
+            return false;
+        }
+
+
+        return true;
     }
 }

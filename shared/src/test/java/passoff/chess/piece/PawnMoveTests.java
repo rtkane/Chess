@@ -208,6 +208,7 @@ public class PawnMoveTests {
 
     @Test
     public void pawnCaptureWhite() {
+
         validateMoves("""
                         | | | | | | | | |
                         | | | | | | | | |
