@@ -1,0 +1,65 @@
+
+u	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(ë•¸ÿ8àéÌöõ1
+z	java:S135+"YReduce the total number of break and continue statements in this loop to use at most one.(‰åƒ¼úÿÿÿÿ8ÓÎöõ1
+z	java:S135F"YReduce the total number of break and continue statements in this loop to use at most one.(ßäÉ°ùÿÿÿÿ8ÓÎöõ1
+z	java:S135`"YReduce the total number of break and continue statements in this loop to use at most one.(¤©ş”øÿÿÿÿ8ÓÎöõ1
+z	java:S135{"YReduce the total number of break and continue statements in this loop to use at most one.(ø¦º„ıÿÿÿÿ8ÓÎöõ1
+{	java:S135•"YReduce the total number of break and continue statements in this loop to use at most one.(¸ Ò­ùÿÿÿÿ8ÓÎöõ1
+v	java:S135°"YReduce the total number of break and continue statements in this loop to use at most one.(ŠÁ¾Ø8ÓÎöõ1
+{	java:S135Ê"YReduce the total number of break and continue statements in this loop to use at most one.(øí´äùÿÿÿÿ8ÓÎöõ1
+E
+java:S5411"(Use a primitive boolean expression here.(ÎË‚Ã8àéÌöõ1
+E
+java:S5411"(Use a primitive boolean expression here.(ê·Ñï8àéÌöõ1
+E
+java:S5411"(Use a primitive boolean expression here.(å‡½Í8àéÌöõ1
+E
+java:S5411."(Use a primitive boolean expression here.(ÎË‚Ã8ÔÎöõ1
+E
+java:S5411/"(Use a primitive boolean expression here.(ê·Ñï8ÔÎöõ1
+E
+java:S54115"(Use a primitive boolean expression here.(å‡½Í8ÔÎöõ1
+E
+java:S5411H"(Use a primitive boolean expression here.(ÎË‚Ã8ÔÎöõ1
+E
+java:S5411I"(Use a primitive boolean expression here.(ê·Ñï8ÔÎöõ1
+E
+java:S5411O"(Use a primitive boolean expression here.(å‡½Í8ÔÎöõ1
+E
+java:S5411c"(Use a primitive boolean expression here.(ÎË‚Ã8ÔÎöõ1
+E
+java:S5411d"(Use a primitive boolean expression here.(ê·Ñï8ÔÎöõ1
+E
+java:S5411j"(Use a primitive boolean expression here.(å‡½Í8ÔÎöõ1
+E
+java:S5411}"(Use a primitive boolean expression here.(ÎË‚Ã8ÔÎöõ1
+E
+java:S5411~"(Use a primitive boolean expression here.(ê·Ñï8ÔÎöõ1
+F
+java:S5411„"(Use a primitive boolean expression here.(å‡½Í8ÔÎöõ1
+F
+java:S5411˜"(Use a primitive boolean expression here.(ÎË‚Ã8ÔÎöõ1
+F
+java:S5411™"(Use a primitive boolean expression here.(ê·Ñï8ÔÎöõ1
+F
+java:S5411Ÿ"(Use a primitive boolean expression here.(å‡½Í8ÔÎöõ1
+F
+java:S5411²"(Use a primitive boolean expression here.(ÎË‚Ã8ÔÎöõ1
+F
+java:S5411³"(Use a primitive boolean expression here.(ê·Ñï8ÕÎöõ1
+F
+java:S5411¹"(Use a primitive boolean expression here.(å‡½Í8ÕÎöõ1
+F
+java:S5411Í"(Use a primitive boolean expression here.(ÎË‚Ã8ÕÎöõ1
+F
+java:S5411Î"(Use a primitive boolean expression here.(ê·Ñï8ÕÎöõ1
+F
+java:S5411Ô"(Use a primitive boolean expression here.(å‡½Í8ÕÎöõ1
+p
+java:S3776"SRefactor this method to reduce its Cognitive Complexity from 189 to the 15 allowed.(¡„ç8¤¬Ã¶õ1
+d
+java:S1126ù"AReplace this if-then-else statement by a single return statement.(ÀÃÏÚûÿÿÿÿ8¾ıÊöõ1
+_
+java:S1126"AReplace this if-then-else statement by a single return statement.(Š§Î8ÀıÊöõ1
+_
+java:S1126‹"AReplace this if-then-else statement by a single return statement.(‚ÁÇ¥8ÁıÊöõ1

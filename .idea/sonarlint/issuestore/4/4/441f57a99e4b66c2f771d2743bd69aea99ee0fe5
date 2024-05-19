@@ -1,0 +1,93 @@
+
+Q
+java:S1066"/Merge this if statement with the enclosing one.(ÖÇıÿÿÿÿ8©Æ€ˆö1
+L
+java:S1066"/Merge this if statement with the enclosing one.(ê·Ñï8ªÆ€ˆö1
+L
+java:S1066"/Merge this if statement with the enclosing one.(ê·Ñï8ªÆ€ˆö1
+L
+java:S1066,"/Merge this if statement with the enclosing one.(ê·Ñï8ªÆ€ˆö1
+Q
+java:S1066D"/Merge this if statement with the enclosing one.(‰‘¶¯ÿÿÿÿÿ8ªÆ€ˆö1
+L
+java:S1066E"/Merge this if statement with the enclosing one.(å‡½Í8ªÆ€ˆö1
+Q
+java:S1066]"/Merge this if statement with the enclosing one.(‰‘¶¯ÿÿÿÿÿ8ªÆ€ˆö1
+L
+java:S1066^"/Merge this if statement with the enclosing one.(å‡½Í8ªÆ€ˆö1
+M
+java:S1066ƒ"/Merge this if statement with the enclosing one.(òû¦ã8ªÆ€ˆö1
+M
+java:S1066†"/Merge this if statement with the enclosing one.(ê·Ñï8ªÆ€ˆö1
+M
+java:S1066‰"/Merge this if statement with the enclosing one.(ê·Ñï8ªÆ€ˆö1
+M
+java:S1066˜"/Merge this if statement with the enclosing one.(ê·Ñï8ªÆ€ˆö1
+R
+java:S1066°"/Merge this if statement with the enclosing one.(‰‘¶¯ÿÿÿÿÿ8ªÆ€ˆö1
+M
+java:S1066±"/Merge this if statement with the enclosing one.(å‡½Í8À“‚ˆö1
+R
+java:S1066É"/Merge this if statement with the enclosing one.(‰‘¶¯ÿÿÿÿÿ8£Ê„ˆö1
+M
+java:S1066Ê"/Merge this if statement with the enclosing one.(å‡½Í8£Ê„ˆö1
+E
+java:S5411"(Use a primitive boolean expression here.(ÎË‚Ã8«Æ€ˆö1
+E
+java:S5411"(Use a primitive boolean expression here.(ê·Ñï8«Æ€ˆö1
+E
+java:S5411"(Use a primitive boolean expression here.(ÎË‚Ã8«Æ€ˆö1
+E
+java:S5411"(Use a primitive boolean expression here.(ê·Ñï8«Æ€ˆö1
+E
+java:S5411+"(Use a primitive boolean expression here.(ÎË‚Ã8«Æ€ˆö1
+E
+java:S5411,"(Use a primitive boolean expression here.(ê·Ñï8«Æ€ˆö1
+E
+java:S5411C"(Use a primitive boolean expression here.(ÎË‚Ã8«Æ€ˆö1
+J
+java:S5411D"(Use a primitive boolean expression here.(‰‘¶¯ÿÿÿÿÿ8«Æ€ˆö1
+E
+java:S5411E"(Use a primitive boolean expression here.(å‡½Í8«Æ€ˆö1
+E
+java:S5411\"(Use a primitive boolean expression here.(ÎË‚Ã8«Æ€ˆö1
+J
+java:S5411]"(Use a primitive boolean expression here.(‰‘¶¯ÿÿÿÿÿ8«Æ€ˆö1
+E
+java:S5411^"(Use a primitive boolean expression here.(å‡½Í8«Æ€ˆö1
+F
+java:S5411…"(Use a primitive boolean expression here.(ÎË‚Ã8«Æ€ˆö1
+F
+java:S5411†"(Use a primitive boolean expression here.(ê·Ñï8«Æ€ˆö1
+F
+java:S5411ˆ"(Use a primitive boolean expression here.(ÎË‚Ã8¬Æ€ˆö1
+F
+java:S5411‰"(Use a primitive boolean expression here.(ê·Ñï8¬Æ€ˆö1
+F
+java:S5411—"(Use a primitive boolean expression here.(ÎË‚Ã8Â“‚ˆö1
+F
+java:S5411˜"(Use a primitive boolean expression here.(ê·Ñï8Â“‚ˆö1
+F
+java:S5411¯"(Use a primitive boolean expression here.(ÎË‚Ã8¥Ê„ˆö1
+K
+java:S5411°"(Use a primitive boolean expression here.(‰‘¶¯ÿÿÿÿÿ8¥Ê„ˆö1
+F
+java:S5411±"(Use a primitive boolean expression here.(å‡½Í8«Æ€ˆö1
+F
+java:S5411È"(Use a primitive boolean expression here.(ÎË‚Ã8¥Ê„ˆö1
+K
+java:S5411É"(Use a primitive boolean expression here.(‰‘¶¯ÿÿÿÿÿ8¥Ê„ˆö1
+F
+java:S5411Ê"(Use a primitive boolean expression here.(å‡½Í8¬Æ€ˆö1
+p
+java:S3776"SRefactor this method to reduce its Cognitive Complexity from 214 to the 15 allowed.(¡„ç8…È€ˆö1
+]
+java:S1854";Remove this useless assignment to local variable "currCol".(Î¤½Šüÿÿÿÿ8†È€ˆö1
+X
+java:S1854";Remove this useless assignment to local variable "currRow".(î×¬ç8†È€ˆö1
+d
+java:S1126ú"AReplace this if-then-else statement by a single return statement.(ÀÃÏÚûÿÿÿÿ8—È€ˆö1
+_
+java:S1126‚"AReplace this if-then-else statement by a single return statement.(Š§Î8šÈ€ˆö1
+_
+java:S1126Œ"AReplace this if-then-else statement by a single return statement.(‚ÁÇ¥8›È€ˆö1

@@ -1,0 +1,73 @@
+
+E
+java:S5411"(Use a primitive boolean expression here.(ÎË‚Ã8ÎËáöõ1
+E
+java:S5411"(Use a primitive boolean expression here.(ê·Ñï8ÎËáöõ1
+E
+java:S5411"(Use a primitive boolean expression here.(å‡½Í8ÏËáöõ1
+E
+java:S5411*"(Use a primitive boolean expression here.(ÎË‚Ã8“ëâöõ1
+E
+java:S5411+"(Use a primitive boolean expression here.(ê·Ñï8“ëâöõ1
+E
+java:S54110"(Use a primitive boolean expression here.(å‡½Í8“ëâöõ1
+E
+java:S5411A"(Use a primitive boolean expression here.(ÎË‚Ã8“ëâöõ1
+E
+java:S5411B"(Use a primitive boolean expression here.(ê·Ñï8“ëâöõ1
+E
+java:S5411G"(Use a primitive boolean expression here.(å‡½Í8“ëâöõ1
+E
+java:S5411X"(Use a primitive boolean expression here.(ÎË‚Ã8“ëâöõ1
+E
+java:S5411Y"(Use a primitive boolean expression here.(ê·Ñï8“ëâöõ1
+E
+java:S5411^"(Use a primitive boolean expression here.(å‡½Í8“ëâöõ1
+E
+java:S5411o"(Use a primitive boolean expression here.(ÎË‚Ã8“ëâöõ1
+E
+java:S5411p"(Use a primitive boolean expression here.(ê·Ñï8“ëâöõ1
+E
+java:S5411u"(Use a primitive boolean expression here.(å‡½Í8“ëâöõ1
+F
+java:S5411†"(Use a primitive boolean expression here.(ÎË‚Ã8“ëâöõ1
+F
+java:S5411‡"(Use a primitive boolean expression here.(ê·Ñï8“ëâöõ1
+F
+java:S5411Œ"(Use a primitive boolean expression here.(å‡½Í8“ëâöõ1
+F
+java:S5411"(Use a primitive boolean expression here.(ÎË‚Ã8“ëâöõ1
+F
+java:S5411"(Use a primitive boolean expression here.(ê·Ñï8“ëâöõ1
+F
+java:S5411£"(Use a primitive boolean expression here.(å‡½Í8“ëâöõ1
+F
+java:S5411´"(Use a primitive boolean expression here.(ÎË‚Ã8‰Ñïöõ1
+F
+java:S5411µ"(Use a primitive boolean expression here.(ê·Ñï8‰Ñïöõ1
+F
+java:S5411º"(Use a primitive boolean expression here.(å‡½Í8‰Ñïöõ1
+p
+java:S3776"SRefactor this method to reduce its Cognitive Complexity from 137 to the 15 allowed.(¡„ç8ÖŠ¡¶õ1
+E	java:S108")Either remove or fill this block of code.(á¢–¬8¤Íáöõ1
+E	java:S108#")Either remove or fill this block of code.(á¢–¬8¤Íáöõ1
+E	java:S1085")Either remove or fill this block of code.(á¢–¬8Äìâöõ1
+E	java:S108:")Either remove or fill this block of code.(á¢–¬8Äìâöõ1
+E	java:S108L")Either remove or fill this block of code.(á¢–¬8Åìâöõ1
+E	java:S108Q")Either remove or fill this block of code.(á¢–¬8Åìâöõ1
+E	java:S108c")Either remove or fill this block of code.(á¢–¬8Æìâöõ1
+E	java:S108h")Either remove or fill this block of code.(á¢–¬8Æìâöõ1
+E	java:S108z")Either remove or fill this block of code.(á¢–¬8Çìâöõ1
+E	java:S108")Either remove or fill this block of code.(á¢–¬8Çìâöõ1
+F	java:S108‘")Either remove or fill this block of code.(á¢–¬8Çìâöõ1
+F	java:S108–")Either remove or fill this block of code.(á¢–¬8Çìâöõ1
+F	java:S108¨")Either remove or fill this block of code.(á¢–¬8¡íâöõ1
+F	java:S108­")Either remove or fill this block of code.(á¢–¬8±íâöõ1
+F	java:S108¿")Either remove or fill this block of code.(á¢–¬8½Òïöõ1
+F	java:S108Ä")Either remove or fill this block of code.(á¢–¬8½Òïöõ1
+d
+java:S1126Ø"AReplace this if-then-else statement by a single return statement.(ÀÃÏÚûÿÿÿÿ8å´Üöõ1
+_
+java:S1126à"AReplace this if-then-else statement by a single return statement.(Š§Î8æ´Üöõ1
+_
+java:S1126ê"AReplace this if-then-else statement by a single return statement.(‚ÁÇ¥8ç´Üöõ1

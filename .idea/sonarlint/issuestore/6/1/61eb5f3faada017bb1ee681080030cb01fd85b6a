@@ -1,0 +1,40 @@
+
+z	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(ƒÜÚÓúÿÿÿÿ8ØºÃºõ1
+z	java:S135*"YReduce the total number of break and continue statements in this loop to use at most one.(»Î©óüÿÿÿÿ8ØºÃºõ1
+z	java:S135@"YReduce the total number of break and continue statements in this loop to use at most one.(¸ Ò­ùÿÿÿÿ8ØºÃºõ1
+z	java:S135V"YReduce the total number of break and continue statements in this loop to use at most one.(ÈÕ¦Èùÿÿÿÿ8ØºÃºõ1
+E
+java:S5411"(Use a primitive boolean expression here.(êÛëĞ8ÚÌæºõ1
+J
+java:S5411"(Use a primitive boolean expression here.(‹ÿáÉüÿÿÿÿ8ÚÌæºõ1
+E
+java:S5411/"(Use a primitive boolean expression here.(êÛëĞ8ÚÌæºõ1
+J
+java:S54113"(Use a primitive boolean expression here.(‹ÿáÉüÿÿÿÿ8ÚÌæºõ1
+E
+java:S5411E"(Use a primitive boolean expression here.(êÛëĞ8ÚÌæºõ1
+J
+java:S5411I"(Use a primitive boolean expression here.(‹ÿáÉüÿÿÿÿ8ÚÌæºõ1
+E
+java:S5411["(Use a primitive boolean expression here.(êÛëĞ8ÚÌæºõ1
+J
+java:S5411_"(Use a primitive boolean expression here.(‹ÿáÉüÿÿÿÿ8ÚÌæºõ1
+o
+java:S3776
+"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(¡„ç8¼Ãºõ1
+D
+java:S1125"'Remove the unnecessary boolean literal.(êÛëĞ8ƒ¼Ãºõ1
+I
+java:S1125"'Remove the unnecessary boolean literal.(‹ÿáÉüÿÿÿÿ8„¼Ãºõ1
+D
+java:S1125/"'Remove the unnecessary boolean literal.(êÛëĞ8…¼Ãºõ1
+I
+java:S11253"'Remove the unnecessary boolean literal.(‹ÿáÉüÿÿÿÿ8…¼Ãºõ1
+D
+java:S1125E"'Remove the unnecessary boolean literal.(êÛëĞ8†¼Ãºõ1
+I
+java:S1125I"'Remove the unnecessary boolean literal.(‹ÿáÉüÿÿÿÿ8†¼Ãºõ1
+D
+java:S1125["'Remove the unnecessary boolean literal.(êÛëĞ8‡¼Ãºõ1
+I
+java:S1125_"'Remove the unnecessary boolean literal.(‹ÿáÉüÿÿÿÿ8ˆ¼Ãºõ1
