@@ -1,8 +1,6 @@
 
 d
 4shared/src/main/java/chess/InvalidMoveException.java,e\3\e39c3486fec5f2b87e64591840622613400adc99
-e
-5shared/src/test/java/passoff/chess/TestUtilities.java,1\4\14062c2f20526a866f3144a841b2af7bd4bb47af
 Z
 *shared/src/main/java/chess/checkSpace.java,8\c\8c71a6ac838784dd4a109a787cda99f557dd6a8e
 m
@@ -29,15 +27,5 @@ l
 <shared/src/test/java/passoff/chess/piece/QueenMoveTests.java,a\2\a2bd15f35595ddc78d142da6ccffd03c5a50bac2
 k
 ;shared/src/test/java/passoff/chess/piece/PawnMoveTests.java,f\5\f5f303eb20d0409e171fe16f357212147605d4a8
-]
--shared/src/main/java/chess/ChessPosition.java,3\b\3b013a24b64d343e15bac32b29d3d69c6c135d82
-Y
-)shared/src/main/java/chess/ChessMove.java,c\5\c52f67c55315a844e23611bb848b35269aaedb66
 d
 4shared/src/main/java/chess/BishopMoveCalculator.java,6\1\61eb5f3faada017bb1ee681080030cb01fd85b6a
-Z
-*shared/src/main/java/chess/ChessBoard.java,d\f\dfc4ec84b5d57ac6e0266e9c319b728da99e0c51
-Z
-*shared/src/main/java/chess/ChessPiece.java,c\0\c02b93065e1c720b0a958f6a9aa91f709ca1cca9
-c
-3shared/src/main/java/chess/PieceMoveCalculator.java,0\d\0d8edb87c39822a3c5b0b19db52d306e2b2934d5
