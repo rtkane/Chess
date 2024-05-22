@@ -5,8 +5,6 @@ Z
 *shared/src/main/java/chess/checkSpace.java,8\c\8c71a6ac838784dd4a109a787cda99f557dd6a8e
 k
 ;shared/src/test/java/passoff/chess/piece/RookMoveTests.java,7\f\7fcc205671386de1ff9a72d54f687d72d4f2fde0
-m
-=shared/src/test/java/passoff/chess/piece/BishopMoveTests.java,3\0\30378d697b641130153ece6a5b8fa7c1b9b6adf4
 k
 ;shared/src/test/java/passoff/chess/piece/KingMoveTests.java,b\a\ba735f5288818d5bcb2d915ba581f2540fda32d0
 j
@@ -15,8 +13,6 @@ c
 3shared/src/main/java/chess/QueenMoveCalculator.java,3\b\3b70174007f1df72aa9e7a2f9ad6b288c58c4a6c
 m
 =shared/src/test/java/passoff/chess/piece/KnightMoveTests.java,4\6\46ef87c304e18ba9d31ab5df8735551001527431
-e
-5shared/src/main/java/chess/KnightsMoveCalculator.java,b\f\bf3a9fb14a6f7e3b3c5f8eef84e694abf46b3987
 k
 ;shared/src/test/java/passoff/chess/piece/PawnMoveTests.java,f\5\f5f303eb20d0409e171fe16f357212147605d4a8
 b

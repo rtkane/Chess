@@ -17,13 +17,11 @@ public class ChessGame {
     private ChessPosition bKingPosition;
 
 
-
-
     public ChessGame() {
         this.board = new ChessBoard();
-        this.currTeam = TeamColor.WHITE;
+        this.currTeam = TeamColor.BLACK;
         this.wKingPosition = new ChessPosition(1, 5);
-        this.bKingPosition = new ChessPosition(8, 5);
+        this.bKingPosition = new ChessPosition(1, 5);
 
     }
 
@@ -60,10 +58,15 @@ public class ChessGame {
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
         Collection<ChessMove> possibleMoves = this.board.getPiece(startPosition).pieceMoves(this.board, startPosition);
-
         Collection<ChessMove> validMoves = new HashSet<ChessMove>();
 
-        validMoves.addAll(possibleMoves);
+        for (ChessMove move : possibleMoves) {
+
+            if (isKingExposed()) {
+                continue;
+            }
+            validMoves.add(move);
+        }
 
         return validMoves;
     }
@@ -85,16 +88,26 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
+        if (teamColor == TeamColor.WHITE) {
+            if (isKingExposed()) {
+                return true;
+            }
+        }
+        if (teamColor == TeamColor.BLACK) {
+            if (isKingExposed()) {
+                return true;
+            }
+        }
         return false;
     }
 
-    private boolean isKingExposed(ChessPosition position){
+    private boolean isKingExposed() {
 
         // Want to see if White King is in Danger, check if black pieces can get king
-        if(currTeam == TeamColor.WHITE) {
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.WHITE) || this.board.getPiece(new ChessPosition(i,j)) == null) {
+        if (currTeam == TeamColor.WHITE) {
+            for (int i = 1; i < 8; i++) {
+                for (int j = 1; j < 8; j++) {
+                    if (this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.WHITE) || this.board.getPiece(new ChessPosition(i, j)) == null) {
                         continue;
                     } else {
                         Collection<ChessMove> moves = this.board.getPiece(new ChessPosition(i, j)).pieceMoves(this.board, new ChessPosition(i, j));
@@ -107,15 +120,22 @@ public class ChessGame {
                 }
             }
         }
-        if(currTeam == TeamColor.BLACK) {
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.BLACK) || this.board.getPiece(new ChessPosition(i,j)) == null) {
+        if (currTeam == TeamColor.BLACK) {
+            for (int i = 1; i < 8; i++) {
+                for (int j = 1; j < 8; j++) {
+
+                    if (this.board.getPiece(new ChessPosition(i, j)) == null) {
+                        continue;
+                    }
+                    if (this.board.getPiece(new ChessPosition(i, j)).getPieceType().equals(ChessPiece.PieceType.KING) && this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.BLACK)) {
+                        bKingPosition = new ChessPosition(i, j);
+                    }
+                    if (this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.BLACK)) {
                         continue;
                     } else {
                         Collection<ChessMove> moves = this.board.getPiece(new ChessPosition(i, j)).pieceMoves(this.board, new ChessPosition(i, j));
                         for (ChessMove move : moves) {
-                            if (wKingPosition.equals(move.getEndPosition())) {
+                            if (bKingPosition.equals(move.getEndPosition()) == true) {
                                 return true;
                             }
                         }
@@ -136,7 +156,6 @@ public class ChessGame {
     public boolean isInCheckmate(TeamColor teamColor) {
         throw new RuntimeException("Not implemented");
     }
-
 
 
     /**
