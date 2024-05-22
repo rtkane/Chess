@@ -21,7 +21,7 @@ public class ChessGame {
         this.board = new ChessBoard();
         this.currTeam = TeamColor.WHITE;
         this.wKingPosition = new ChessPosition(1, 5);
-        this.bKingPosition = new ChessPosition(1, 5);
+        this.bKingPosition = new ChessPosition(7, 5);
 
     }
 
@@ -64,14 +64,14 @@ public class ChessGame {
         Collection<ChessMove> validMoves = new HashSet<ChessMove>();
 
         for (ChessMove move : possibleMoves) {
-            if (this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(),move.getEndPosition().getColumn())) != null &&
-             this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(),move.getEndPosition().getColumn())).getTeamColor() != currPiece.getTeamColor()){
+            if (this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(), move.getEndPosition().getColumn())) != null &&
+                    this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(), move.getEndPosition().getColumn())).getTeamColor() != currPiece.getTeamColor()) {
                 validMoves.add(move);
                 continue;
             }
             this.board.removePiece(startPosition);
             ChessPiece tempPiece = new ChessPiece(currPiece.getTeamColor(), currPiece.getPieceType());
-            this.board.addPiece(new ChessPosition(move.getEndPosition().getRow(),move.getEndPosition().getColumn()), tempPiece);
+            this.board.addPiece(new ChessPosition(move.getEndPosition().getRow(), move.getEndPosition().getColumn()), tempPiece);
 
 
             if (isKingExposed(tempPiece.getTeamColor())) {
@@ -82,7 +82,7 @@ public class ChessGame {
             validMoves.add(move);
         }
 
-        this.board.addPiece(new ChessPosition(startPosition.getRow(),startPosition.getColumn()), currPiece);
+        this.board.addPiece(new ChessPosition(startPosition.getRow(), startPosition.getColumn()), currPiece);
         return validMoves;
     }
 
@@ -116,10 +116,41 @@ public class ChessGame {
         return false;
     }
 
+    private ChessPosition findKingPosition(TeamColor color) {
+        if (color == TeamColor.WHITE) {
+            for (int i = 1; i < 8; i++) {
+                for (int j = 1; j < 8; j++) {
+                    if (this.board.getPiece(new ChessPosition(i, j)) == null) {
+                        continue;
+                    }
+                    if (this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.WHITE)) {
+                        System.out.println(this.board.getPiece(new ChessPosition(i, j)).getTeamColor());
+                        if (this.board.getPiece(new ChessPosition(i, j)).getPieceType().equals(ChessPiece.PieceType.KING)) {
+                            System.out.println(this.board.getPiece(new ChessPosition(i, j)).getPieceType());
+                            return new ChessPosition(i, j);
+                        }
+                    }
+                }
+            }
+        }
+        if (color == TeamColor.BLACK) {
+            for (int i = 1; i < 8; i++) {
+                for (int j = 1; j < 8; j++) {
+                    if (this.board.getPiece(new ChessPosition(i, j)) != null && this.board.getPiece(new ChessPosition(i, j)).getPieceType().equals(ChessPiece.PieceType.KING) && this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.BLACK)) {
+                        return new ChessPosition(i, j);
+                    }
+                }
+            }
+        }
+
+        return wKingPosition;
+    }
+
     private boolean isKingExposed(TeamColor color) {
 
         // Want to see if White King is in Danger, check if black pieces can get king
         if (color == TeamColor.WHITE) {
+            wKingPosition = findKingPosition(TeamColor.WHITE);
             for (int i = 1; i < 8; i++) {
                 for (int j = 1; j < 8; j++) {
                     if (this.board.getPiece(new ChessPosition(i, j)) == null || this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.WHITE)) {
@@ -136,6 +167,7 @@ public class ChessGame {
             }
         }
         if (color == TeamColor.BLACK) {
+            bKingPosition = findKingPosition(TeamColor.BLACK);
             for (int i = 1; i < 8; i++) {
                 for (int j = 1; j < 8; j++) {
 
