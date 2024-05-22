@@ -19,7 +19,7 @@ public class ChessGame {
 
     public ChessGame() {
         this.board = new ChessBoard();
-        this.currTeam = TeamColor.BLACK;
+        this.currTeam = TeamColor.WHITE;
         this.wKingPosition = new ChessPosition(1, 5);
         this.bKingPosition = new ChessPosition(1, 5);
 
@@ -57,17 +57,32 @@ public class ChessGame {
      * startPosition
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
+        ChessPiece currPiece = new ChessPiece(this.board.getPiece(startPosition).getTeamColor(), this.board.getPiece(startPosition).getPieceType());
+
+
         Collection<ChessMove> possibleMoves = this.board.getPiece(startPosition).pieceMoves(this.board, startPosition);
         Collection<ChessMove> validMoves = new HashSet<ChessMove>();
 
         for (ChessMove move : possibleMoves) {
-
-            if (isKingExposed()) {
+            if (this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(),move.getEndPosition().getColumn())) != null &&
+             this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(),move.getEndPosition().getColumn())).getTeamColor() != currPiece.getTeamColor()){
+                validMoves.add(move);
                 continue;
             }
+            this.board.removePiece(startPosition);
+            ChessPiece tempPiece = new ChessPiece(currPiece.getTeamColor(), currPiece.getPieceType());
+            this.board.addPiece(new ChessPosition(move.getEndPosition().getRow(),move.getEndPosition().getColumn()), tempPiece);
+
+
+            if (isKingExposed(tempPiece.getTeamColor())) {
+                this.board.removePiece(move.getEndPosition());
+                continue;
+            }
+            this.board.removePiece(move.getEndPosition());
             validMoves.add(move);
         }
 
+        this.board.addPiece(new ChessPosition(startPosition.getRow(),startPosition.getColumn()), currPiece);
         return validMoves;
     }
 
@@ -89,25 +104,25 @@ public class ChessGame {
      */
     public boolean isInCheck(TeamColor teamColor) {
         if (teamColor == TeamColor.WHITE) {
-            if (isKingExposed()) {
+            if (isKingExposed(TeamColor.WHITE)) {
                 return true;
             }
         }
         if (teamColor == TeamColor.BLACK) {
-            if (isKingExposed()) {
+            if (isKingExposed(TeamColor.BLACK)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean isKingExposed() {
+    private boolean isKingExposed(TeamColor color) {
 
         // Want to see if White King is in Danger, check if black pieces can get king
-        if (currTeam == TeamColor.WHITE) {
+        if (color == TeamColor.WHITE) {
             for (int i = 1; i < 8; i++) {
                 for (int j = 1; j < 8; j++) {
-                    if (this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.WHITE) || this.board.getPiece(new ChessPosition(i, j)) == null) {
+                    if (this.board.getPiece(new ChessPosition(i, j)) == null || this.board.getPiece(new ChessPosition(i, j)).getTeamColor().equals(TeamColor.WHITE)) {
                         continue;
                     } else {
                         Collection<ChessMove> moves = this.board.getPiece(new ChessPosition(i, j)).pieceMoves(this.board, new ChessPosition(i, j));
@@ -120,7 +135,7 @@ public class ChessGame {
                 }
             }
         }
-        if (currTeam == TeamColor.BLACK) {
+        if (color == TeamColor.BLACK) {
             for (int i = 1; i < 8; i++) {
                 for (int j = 1; j < 8; j++) {
 

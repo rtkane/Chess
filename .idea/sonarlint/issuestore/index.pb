@@ -1,8 +1,6 @@
 
 d
 4shared/src/main/java/chess/InvalidMoveException.java,e\3\e39c3486fec5f2b87e64591840622613400adc99
-Z
-*shared/src/main/java/chess/checkSpace.java,8\c\8c71a6ac838784dd4a109a787cda99f557dd6a8e
 k
 ;shared/src/test/java/passoff/chess/piece/RookMoveTests.java,7\f\7fcc205671386de1ff9a72d54f687d72d4f2fde0
 k
