@@ -3,6 +3,8 @@ package chess;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.lang.Math;
+
 
 /**
  * For a class that can manage a chess game, making moves on a board
@@ -68,10 +70,22 @@ public class ChessGame {
 
 
         for (ChessMove move : possibleMoves) {
+            // If it is a capture, add to valid moves
             if (this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(), move.getEndPosition().getColumn())) != null &&
                     this.board.getPiece(new ChessPosition(move.getEndPosition().getRow(), move.getEndPosition().getColumn())).getTeamColor() != currPiece.getTeamColor()) {
                 validMoves.add(move);
                 continue;
+            }
+
+            // if piece is a king check if possible move is adjacent to the other king
+            if (currPiece.getPieceType().equals(ChessPiece.PieceType.KING)) {
+                ChessPosition otherKingPosition = currPiece.getTeamColor().equals(TeamColor.WHITE) ? bKingPosition : wKingPosition;
+                int rowDiff = Math.abs(move.getEndPosition().getRow() - otherKingPosition.getRow());
+                int colDiff = Math.abs(move.getEndPosition().getColumn() - otherKingPosition.getColumn());
+
+                if ((rowDiff <= 1) && (colDiff <= 1)) {
+                    continue;
+                }
             }
             this.board.removePiece(startPosition);
             ChessPiece tempPiece = new ChessPiece(currPiece.getTeamColor(), currPiece.getPieceType());
