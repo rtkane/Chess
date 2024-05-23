@@ -79,13 +79,23 @@ public class ChessGame {
 
             // if piece is a king check if possible move is adjacent to the other king
             if (currPiece.getPieceType().equals(ChessPiece.PieceType.KING)) {
-                ChessPosition otherKingPosition = currPiece.getTeamColor().equals(TeamColor.WHITE) ? bKingPosition : wKingPosition;
-                int rowDiff = Math.abs(move.getEndPosition().getRow() - otherKingPosition.getRow());
-                int colDiff = Math.abs(move.getEndPosition().getColumn() - otherKingPosition.getColumn());
+                if (currPiece.getTeamColor().equals(TeamColor.WHITE)){
+                    int rowDiff = Math.abs(move.getEndPosition().getRow() - bKingPosition.getRow());
+                    int colDiff = Math.abs(move.getEndPosition().getColumn() - bKingPosition.getColumn());
 
-                if ((rowDiff <= 1) && (colDiff <= 1)) {
-                    continue;
+                    if ((rowDiff <= 1) && (colDiff <= 1)) {
+                        continue;
+                    }
                 }
+                if (currPiece.getTeamColor().equals(TeamColor.BLACK)){
+                    int rowDiff = Math.abs(move.getEndPosition().getRow() - wKingPosition.getRow());
+                    int colDiff = Math.abs(move.getEndPosition().getColumn() - wKingPosition.getColumn());
+
+                    if ((rowDiff <= 1) && (colDiff <= 1)) {
+                        continue;
+                    }
+                }
+
             }
             this.board.removePiece(startPosition);
             ChessPiece tempPiece = new ChessPiece(currPiece.getTeamColor(), currPiece.getPieceType());
