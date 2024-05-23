@@ -160,8 +160,62 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
-        throw new RuntimeException("Not implemented");
+        ChessPiece piece = this.board.getPiece(move.getStartPosition());
+
+        if (piece == null) {
+            throw new InvalidMoveException("No piece at the start position.");
+        }
+        if (piece.getTeamColor() != this.currTeam) {
+            throw new InvalidMoveException("It is not the current team's turn.");
+        }
+
+        Collection<ChessMove> validMoves = validMoves(move.getStartPosition());
+
+        if (!validMoves.contains(move)) {
+            throw new InvalidMoveException("Invalid move.");
+        }
+
+        this.board.removePiece(move.getStartPosition());
+        this.board.addPiece(move.getEndPosition(), piece);
+
+        // If king update the king position
+        if (piece.getPieceType() == ChessPiece.PieceType.KING) {
+            if (piece.getTeamColor() == TeamColor.WHITE) {
+                wKingPosition = move.getEndPosition();
+            }
+            if (piece.getTeamColor() == TeamColor.BLACK) {
+                bKingPosition = move.getEndPosition();
+            }
+        }
+
+        // If pawn is in promotion
+        if (piece.getPieceType() == ChessPiece.PieceType.PAWN) {
+            if ((piece.getTeamColor() == TeamColor.WHITE && move.getEndPosition().getRow() == 8) ||
+                    (piece.getTeamColor() == TeamColor.BLACK && move.getEndPosition().getRow() == 1)) {
+                this.board.addPiece(move.getEndPosition(), new ChessPiece(piece.getTeamColor(), move.getPromotionPiece()));
+            }
+        }
+
+        this.currTeam = (this.currTeam == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
+
+
+
+        // Exception if move makes king in check
+        if (isInCheck(piece.getTeamColor())) {
+            this.board.removePiece(move.getEndPosition());
+            this.board.addPiece(move.getStartPosition(), piece);
+            if (piece.getPieceType() == ChessPiece.PieceType.KING) {
+                if (piece.getTeamColor() == TeamColor.WHITE) {
+                    wKingPosition = move.getStartPosition();
+                }
+                if (piece.getTeamColor() == TeamColor.BLACK) {
+                    bKingPosition = move.getStartPosition();
+                }
+            }
+            throw new InvalidMoveException("Move puts the king in check.");
+        }
     }
+
 
     /**
      * Determines if the given team is in check
@@ -212,8 +266,9 @@ public class ChessGame {
                 }
             }
         }
-
-        return wKingPosition;
+        // I know this is dumb to just randomly put king in corner, but this should never happen.
+        // This is here mostly for tests that for some reason don't include a king.
+        return new ChessPosition(1,1);
     }
 
     private boolean isKingExposed(TeamColor color) {
