@@ -97,17 +97,56 @@ public class ChessGame {
                 }
 
             }
+
+            // Set up temp piece and check if the move will put king in check
             this.board.removePiece(startPosition);
             ChessPiece tempPiece = new ChessPiece(currPiece.getTeamColor(), currPiece.getPieceType());
             this.board.addPiece(new ChessPosition(move.getEndPosition().getRow(), move.getEndPosition().getColumn()), tempPiece);
 
 
-            if (isKingExposed(tempPiece.getTeamColor())) {
-                this.board.removePiece(move.getEndPosition());
-                continue;
+            if (tempPiece.getPieceType().equals(ChessPiece.PieceType.KING)){
+                if (tempPiece.getTeamColor().equals(TeamColor.WHITE)){
+                    ChessPosition currKingPos = wKingPosition;
+                    ChessPosition tempKingPos = move.getEndPosition();
+                    wKingPosition = tempKingPos;
+
+                    if (isKingExposed(tempPiece.getTeamColor())) {
+                        this.board.removePiece(move.getEndPosition());
+                        wKingPosition = currKingPos;
+                        continue;
+                    }
+                    this.board.removePiece(move.getEndPosition());
+                    wKingPosition = currKingPos;
+                    validMoves.add(move);
+                }
+                if (tempPiece.getTeamColor().equals(TeamColor.BLACK)){
+                    ChessPosition currKingPos = bKingPosition;
+                    ChessPosition tempKingPos = move.getEndPosition();
+                    bKingPosition = tempKingPos;
+
+
+                    if (isKingExposed(tempPiece.getTeamColor())) {
+                        this.board.removePiece(move.getEndPosition());
+                        bKingPosition = currKingPos;
+
+                        continue;
+                    }
+                    this.board.removePiece(move.getEndPosition());
+                    bKingPosition = currKingPos;
+
+                    validMoves.add(move);
+                }
             }
-            this.board.removePiece(move.getEndPosition());
-            validMoves.add(move);
+            else {
+
+
+                if (isKingExposed(tempPiece.getTeamColor())) {
+                    this.board.removePiece(move.getEndPosition());
+                    continue;
+                }
+                this.board.removePiece(move.getEndPosition());
+                validMoves.add(move);
+            }
         }
 
         this.board.addPiece(new ChessPosition(startPosition.getRow(), startPosition.getColumn()), currPiece);
@@ -174,7 +213,7 @@ public class ChessGame {
             }
         }
 
-        return null;
+        return wKingPosition;
     }
 
     private boolean isKingExposed(TeamColor color) {
