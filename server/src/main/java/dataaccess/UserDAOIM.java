@@ -18,10 +18,7 @@ public class UserDAOIM implements UserDAO {
                 throw new DataAccessException("Email Taken");
             }
         }
-
-
         userData.add(user);
-
     }
 
     @Override
