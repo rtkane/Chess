@@ -35,7 +35,12 @@ public class RegisterHandler implements Route {
             registerResult = registerService.register(registerRequest);
             if (registerResult.getSuccess()) {
                 response.status(200);
-            } else {
+            } else if ( registerResult.getMessage() == "Fill in all fields"){
+
+                response.status(400);
+                return gson.toJson(new ErrorResponse("Error: bad request"));
+            }
+            else {
                 response.status(403);
                 return gson.toJson(new ErrorResponse("Error: already taken"));
 

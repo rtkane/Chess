@@ -33,6 +33,11 @@ public class RegisterService {
             }
         }
 
+        //Checks not make sure every field is filled
+        if (request.getUsername() == null || request.getPassword() == null || request.getEmail() == null){
+            return new RegisterResult(false, "Fill in all fields");
+        }
+
         UserDataModel userDataModel = new UserDataModel(request.getUsername(), request.getPassword(), request.getEmail());
         AuthDataModel authDataModel = new AuthDataModel(UUID.randomUUID().toString(), request.getUsername());
 

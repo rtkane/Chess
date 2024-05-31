@@ -13,8 +13,6 @@ import spark.Route;
 
 public class LoginHandler implements Route {
     private  LoginService loginService = new LoginService(UserDAOIM.getInstance(), AuthDAOIM.getInstance());
-
-
     private final Gson gson = new Gson();
 
     @Override
@@ -44,8 +42,8 @@ public class LoginHandler implements Route {
             }
             return gson.toJson(loginResult);
         } catch (DataAccessException e) {
-            response.status(500);
-            return gson.toJson(new ErrorResponse("Error: " + e.getMessage()));
+            response.status(401);
+            return gson.toJson(new ErrorResponse("Error: unauthorized"));
         }
     }
 

@@ -5,7 +5,6 @@ import model.AuthDataModel;
 import model.UserDataModel;
 import requests.LoginRequest;
 import results.LoginResult;
-import results.RegisterResult;
 
 import java.util.UUID;
 
