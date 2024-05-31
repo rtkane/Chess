@@ -6,15 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOIM implements UserDAO {
-    private List<UserDataModel> userData = new ArrayList<>();
+    private List<UserDataModel> userData;
+    private static UserDAOIM instance;
+
+    private UserDAOIM() {
+        this.userData = new ArrayList<>();
+    }
+
+    public static synchronized UserDAOIM getInstance() {
+        if (instance == null) {
+            instance = new UserDAOIM();
+        }
+        return instance;
+    }
 
     @Override
     public void createUser(UserDataModel user) throws DataAccessException {
-        for (UserDataModel inMemoryUser: userData){
-            if (inMemoryUser.getUsername().equals(user.getUsername())){
+        for (UserDataModel inMemoryUser : userData) {
+            if (inMemoryUser.getUsername().equals(user.getUsername())) {
                 throw new DataAccessException("Username Taken");
             }
-            if (inMemoryUser.getEmail().equals(user.getEmail())){
+            if (inMemoryUser.getEmail().equals(user.getEmail())) {
                 throw new DataAccessException("Email Taken");
             }
         }
@@ -23,27 +35,25 @@ public class UserDAOIM implements UserDAO {
 
     @Override
     public UserDataModel getUser(String username) throws DataAccessException {
-        for (UserDataModel user: userData){
-            if (user.getUsername().equals(username)){
+        for (UserDataModel user : userData) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }
-
         throw new DataAccessException("User not found");
     }
 
     @Override
     public void clearUser(String username) throws DataAccessException {
         boolean foundUser = false;
-        for (UserDataModel user: userData){
-            if (user.getUsername().equals(username)){
+        for (UserDataModel user : userData) {
+            if (user.getUsername().equals(username)) {
                 userData.remove(user);
                 foundUser = true;
                 break;
             }
         }
-
-        if (foundUser == false){
+        if (!foundUser) {
             throw new DataAccessException("User not found");
         }
     }
@@ -51,6 +61,15 @@ public class UserDAOIM implements UserDAO {
     @Override
     public void clearAll() {
         userData.clear();
+    }
 
+    @Override
+    public void printModelList() {
+        System.out.println(userData);
+    }
+
+    // Add this method to get all users
+    public List<UserDataModel> getAllUsers() {
+        return new ArrayList<>(userData);
     }
 }

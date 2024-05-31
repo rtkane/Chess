@@ -9,4 +9,5 @@ public interface AuthDAO {
 
     void clearAuth(String authToken) throws DataAccessException;
     void clearAll();
+    void printAuthList();
 }

@@ -15,8 +15,8 @@ public class LoginService {
         String username = request.getUsername();
         String password = request.getPassword();
 
-        UserDAO userDAO = new UserDAOIM();
-        AuthDAO authDAO = new AuthDAOIM();
+        UserDAO userDAO = UserDAOIM.getInstance();
+        AuthDAO authDAO = AuthDAOIM.getInstance();
 
         UserDataModel user = userDAO.getUser(username);
         if (user.getUsername() == null){

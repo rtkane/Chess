@@ -25,4 +25,12 @@ public class AuthDataModel {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        return "AuthDataModel{" +
+                "username='" + username + '\'' +
+                ", password='" + authToken + '\'' +
+                '}';
+    }
 }

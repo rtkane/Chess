@@ -9,6 +9,19 @@ import java.util.List;
 public class AuthDAOIM implements AuthDAO {
     private List<AuthDataModel> authTokenData = new ArrayList<>();
 
+    private static AuthDAOIM instance;
+
+    private AuthDAOIM(){
+        this.authTokenData = new ArrayList<>();
+    }
+
+    public static synchronized AuthDAOIM getInstance(){
+        if (instance == null){
+            instance = new AuthDAOIM();
+        }
+        return instance;
+    }
+
     @Override
     public void createAuthToken(AuthDataModel authToken) throws DataAccessException {
         for (AuthDataModel inMemoryAuthToken: authTokenData){
@@ -65,5 +78,14 @@ public class AuthDAOIM implements AuthDAO {
     @Override
     public void clearAll() {
         authTokenData.clear();
+    }
+
+    @Override
+    public void printAuthList() {
+        System.out.println(authTokenData);
+    }
+
+    public List<AuthDataModel> getAllTokens(){
+        return new ArrayList<>(authTokenData);
     }
 }
