@@ -1,7 +1,9 @@
 package handlers;
 
 import com.google.gson.Gson;
+import dataaccess.AuthDAOIM;
 import dataaccess.DataAccessException;
+import dataaccess.UserDAOIM;
 import requests.LoginRequest;
 import results.LoginResult;
 import service.LoginService;
@@ -10,7 +12,7 @@ import spark.Response;
 import spark.Route;
 
 public class LoginHandler implements Route {
-    private  LoginService loginService = new LoginService();
+    private  LoginService loginService = new LoginService(UserDAOIM.getInstance(), AuthDAOIM.getInstance());
 
 
     private final Gson gson = new Gson();
@@ -38,6 +40,7 @@ public class LoginHandler implements Route {
                 response.status(200);
             } else {
                 response.status(401);
+                return gson.toJson(new ErrorResponse("Error: unauthorized"));
             }
             return gson.toJson(loginResult);
         } catch (DataAccessException e) {

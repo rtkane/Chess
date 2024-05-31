@@ -33,19 +33,15 @@ public class RegisterService {
             }
         }
 
-        // Creating a new UserDataModel with the provided data
         UserDataModel userDataModel = new UserDataModel(request.getUsername(), request.getPassword(), request.getEmail());
         AuthDataModel authDataModel = new AuthDataModel(UUID.randomUUID().toString(), request.getUsername());
 
-        // Using the provided UserDAOIM instance to create the user
         userDAO.createUser(userDataModel);
         authDAO.createAuthToken(authDataModel);
 
-        // Optionally print the list of users
         userDAO.printModelList();
         authDAO.printAuthList();
 
-        // Creating a successful RegisterResult
         result = new RegisterResult(userDataModel.getUsername(), authDataModel.getAuthToken(), true, "Welcome new user");
 
         return result;

@@ -68,7 +68,6 @@ public class UserDAOIM implements UserDAO {
         System.out.println(userData);
     }
 
-    // Add this method to get all users
     public List<UserDataModel> getAllUsers() {
         return new ArrayList<>(userData);
     }

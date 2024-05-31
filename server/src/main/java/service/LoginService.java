@@ -5,27 +5,38 @@ import model.AuthDataModel;
 import model.UserDataModel;
 import requests.LoginRequest;
 import results.LoginResult;
+import results.RegisterResult;
 
 import java.util.UUID;
 
 public class LoginService {
+
+    private UserDAOIM userDAO;
+    private AuthDAOIM authDAO;
+
+    public LoginService(UserDAOIM userDAO, AuthDAOIM authDAO){
+        this.userDAO = userDAO;
+        this.authDAO = authDAO;
+    }
 
     public LoginResult login(LoginRequest request) throws DataAccessException {
         LoginResult result;
         String username = request.getUsername();
         String password = request.getPassword();
 
-        UserDAO userDAO = UserDAOIM.getInstance();
-        AuthDAO authDAO = AuthDAOIM.getInstance();
+
 
         UserDataModel user = userDAO.getUser(username);
-        if (user.getUsername() == null){
-            return new LoginResult(false, "Did not find user");
+        // Check if the username in Database
+        if (user == null) {
+            return new LoginResult(false, "Username not found");
         }
-        if (user.getPassword().equals(password) != true){
+        //Checks Password
+        if (!user.getPassword().equals(password)) {
             return new LoginResult(false, "Password not correct");
         }
 
+        authDAO.clearAuthByUSer(request.getUsername());
         AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
         authDAO.createAuthToken(authToken);
 

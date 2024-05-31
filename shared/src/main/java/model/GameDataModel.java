@@ -56,4 +56,12 @@ public class GameDataModel {
     public void setGame(ChessGame game) {
         this.game = game;
     }
+    @Override
+    public String toString() {
+        return "GameDataModel{" +
+                "username='" + game + '\'' +
+                ", W Player='" + whiteUsername + '\'' +
+                ",  B Player='" + blackUsername + '\'' +
+                '}';
+    }
 }

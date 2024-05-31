@@ -37,6 +37,8 @@ public class RegisterHandler implements Route {
                 response.status(200);
             } else {
                 response.status(403);
+                return gson.toJson(new ErrorResponse("Error: already taken"));
+
             }
         } catch (DataAccessException e) {
             response.status(500);

@@ -75,6 +75,22 @@ public class AuthDAOIM implements AuthDAO {
 
     }
 
+    public void clearAuthByUSer(String username) throws DataAccessException {
+        boolean foundUser = false;
+        for (AuthDataModel user: authTokenData){
+            if (user.getUsername().equals(username)){
+                authTokenData.remove(user);
+                foundUser = true;
+                break;
+            }
+        }
+
+        if (foundUser == false){
+            throw new DataAccessException("Token not found");
+        }
+
+    }
+
     @Override
     public void clearAll() {
         authTokenData.clear();
