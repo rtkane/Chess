@@ -84,4 +84,8 @@ public class GameDataDAOIM implements GameDataDAO {
         System.out.println(gameData);
     }
 
+    public List<GameDataModel> getAllGames(){
+        return new ArrayList<>();
+    }
+
 }

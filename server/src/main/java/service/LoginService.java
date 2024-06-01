@@ -35,6 +35,8 @@ public class LoginService {
             return new LoginResult(false, "Password not correct");
         }
 
+
+
         authDAO.clearAuthByUSer(request.getUsername());
         AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
         authDAO.createAuthToken(authToken);
