@@ -23,25 +23,47 @@ public class LoginService {
         String username = request.getUsername();
         String password = request.getPassword();
 
-
+        System.out.println("Attempting to log in user: " + username);
+        authDAO.printAuthList();
 
         UserDataModel user = userDAO.getUser(username);
-        // Check if the username in Database
+        // Check if the username is in the database
         if (user == null) {
+            System.out.println("Username not found");
             return new LoginResult(false, "Username not found");
         }
-        //Checks Password
+        // Check Password
         if (!user.getPassword().equals(password)) {
+            System.out.println("Password not correct");
             return new LoginResult(false, "Password not correct");
         }
 
+        // Clear previous auth token if it exists
+        if (authDAO.getAllTokens().isEmpty()){
+            // Create a new auth token
+            AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
+            authDAO.createAuthToken(authToken);
+            System.out.println("New auth token created for user: " + username);
+
+            result = new LoginResult(username, authToken.getAuthToken(), true, "Login Success!");
+            System.out.println("Login successful for user: " + username);
+        }
+        else {
+            if (authDAO.getAuthByUser(username) != null) {
+                System.out.println("Clearing previous auth token for user: " + username);
+                authDAO.clearAuthByUser(username);
+            }
+            // Create a new auth token
+            AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
+            authDAO.createAuthToken(authToken);
+            System.out.println("New auth token created for user: " + username);
+
+            result = new LoginResult(username, authToken.getAuthToken(), true, "Login Success!");
+            System.out.println("Login successful for user: " + username);
+
+        }
 
 
-        authDAO.clearAuthByUSer(request.getUsername());
-        AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
-        authDAO.createAuthToken(authToken);
-
-        result = new LoginResult(username, authToken.getAuthToken(), true, "Login Success!");
 
         return result;
     }

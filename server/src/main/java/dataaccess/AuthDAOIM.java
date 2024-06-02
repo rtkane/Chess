@@ -1,13 +1,12 @@
 package dataaccess;
 
 import model.AuthDataModel;
-import model.UserDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AuthDAOIM implements AuthDAO {
-    private List<AuthDataModel> authTokenData = new ArrayList<>();
+    private List<AuthDataModel> authTokenData;
 
     private static AuthDAOIM instance;
 
@@ -75,7 +74,7 @@ public class AuthDAOIM implements AuthDAO {
 
     }
 
-    public void clearAuthByUSer(String username) throws DataAccessException {
+    public void clearAuthByUser(String username) throws DataAccessException {
         boolean foundUser = false;
         for (AuthDataModel user: authTokenData){
             if (user.getUsername().equals(username)){
@@ -104,4 +103,11 @@ public class AuthDAOIM implements AuthDAO {
     public List<AuthDataModel> getAllTokens(){
         return new ArrayList<>(authTokenData);
     }
+
+//    public Boolean isEmpty(){
+//        if (authTokenData == null){
+//            return true;
+//        }
+//        return false;
+//    }
 }

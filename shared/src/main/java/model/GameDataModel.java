@@ -17,6 +17,13 @@ public class GameDataModel {
         this.game = game;
     }
 
+    public  GameDataModel(int gameID, String whiteUsername, String blackUsername, String gameName) {
+        this.gameID = gameID;
+        this.whiteUsername = whiteUsername;
+        this.blackUsername = blackUsername;
+        this.gameName = gameName;
+    }
+
     public int getGameID() {
         return gameID;
     }
@@ -56,12 +63,5 @@ public class GameDataModel {
     public void setGame(ChessGame game) {
         this.game = game;
     }
-    @Override
-    public String toString() {
-        return "GameDataModel{" +
-                "username='" + game + '\'' +
-                ", W Player='" + whiteUsername + '\'' +
-                ",  B Player='" + blackUsername + '\'' +
-                '}';
-    }
+
 }

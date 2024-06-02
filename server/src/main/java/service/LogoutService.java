@@ -27,6 +27,10 @@ public class LogoutService {
         }
 
         authDAO.clearAuth(authToken);
+        System.out.println("After Logout:");
+        authDAO.printAuthList();
+        System.out.println("____________");
+
         return new LogoutResult(true, "Logout Successful");
     }
 }

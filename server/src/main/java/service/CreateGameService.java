@@ -11,6 +11,10 @@ import requests.CreateGameRequest;
 import results.CreateGameResult;
 import results.LogoutResult;
 
+import java.util.Random;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class CreateGameService {
 
     private AuthDAOIM authDAO;
@@ -37,11 +41,18 @@ public class CreateGameService {
             }
         }
 
-        GameDataModel gameDataModel = new GameDataModel(gameDataDAO.getAllGames().size() + 1, "", "", gameName, new ChessGame());
+        Random rand = new Random();
+
+
+        GameDataModel gameDataModel = new GameDataModel(rand.nextInt(85054), "", "", gameName, new ChessGame());
 
         gameDataDAO.createGame(gameDataModel);
 
+        gameDataDAO.addToSimpleList(Integer.toString(gameDataModel.getGameID()), gameDataModel.getWhiteUsername(), gameDataModel.getBlackUsername(), gameDataModel.getGameName());
+
         gameDataDAO.printGameList();
+
+
 
         result = new CreateGameResult(gameDataModel.getGameID(), true, "Game Created");
 
