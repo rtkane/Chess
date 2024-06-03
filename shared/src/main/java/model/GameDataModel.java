@@ -64,4 +64,14 @@ public class GameDataModel {
         this.game = game;
     }
 
+    @Override
+    public String toString() {
+        return "GameDataModel{" +
+                "gameID=" + gameID +
+                ", whiteUsername='" + whiteUsername + '\'' +
+                ", blackUsername='" + blackUsername + '\'' +
+                ", gameName='" + gameName + '\'' +
+                '}';
+    }
+
 }

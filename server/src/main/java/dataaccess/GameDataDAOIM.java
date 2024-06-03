@@ -4,23 +4,24 @@ import chess.ChessGame;
 import model.GameDataModel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GameDataDAOIM implements GameDataDAO {
     private List<GameDataModel> gameData;
 
-    private ArrayList<ArrayList<String> > simpleGameData;
+    private ArrayList<ArrayList<String>> simpleGameData;
 
 
     private static GameDataDAOIM instance;
 
-    private GameDataDAOIM(){
+    private GameDataDAOIM() {
         this.gameData = new ArrayList<>();
-        this.simpleGameData =  new ArrayList<>();
+        this.simpleGameData = new ArrayList<>();
     }
 
-    public static synchronized GameDataDAOIM getInstance(){
-        if (instance == null){
+    public static synchronized GameDataDAOIM getInstance() {
+        if (instance == null) {
             instance = new GameDataDAOIM();
         }
         return instance;
@@ -28,8 +29,8 @@ public class GameDataDAOIM implements GameDataDAO {
 
     @Override
     public void createGame(GameDataModel game) throws DataAccessException {
-        for (GameDataModel inMemoryGame: gameData){
-            if (inMemoryGame.getGameID() == game.getGameID()){
+        for (GameDataModel inMemoryGame : gameData) {
+            if (inMemoryGame.getGameID() == game.getGameID()) {
                 throw new DataAccessException("Game already exists");
             }
         }
@@ -65,7 +66,7 @@ public class GameDataDAOIM implements GameDataDAO {
         return gameData;
     }
 
-    public ArrayList<ArrayList<String>> simpleListGames(){
+    public ArrayList<ArrayList<String>> simpleListGames() {
         return simpleGameData;
     }
 
@@ -89,8 +90,8 @@ public class GameDataDAOIM implements GameDataDAO {
                 foundGame = true;
                 break;
             }
-    }
-        if (foundGame == false){
+        }
+        if (foundGame == false) {
             throw new DataAccessException("Game not found");
         }
     }
@@ -105,8 +106,46 @@ public class GameDataDAOIM implements GameDataDAO {
         System.out.println(gameData);
     }
 
-    public List<GameDataModel> getAllGames(){
+    public List<GameDataModel> getAllGames() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public void updateGame(int gameID, String teamColor, String username) throws DataAccessException {
+        boolean gameFound = false;
+        for (GameDataModel gameDataModel : gameData) {
+            if (gameDataModel.getGameID() == gameID) {
+                gameFound = true;
+                if (teamColor.equalsIgnoreCase("white")) {
+                    gameDataModel.setWhiteUsername(username);
+                    return;
+                } else if (teamColor.equalsIgnoreCase("black")) {
+                    gameDataModel.setBlackUsername(username);
+                    return;
+                } else {
+                    throw new DataAccessException("Invalid team color");
+                }
+            }
+        }
+        if (!gameFound) {
+            throw new DataAccessException("Game not found");
+        }
+    }
+
+    public void removeSimpleList(int gameID) throws DataAccessException {
+        boolean foundGame = false;
+        Iterator<ArrayList<String>> iterator = simpleGameData.iterator();
+        while (iterator.hasNext()) {
+            ArrayList<String> data = iterator.next();
+            if (data.get(0).equals(String.valueOf(gameID))) {
+                iterator.remove();
+                foundGame = true;
+                break;
+            }
+        }
+        if (!foundGame) {
+            throw new DataAccessException("Game not found in simple list");
+        }
     }
 
 }
