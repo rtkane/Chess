@@ -19,11 +19,16 @@ public class JoinGameService {
 
     public JoinGameResult joinGame(JoinGameRequest request) throws DataAccessException {
         String authToken = request.getAuthToken();
-        String teamColor = request.getTeamColor() != null ? request.getTeamColor().toLowerCase() : null;
+        String teamColor = request.getTeamColor();
         int gameID = request.getGameID();
 
-        if (teamColor == null || (!"white".equals(teamColor) && !"black".equals(teamColor))) {
+        if (teamColor == null) {
             return new JoinGameResult(false, "Error: invalid team color");
+        }
+
+        if ((!"WHITE".equals(teamColor) && !"BLACK".equals(teamColor))){
+            return new JoinGameResult(false, "Error: invalid team color");
+
         }
 
         AuthDataModel token = authDAO.getAuth(authToken);
@@ -36,8 +41,12 @@ public class JoinGameService {
             return new JoinGameResult(false, "Error: game not found");
         }
 
-        if (("white".equals(teamColor) && game.getWhiteUsername().length() > 0) ||
-                ("black".equals(teamColor) && game.getBlackUsername().length() > 0)) {
+        if (("WHITE".equals(teamColor) && game.getWhiteUsername().length() > 0)) {
+            return new JoinGameResult(false, "Error: team color already taken");
+        }
+
+
+        if (("BLACK".equals(teamColor) && game.getBlackUsername().length() > 0)) {
             return new JoinGameResult(false, "Error: team color already taken");
         }
 

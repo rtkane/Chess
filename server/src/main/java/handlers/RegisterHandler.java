@@ -36,7 +36,6 @@ public class RegisterHandler implements Route {
             if (registerResult.getSuccess()) {
                 response.status(200);
             } else if ( registerResult.getMessage() == "Fill in all fields"){
-
                 response.status(400);
                 return gson.toJson(new ErrorResponse("Error: bad request"));
             }
@@ -55,12 +54,4 @@ public class RegisterHandler implements Route {
 
 
 
-    // Helper class for error response
-    private static class ErrorResponse {
-        String message;
-
-        ErrorResponse(String message) {
-            this.message = message;
-        }
-    }
 }

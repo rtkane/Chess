@@ -21,7 +21,7 @@ public class ListGameHandler implements Route {
 
         if (authToken == null || authToken.isEmpty()) {
             response.status(401);
-            return gson.toJson(new ListGameHandler.ErrorResponse("Error: unauthorized"));
+            return gson.toJson(new ErrorResponse("Error: unauthorized"));
         }
 
         ListGameRequest listGameRequest = new ListGameRequest(authToken);
@@ -33,22 +33,14 @@ public class ListGameHandler implements Route {
             }
             else {
                 response.status(401);
-                return gson.toJson(new ListGameHandler.ErrorResponse("Error: unauthorized"));
+                return gson.toJson(new ErrorResponse("Error: unauthorized"));
             }
             return gson.toJson(listGameResult);
         } catch (DataAccessException e) {
-            response.status(401);
-            return gson.toJson(new ListGameHandler.ErrorResponse("Error: unauthorized"));
+            response.status(500);
+            return gson.toJson(new ErrorResponse("Error: unauthorized"));
         }
 
     }
 
-
-    private static class ErrorResponse {
-        String message;
-
-        ErrorResponse(String message) {
-            this.message = message;
-        }
-    }
 }

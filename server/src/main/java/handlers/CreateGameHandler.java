@@ -39,21 +39,18 @@ public class CreateGameHandler implements Route {
             if (createGameResult.getSuccess()) {
                 response.status(200);
                 return gson.toJson(createGameResult);
+            } else if (createGameResult.getSuccess() == false && createGameResult.getMessage() == "Error: AuthToken not found") {
+                response.status(401);
+                return gson.toJson(new ErrorResponse("Error: unauthorized"));
             } else {
                 response.status(401);
                 return gson.toJson(new ErrorResponse("Error: unauthorized"));
             }
         } catch (DataAccessException e) {
-            response.status(500);
+            response.status(401);
             return gson.toJson(new ErrorResponse("Error: " + e.getMessage()));
         }
     }
 
-    private static class ErrorResponse {
-        String message;
 
-        ErrorResponse(String message) {
-            this.message = message;
-        }
-    }
 }

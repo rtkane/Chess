@@ -30,22 +30,13 @@ public class LogoutHandler implements Route {
                 response.status(200);
             } else {
                 response.status(401);
-                return gson.toJson(new LogoutHandler.ErrorResponse("Error: unauthorized"));
+                return gson.toJson(new ErrorResponse("Error: unauthorized"));
             }
             return gson.toJson(logoutResult);
         } catch (DataAccessException e) {
             response.status(401);
-            return gson.toJson(new LogoutHandler.ErrorResponse("Error: unauthorized"));
+            return gson.toJson(new ErrorResponse("Error: unauthorized"));
         }
     }
 
-
-
-    private static class ErrorResponse {
-        String message;
-
-        ErrorResponse(String message) {
-            this.message = message;
-        }
-    }
 }

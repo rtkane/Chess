@@ -40,7 +40,6 @@ public class LoginService {
 
         // Clear previous auth token if it exists
         if (authDAO.getAllTokens().isEmpty()){
-            // Create a new auth token
             AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
             authDAO.createAuthToken(authToken);
             System.out.println("New auth token created for user: " + username);
@@ -53,7 +52,6 @@ public class LoginService {
                 System.out.println("Clearing previous auth token for user: " + username);
                 authDAO.clearAuthByUser(username);
             }
-            // Create a new auth token
             AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
             authDAO.createAuthToken(authToken);
             System.out.println("New auth token created for user: " + username);
@@ -62,8 +60,6 @@ public class LoginService {
             System.out.println("Login successful for user: " + username);
 
         }
-
-
 
         return result;
     }

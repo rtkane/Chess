@@ -24,17 +24,12 @@ public class ListGameService {
 
     public ListGameResult listGame(ListGameRequest request) throws DataAccessException{
         String authToken = request.getAuthToken();
-        List<GameDataModel> gameDataModelList = new ArrayList<>();
         ListGameResult result;
 
         AuthDataModel token = authDAO.getAuth(authToken);
 
         if (token == null) {
             return new ListGameResult(false, "Error: unauthorized");
-        }
-
-        for (GameDataModel games: gameDataDAO.getAllGames()){
-            gameDataModelList.add(games);
         }
 
         result = new ListGameResult(gameDataDAO.simpleListGames(), true, "Game List: ");

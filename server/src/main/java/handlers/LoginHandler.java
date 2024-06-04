@@ -17,7 +17,6 @@ public class LoginHandler implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        // Parse request body
         LoginRequest loginRequest;
         try {
             String requestBody = request.body();
@@ -31,7 +30,6 @@ public class LoginHandler implements Route {
             return gson.toJson(new ErrorResponse("Error: Invalid request body"));
         }
 
-        // Perform login
         try {
             LoginResult loginResult = loginService.login(loginRequest);
             if (loginResult.getSuccess()) {
@@ -47,11 +45,4 @@ public class LoginHandler implements Route {
         }
     }
 
-    private static class ErrorResponse {
-        String message;
-
-        ErrorResponse(String message) {
-            this.message = message;
-        }
-    }
 }

@@ -19,19 +19,9 @@ public class ClearService {
         ClearResult result;
 
 
-//        System.out.println("Before clear");
-//        userDAO.printModelList();
-//        authDAO.printAuthList();
-//        gameDataDAO.printGameList();
-
         userDAO.clearAll();
         authDAO.clearAll();
         gameDataDAO.clearAll();
-//
-//        System.out.println("After clear");
-//        userDAO.printModelList();
-//        authDAO.printAuthList();
-//        gameDataDAO.printGameList();
 
         result = new ClearResult(true, "Memory Cleared!");
         return result;

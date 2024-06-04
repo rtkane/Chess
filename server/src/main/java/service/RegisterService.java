@@ -2,6 +2,7 @@ package service;
 
 import dataaccess.AuthDAOIM;
 import dataaccess.DataAccessException;
+import dataaccess.DatabaseManager;
 import dataaccess.UserDAOIM;
 import model.AuthDataModel;
 import model.UserDataModel;
@@ -14,6 +15,8 @@ public class RegisterService {
 
     private UserDAOIM userDAO;
     private AuthDAOIM authDAO;
+
+    private DatabaseManager databaseManager = new DatabaseManager();
 
     public RegisterService(UserDAOIM userDAO, AuthDAOIM authDAO) {
         this.userDAO = userDAO;

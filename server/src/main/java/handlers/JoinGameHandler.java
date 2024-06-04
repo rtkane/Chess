@@ -42,21 +42,22 @@ public class JoinGameHandler implements Route {
             System.out.println("Success: " + joinGameResult.getSuccess());
             if (joinGameResult.getSuccess()) {
                 response.status(200);
-            } else {
+            } else if (joinGameResult.getSuccess() == false && joinGameResult.getMessage() == "Error: unauthorized") {
+                response.status(401);
+
+            }
+            else if (joinGameResult.getSuccess() == false && joinGameResult.getMessage() == "Error: team color already taken") {
                 response.status(403);
+            }
+            else {
+                response.status(400);
             }
             return gson.toJson(joinGameResult);
         } catch (DataAccessException e) {
-            response.status(500);
+            response.status(400);
             return gson.toJson(new ErrorResponse("Internal Server Error: " + e.getMessage()));
         }
     }
 
-    private static class ErrorResponse {
-        String message;
 
-        ErrorResponse(String message) {
-            this.message = message;
-        }
-    }
 }
