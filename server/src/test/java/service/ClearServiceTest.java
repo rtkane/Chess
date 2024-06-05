@@ -1,49 +1,73 @@
 package service;
 
-import chess.ChessGame;
 import dataaccess.AuthDAOIM;
 import dataaccess.DataAccessException;
 import dataaccess.GameDataDAOIM;
 import dataaccess.UserDAOIM;
 import model.AuthDataModel;
-import model.GameDataModel;
-import model.UserDataModel;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import requests.CreateGameRequest;
+import requests.RegisterRequest;
+import results.ClearResult;
+import results.CreateGameResult;
+import results.RegisterResult;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ClearServiceTest {
 
-    private UserDataModel firstUser;
-    private AuthDataModel authToken;
-    private GameDataModel firstGame;
+    private UserDAOIM userDAO;
+    private AuthDAOIM authDAO;
+    private GameDataDAOIM gameDataDAO;
+    private ClearService clearService;
+    private CreateGameService createGameService;
+    private RegisterService registerService;
 
-
+    @BeforeEach
+    public void setUp() {
+        userDAO = UserDAOIM.getInstance();
+        authDAO = AuthDAOIM.getInstance();
+        gameDataDAO = GameDataDAOIM.getInstance();
+        clearService = new ClearService(userDAO, authDAO, gameDataDAO);
+        createGameService = new CreateGameService(authDAO, gameDataDAO);
+        registerService = new RegisterService(userDAO, authDAO);
+    }
 
     @Test
-    void clear() throws DataAccessException {
+    public void goodClear() throws DataAccessException {
+        // Create necessary requests
+        CreateGameRequest gameRequest = new CreateGameRequest("validToken", "newGame");
+        RegisterRequest registerRequest = new RegisterRequest("d", "pass", "word");
 
-        firstGame = new GameDataModel(1, "Ryan", "Kane", "firstGame", new ChessGame());
-        authToken = new AuthDataModel("55", "ryan");
-        firstUser = new UserDataModel("ryan", "pass", "word");
+        // Add mock auth data
+        AuthDataModel authData = new AuthDataModel("validToken", "user");
+        authDAO.createAuthToken(authData);
 
-        GameDataDAOIM gMem  = GameDataDAOIM.getInstance();
-        AuthDAOIM aMem = AuthDAOIM.getInstance();
-        UserDAOIM uMem = UserDAOIM.getInstance();
+        // Perform game creation and registration
+        CreateGameResult createGameResult = createGameService.createGame(gameRequest);
+        RegisterResult registerResult = registerService.register(registerRequest);
 
-        gMem.createGame(firstGame);
-        aMem.createAuthToken(authToken);
-        uMem.createUser(firstUser);
-        // Ensure data is present before clearing
-        assertEquals(1, gMem.getAllGames().size());
-        assertEquals(1, aMem.getAllTokens().size());
-        assertEquals(1, uMem.getAllUsers().size());
+        // Verify that the game and user were created successfully
+        assertNotNull(createGameResult);
+        assertTrue(createGameResult.getSuccess());
+        assertEquals("Game Created", createGameResult.getMessage());
 
-        // Verify that the data has been cleared
-        assertEquals(0, gMem.getAllGames().size());
-        assertEquals(0, aMem.getAllTokens().size());
-        assertEquals(0, uMem.getAllUsers().size());
+        assertNotNull(registerResult);
+        assertTrue(registerResult.getSuccess());
+        assertEquals("Welcome new user", registerResult.getMessage());
+
+        // Perform the clear operation
+        ClearResult clearResult = clearService.clear();
+
+        // Verify the clear result
+        assertNotNull(clearResult);
+        assertTrue(clearResult.getSuccess());
+        assertEquals("Memory Cleared!", clearResult.getMessage());
+
+        // Ensure DAOs are empty after clear
+        assertTrue(authDAO.getAllTokens().isEmpty());
+        assertTrue(userDAO.getAllUsers().isEmpty());
+        assertTrue(gameDataDAO.getAllGames().isEmpty());
     }
 }

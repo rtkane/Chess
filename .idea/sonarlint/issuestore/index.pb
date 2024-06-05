@@ -23,12 +23,8 @@ k
 .server/src/main/java/dataaccess/UserDAOIM.java,1\1\1183a5738924b6cca6668199fd14aabad4492e7b
 Z
 *shared/src/main/java/chess/ChessBoard.java,d\f\dfc4ec84b5d57ac6e0266e9c319b728da99e0c51
-W
-'server/src/main/java/server/Server.java,8\0\8036b8cb9ce2e6760f04e2a3b475b260935bb7b8
 ]
 -shared/src/main/java/model/GameDataModel.java,3\8\38ae27e11ce3337d6c11fddf3a7bb5b1868359da
-b
-2server/src/main/java/dataaccess/GameDataDAOIM.java,f\f\ffa9cba2b607e92040a3039a384591c4435eb2bc
 `
 0server/src/main/java/dataaccess/GameDataDAO.java,b\9\b9e5e9ec989b03c283d16d016a1e4bccbf0e0392
 f

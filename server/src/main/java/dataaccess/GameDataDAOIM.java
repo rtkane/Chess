@@ -60,6 +60,14 @@ public class GameDataDAOIM implements GameDataDAO {
         throw new DataAccessException("Game not found");
     }
 
+    public GameDataModel getGameByName(String gameName) throws DataAccessException {
+        for (GameDataModel gameData : gameData) {
+            if (gameData.getGameName().equals(gameName)) {
+                return gameData;
+            }
+        }
+        throw new DataAccessException("Game not found");
+    }
     @Override
     public List<GameDataModel> listGames() throws DataAccessException {
 
