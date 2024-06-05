@@ -1,111 +1,59 @@
 package chess;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static chess.CheckSpace.processMove;
 
 public class BishopMoveCalculator {
-
-    public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition position) {
+    public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         Collection<ChessMove> validMoves = new ArrayList<>();
 
+        int currRow;
+        int currCol;
 
+        // Directions: Up-Right, Down-Right, Down-Left, Up-Left
+        for (int i = 0; i < 4; i++) {
+            currRow = myPosition.getRow();
+            currCol = myPosition.getColumn();
 
-        int currRow = position.getRow();
-        int currCol = position.getColumn();
-
-        while (currRow < 8 && currCol < 8){
-            currRow += 1;
-            currCol += 1;
-            ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-
-
-            if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
-                validMoves.add(move);
-            }
-            else{
-                if (checkSpace.checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
+            switch (i) {
+                case 0:
+                    // Up-Right
+                    while (currRow < 8 && currCol < 8) {
+                        currRow = CheckSpace.incrementOne(currRow);
+                        currCol = CheckSpace.incrementOne(currCol);
+                        if (!processMove(board, myPosition, currRow, currCol, validMoves)) break;
+                    }
                     break;
-                }
-                else {
-                    validMoves.add(move);
+                case 1:
+                    // Down-Right
+                    while (currRow > 1 && currCol < 8) {
+                        currRow = CheckSpace.decrementOne(currRow);
+                        currCol = CheckSpace.incrementOne(currCol);
+                        if (!processMove(board, myPosition, currRow, currCol, validMoves)) break;
+                    }
                     break;
-                }
-            }
-
-        }
-
-        currRow = position.getRow();
-        currCol = position.getColumn();
-
-        while (currRow > 1 && currCol < 8){
-            currRow -= 1;
-            currCol += 1;
-            ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-
-            if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
-                validMoves.add(move);
-            }
-            else{
-                if (checkSpace.checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
+                case 2:
+                    // Down-Left
+                    while (currRow > 1 && currCol > 1) {
+                        currRow = CheckSpace.decrementOne(currRow);
+                        currCol = CheckSpace.decrementOne(currCol);
+                        if (!processMove(board, myPosition, currRow, currCol, validMoves)) break;
+                    }
                     break;
-                }
-                else {
-                    validMoves.add(move);
+                case 3:
+                    // Up-Left
+                    while (currRow < 8 && currCol > 1) {
+                        currRow = CheckSpace.incrementOne(currRow);
+                        currCol = CheckSpace.decrementOne(currCol);
+                        if (!processMove(board, myPosition, currRow, currCol, validMoves)) break;
+                    }
                     break;
-                }
             }
         }
 
-        currRow = position.getRow();
-        currCol = position.getColumn();
-
-        while (currRow > 1 && currCol > 1){
-            currRow -= 1;
-            currCol -= 1;
-            ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-
-            if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
-                validMoves.add(move);
-            }
-            else{
-                if (checkSpace.checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
-                    break;
-                }
-                else {
-                    validMoves.add(move);
-                    break;
-                }
-            }
-        }
-
-        currRow = position.getRow();
-        currCol = position.getColumn();
-
-        while (currRow < 8 && currCol > 1){
-            currRow += 1;
-            currCol -= 1;
-            ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-
-            if (checkSpace.isSpaceEmpty(board, new ChessPosition(currRow, currCol)) == true){
-                validMoves.add(move);
-            }
-            else{
-                if (checkSpace.checkValidMove(board, new ChessPosition(currRow, currCol), position) == false){
-                    break;
-                }
-                else {
-                    validMoves.add(move);
-                    break;
-                }
-            }
-        }
         return validMoves;
     }
-
-
-
-
 
 }

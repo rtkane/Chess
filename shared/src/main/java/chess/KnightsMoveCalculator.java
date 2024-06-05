@@ -3,239 +3,67 @@ package chess;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static chess.CheckSpace.processMove;
+
 public class KnightsMoveCalculator {
-    public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition position){
+    public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition position) {
+        Collection<ChessMove> validMoves = new ArrayList<>();
+
         int currRow;
         int currCol;
 
-        Collection<ChessMove> validMoves = new ArrayList<>();
-
-        for(int i = 0; i < 8; i++){
+        // Directions: Up-left, Up-Right, Right-Up, Right-Down, Down-Right, Down-Left, Left-Up, Left-Down
+        for (int i = 0; i < 8; i++) {
             currRow = position.getRow();
             currCol = position.getColumn();
-            if (i == 0){
-                currRow += 2;
-                currCol += 1;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
 
-                        }
-                        else {
+            switch (i) {
+                case 0:
+                    // Up-left
+                    currRow = CheckSpace.incrementTwo(currRow);
+                    currCol = CheckSpace.decrementOne(currCol);
+                    break;
+                case 1:
+                    // Up-Right
+                    currRow = CheckSpace.incrementTwo(currRow);
+                    currCol = CheckSpace.incrementOne(currCol);
+                    break;
+                case 2:
+                    // Right-Up
 
-                        }
-                    }
-                }
-                else {
+                    currRow = CheckSpace.incrementOne(currRow);
+                    currCol = CheckSpace.incrementTwo(currCol);
 
-                }
+                    break;
+                case 3:
+                    // Right-Down
+                    currRow = CheckSpace.decrementOne(currRow);
+                    currCol = CheckSpace.incrementTwo(currCol);
+                    break;
+                case 4:
+                    // Down-Right
+                    currRow = CheckSpace.incrementOne(currRow);
+                    currCol = CheckSpace.decrementTwo(currCol);
+                    break;
+                case 5:
+                    // Down-Left
+                    currRow = CheckSpace.decrementOne(currRow);
+                    currCol = CheckSpace.decrementTwo(currCol);
+                    break;
+                case 6:
+                    // Left-Up
+                    currRow = CheckSpace.decrementTwo(currRow);
+                    currCol = CheckSpace.incrementOne(currCol);
+                    break;
+                case 7:
+                    // Left-Down
+                    currRow = CheckSpace.decrementTwo(currRow);
+                    currCol = CheckSpace.decrementOne(currCol);
+                    break;
             }
-            if (i == 1){
-                currRow += 1;
-                currCol += 2;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
-
-                        }
-                        else {
-
-                        }
-                    }
-                }
-                else {
-
-                }
-            }
-            if (i == 2){
-                currRow -= 1;
-                currCol += 2;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
-
-                        }
-                        else {
-
-                        }
-                    }
-                }
-                else {
-
-                }
-            }
-            if (i == 3){
-                currRow -= 2;
-                currCol += 1;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
-
-                        }
-                        else {
-
-                        }
-                    }
-                }
-                else {
-
-                }
-            }
-            if (i == 4){
-                currRow -= 2;
-                currCol -= 1;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
-
-                        }
-                        else {
-
-                        }
-                    }
-                }
-                else {
-
-                }
-            }
-            if (i == 5){
-                currRow -= 1;
-                currCol -= 2;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
-
-                        }
-                        else {
-
-                        }
-                    }
-                }
-                else {
-
-                }
-            }
-            if (i == 6){
-                currRow += 1;
-                currCol -= 2;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
-
-                        }
-                        else {
-
-                        }
-                    }
-                }
-                else {
-
-                }
-            }
-            if (i == 7){
-                currRow += 2;
-                currCol -= 1;
-                if (inBounds(new ChessPosition(currRow, currCol))){
-                    if (isSpaceEmpty(board, new ChessPosition(currRow,currCol))){
-                        ChessMove move = new ChessMove(position, new ChessPosition(currRow, currCol), null);
-                        validMoves.add(move);
-                    }
-                    else {
-                        if (checkTeamColor(board, new ChessPosition(currRow, currCol), position)){
-                            ChessMove move = new ChessMove(position, new ChessPosition(currRow,currCol), null);
-                            validMoves.add(move);
-
-                        }
-                        else {
-
-                        }
-                    }
-                }
-                else {
-
-                }
-            }
+            processMove(board, position, currRow, currCol, validMoves);
         }
 
         return validMoves;
-    }
-
-
-    private Boolean inBounds(ChessPosition position){
-        if (position.getRow() > 8){
-            return false;
-        }
-        if (position.getColumn() > 8){
-            return false;
-        }
-        if (position.getRow() < 1){
-            return false;
-        }
-        if (position.getColumn() < 1){
-            return false;
-        }
-        return true;
-    }
-
-    private Boolean isSpaceEmpty(ChessBoard board, ChessPosition position){
-
-        if (board.getPiece(position) == null){
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean checkTeamColor(ChessBoard board, ChessPosition newPosition, ChessPosition position){
-        if (board.getPiece(newPosition).getTeamColor().equals(ChessGame.TeamColor.WHITE) == board.getPiece(position).getTeamColor().equals(ChessGame.TeamColor.WHITE)){
-            return false;
-        }
-        if (board.getPiece(newPosition).getTeamColor().equals(ChessGame.TeamColor.BLACK) == board.getPiece(position).getTeamColor().equals(ChessGame.TeamColor.BLACK)){
-            return false;
-        }
-
-
-        return true;
     }
 }

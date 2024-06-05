@@ -2,17 +2,9 @@
 d
 4shared/src/main/java/chess/InvalidMoveException.java,e\3\e39c3486fec5f2b87e64591840622613400adc99
 k
-;shared/src/test/java/passoff/chess/piece/RookMoveTests.java,7\f\7fcc205671386de1ff9a72d54f687d72d4f2fde0
-k
 ;shared/src/test/java/passoff/chess/piece/KingMoveTests.java,b\a\ba735f5288818d5bcb2d915ba581f2540fda32d0
 j
 :shared/src/test/java/passoff/chess/ChessPositionTests.java,0\c\0cdc26a7fcc196ec68a5ed8d48a21c75493b79ef
-c
-3shared/src/main/java/chess/QueenMoveCalculator.java,3\b\3b70174007f1df72aa9e7a2f9ad6b288c58c4a6c
-m
-=shared/src/test/java/passoff/chess/piece/KnightMoveTests.java,4\6\46ef87c304e18ba9d31ab5df8735551001527431
-b
-2shared/src/main/java/chess/PawnMoveCalculator.java,4\4\441f57a99e4b66c2f771d2743bd69aea99ee0fe5
 g
 7shared/src/test/java/passoff/chess/ChessBoardTests.java,7\0\704add9b7257f7adc3fb4fb5f33f76b7c8820901
 f
@@ -21,8 +13,6 @@ l
 <shared/src/test/java/passoff/chess/piece/QueenMoveTests.java,a\2\a2bd15f35595ddc78d142da6ccffd03c5a50bac2
 k
 ;shared/src/test/java/passoff/chess/piece/PawnMoveTests.java,f\5\f5f303eb20d0409e171fe16f357212147605d4a8
-d
-4shared/src/main/java/chess/BishopMoveCalculator.java,6\1\61eb5f3faada017bb1ee681080030cb01fd85b6a
 \
 ,server/src/main/java/dataaccess/AuthDAO.java,3\2\32b7a2b97a8957e906a6d7e19358db18d9b6f1b5
 ]
