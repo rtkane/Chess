@@ -14,20 +14,10 @@ package results;public class CreateGameResult {
         this.message = message;
     }
 
-    public Integer getGameID() {
-        return gameID;
-    }
 
-    public void setGameID(Integer gameID) {
-        this.gameID = gameID;
-    }
 
     public Boolean getSuccess() {
         return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
     }
 
     public String getMessage() {

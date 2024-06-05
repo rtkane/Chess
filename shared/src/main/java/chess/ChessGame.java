@@ -152,39 +152,7 @@ public class ChessGame {
         }
 
         this.board.addPiece(new ChessPosition(startPosition.getRow(), startPosition.getColumn()), currPiece);
-
-        //With the valid moves see if it will put other team in check.
-        // Check if any of the valid moves puts the opponent in check
-//        for (ChessMove move : validMoves) {
-//            this.board.removePiece(move.getStartPosition());
-//            this.board.addPiece(move.getEndPosition(), currPiece);
-//
-//            if (currPiece.getTeamColor().equals(TeamColor.WHITE)) {
-//                if (isInCheck(TeamColor.BLACK)) {
-//                    this.board.removePiece(move.getEndPosition());
-//                    this.board.addPiece(move.getStartPosition(), currPiece);
-//                    break;
-//                }
-//
-//                // Revert the move
-//                this.board.removePiece(move.getEndPosition());
-//                this.board.addPiece(move.getStartPosition(), currPiece);
-//            }
-//            if (currPiece.getTeamColor().equals(TeamColor.BLACK)) {
-//                if (isInCheck(TeamColor.WHITE)) {
-//                    this.board.removePiece(move.getEndPosition());
-//                    this.board.addPiece(move.getStartPosition(), currPiece);
-//                    break;
-//                }
-//
-//                // Revert the move
-//                this.board.removePiece(move.getEndPosition());
-//                this.board.addPiece(move.getStartPosition(), currPiece);
-//            }
-//
-//        }
-
-        return validMoves;
+                return validMoves;
     }
 
     /**

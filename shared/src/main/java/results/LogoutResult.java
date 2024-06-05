@@ -32,10 +32,6 @@ public class LogoutResult {
         return success;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
     public String getMessage() {
         return message;
     }
