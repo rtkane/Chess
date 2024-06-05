@@ -32,6 +32,8 @@ public class LoginService {
             System.out.println("Username not found");
             return new LoginResult(false, "Username not found");
         }
+
+
         // Check Password
         if (!user.getPassword().equals(password)) {
             System.out.println("Password not correct");

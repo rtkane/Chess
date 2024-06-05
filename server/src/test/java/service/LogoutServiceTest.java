@@ -75,4 +75,42 @@ public class LogoutServiceTest {
         assertTrue(logoutResult.getSuccess());
         assertEquals("Logout Successful", logoutResult.getMessage());
     }
+
+
+    @Test
+    public void badLogout() throws DataAccessException {
+        // Create necessary requests
+        RegisterRequest registerRequest = new RegisterRequest("user", "pass", "word");
+        LoginRequest loginRequest = new LoginRequest("user", "pass");
+
+        // Perform registration
+        RegisterResult registerResult = registerService.register(registerRequest);
+
+        // Verify Register worked
+        assertNotNull(registerResult);
+        assertTrue(registerResult.getSuccess());
+        assertEquals("Welcome new user", registerResult.getMessage());
+
+        //Perform Login
+        LoginResult loginResult = loginService.login(loginRequest);
+
+        //Verify Login Worked
+        assertNotNull(loginResult);
+        assertTrue(loginResult.getSuccess());
+        assertEquals("Login Success!", loginResult.getMessage());
+
+        //Use bad auth
+        AuthDataModel newAuth = new AuthDataModel("bad", "auth");
+
+        // Create logout Request
+        LogoutRequest logoutRequest = new LogoutRequest(newAuth.getAuthToken());
+
+        //Perform Logout
+        LogoutResult logoutResult = logoutService.logout(logoutRequest);
+
+        //Verify Logout Worked
+        assertNotNull(logoutRequest);
+        assertFalse(logoutResult.getSuccess());
+        assertEquals("Error: unauthorized", logoutResult.getMessage());
+    }
 }

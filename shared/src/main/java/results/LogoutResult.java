@@ -16,16 +16,8 @@ public class LogoutResult {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getAuthToken() {
         return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
     }
 
     public Boolean getSuccess() {
@@ -36,7 +28,4 @@ public class LogoutResult {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

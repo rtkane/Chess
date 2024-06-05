@@ -23,10 +23,6 @@ public class LoginResult {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getAuthToken() {
         return authToken;
     }
@@ -41,9 +37,5 @@ public class LoginResult {
 
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

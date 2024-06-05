@@ -54,17 +54,29 @@ public class CreateGameServiceTest {
 
 
     @Test
-    public void testBadCreate() throws DataAccessException {
-        CreateGameRequest request = new CreateGameRequest("invalidToken", "newGame");
+    public void badCreate() throws DataAccessException {
+        // Create requests
+        CreateGameRequest request = new CreateGameRequest("validToken", "newGame");
 
-        AuthDataModel authData = new AuthDataModel("", "user");
+        // Add auth
+        AuthDataModel authData = new AuthDataModel("validToken", "user");
         authDAO.createAuthToken(authData);
 
+
+        // Perform create game
         CreateGameResult result = createGameService.createGame(request);
 
+        // Verify create worked
+        assertNotNull(result);
+        assertTrue(result.getSuccess());
+        assertEquals("Game Created", result.getMessage());
+
+         result = createGameService.createGame(request);
+
+        // Verify create didn't work
         assertNotNull(result);
         assertFalse(result.getSuccess());
-        assertEquals("Error: unauthorized", result.getMessage());
+        assertEquals("Error: bad Request", result.getMessage());
     }
 
 }

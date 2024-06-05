@@ -24,7 +24,4 @@ package results;public class CreateGameResult {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

@@ -70,4 +70,42 @@ public class JoinGameTest {
         assertEquals("", joinGameResult.getMessage());
 
     }
+
+
+    @Test
+    public void badJoin() throws DataAccessException {
+        // Create requests
+        CreateGameRequest createGameRequest = new CreateGameRequest("auth", "newGame");
+
+        // Add auth
+        AuthDataModel authData = new AuthDataModel("auth", "user");
+        authDAO.createAuthToken(authData);
+
+
+        // Perform create game
+        CreateGameResult createGameResult = createGameService.createGame(createGameRequest);
+
+
+        // Verify create worked
+        assertNotNull(createGameResult);
+        assertTrue(createGameResult.getSuccess());
+        assertEquals("Game Created", createGameResult.getMessage());
+
+        // Retrieve gameID
+        GameDataModel gameID = gameDataDAO.getGameByName("newGame");
+
+        // Join Game request
+        JoinGameRequest joinGameRequest = new JoinGameRequest("", "auth", gameID.getGameID());
+
+        //Perform Join Game
+        JoinGameResult joinGameResult = joinGameService.joinGame(joinGameRequest);
+
+        // Verify Join Worked
+        assertNotNull(joinGameResult);
+        assertFalse(joinGameResult.getSuccess());
+        assertEquals("Error: invalid team color", joinGameResult.getMessage());
+
+    }
+
+
 }

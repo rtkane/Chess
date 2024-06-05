@@ -48,4 +48,25 @@ public class RegisterServiceTest {
         assertEquals("Welcome new user", registerResult.getMessage());
 
     }
+
+    @Test
+    public void badRegister() throws DataAccessException {
+        // Create necessary requests
+        RegisterRequest registerRequest = new RegisterRequest("user", "pass", "word");
+
+        // Perform game creation and registration
+        RegisterResult registerResult = registerService.register(registerRequest);
+
+        assertNotNull(registerResult);
+        assertTrue(registerResult.getSuccess());
+        assertEquals("Welcome new user", registerResult.getMessage());
+
+        // Perform registration
+         registerResult = registerService.register(registerRequest);
+
+        assertNotNull(registerResult);
+        assertFalse(registerResult.getSuccess());
+        assertEquals("Username already taken", registerResult.getMessage());
+
+    }
 }

@@ -61,4 +61,34 @@ public class LoginServiceTest {
 
 
     }
+
+
+    @Test
+    public void badLogin() throws DataAccessException {
+        // Create necessary requests
+        RegisterRequest registerRequest = new RegisterRequest("user", "pass", "word");
+
+        // Perform registration
+        RegisterResult registerResult = registerService.register(registerRequest);
+
+        // Verify Register worked
+        assertNotNull(registerResult);
+        assertTrue(registerResult.getSuccess());
+        assertEquals("Welcome new user", registerResult.getMessage());
+
+        // Create Login
+        LoginRequest loginRequest = new LoginRequest("", "pass");
+
+        //Perform Login
+        LoginResult loginResult = loginService.login(loginRequest);
+
+        //Verify Login Worked
+        assertNotNull(loginResult);
+        assertFalse(loginResult.getSuccess());
+        assertEquals("Username not found", loginResult.getMessage());
+
+
+
+
+    }
 }

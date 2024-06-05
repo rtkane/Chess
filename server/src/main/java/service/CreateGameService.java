@@ -35,8 +35,8 @@ public class CreateGameService {
             return new CreateGameResult(false, "Error: unauthorized");
         }
 
-        for (GameDataModel games: gameDataDAO.getAllGames()){
-            if (games.getGame().toString().equals(gameName)){
+        for (GameDataModel games: gameDataDAO.listGames()){
+            if (gameName.equals(games.getGameName())){
                 return new CreateGameResult(false, "Error: bad Request");
             }
         }

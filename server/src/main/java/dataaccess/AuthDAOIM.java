@@ -43,7 +43,7 @@ public class AuthDAOIM implements AuthDAO {
             }
         }
 
-        throw new DataAccessException("AuthToken not found");
+       return null;
     }
 
     @Override

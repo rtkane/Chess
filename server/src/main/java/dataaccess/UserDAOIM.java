@@ -40,7 +40,7 @@ public class UserDAOIM implements UserDAO {
                 return user;
             }
         }
-        throw new DataAccessException("User not found");
+        return null;
     }
 
 
