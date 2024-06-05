@@ -42,17 +42,6 @@ public class SQLUserDAO implements UserDAO {
         }
     }
 
-    @Override
-    public void clearUser(String username) throws DataAccessException {
-        String sql = "DELETE FROM users WHERE username = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             var preparedStatement = conn.prepareStatement(sql)) {
-            preparedStatement.setString(1, username);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataAccessException("Error clearing user: " + e.getMessage());
-        }
-    }
 
     @Override
     public void clearAll() throws DataAccessException {

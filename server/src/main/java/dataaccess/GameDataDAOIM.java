@@ -88,22 +88,6 @@ public class GameDataDAOIM implements GameDataDAO {
         }
         throw new DataAccessException("Game not found");
     }
-
-    @Override
-    public void clearGame(int gameID) throws DataAccessException {
-        boolean foundGame = false;
-        for (GameDataModel gameData : gameData) {
-            if (gameData.getGameID() == gameID) {
-                this.gameData.remove(gameData);
-                foundGame = true;
-                break;
-            }
-        }
-        if (foundGame == false) {
-            throw new DataAccessException("Game not found");
-        }
-    }
-
     @Override
     public void clearAll() throws DataAccessException {
         gameData.clear();

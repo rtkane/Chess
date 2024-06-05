@@ -5,6 +5,7 @@ import dataaccess.DataAccessException;
 import dataaccess.GameDataDAOIM;
 import model.AuthDataModel;
 import model.GameDataModel;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.CreateGameRequest;
@@ -23,6 +24,12 @@ public class CreateGameServiceTest {
         authDAO = AuthDAOIM.getInstance();
         gameDataDAO = GameDataDAOIM.getInstance();
         createGameService = new CreateGameService(authDAO, gameDataDAO);
+    }
+
+    @AfterEach
+    public void tearDown() throws DataAccessException {
+        gameDataDAO.clearAll();
+        authDAO.clearAll();
     }
 
     @Test

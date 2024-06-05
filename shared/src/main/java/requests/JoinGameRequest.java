@@ -15,7 +15,6 @@ public class JoinGameRequest {
         return playerColor;
     }
 
-
     public String getAuthToken() {
         return authToken;
     }

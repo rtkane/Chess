@@ -43,20 +43,6 @@ public class UserDAOIM implements UserDAO {
         throw new DataAccessException("User not found");
     }
 
-    @Override
-    public void clearUser(String username) throws DataAccessException {
-        boolean foundUser = false;
-        for (UserDataModel user : userData) {
-            if (user.getUsername().equals(username)) {
-                userData.remove(user);
-                foundUser = true;
-                break;
-            }
-        }
-        if (!foundUser) {
-            throw new DataAccessException("User not found");
-        }
-    }
 
     @Override
     public void clearAll() {

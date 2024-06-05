@@ -4,6 +4,7 @@ import dataaccess.AuthDAOIM;
 import dataaccess.DataAccessException;
 import dataaccess.UserDAOIM;
 import model.UserDataModel;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.LoginRequest;
@@ -26,6 +27,12 @@ public class LoginServiceTest {
         authDAO = AuthDAOIM.getInstance();
         registerService = new RegisterService(userDAO, authDAO);
         loginService = new LoginService(userDAO, authDAO);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        userDAO.clearAll();
+        authDAO.clearAll();
     }
 
     @Test

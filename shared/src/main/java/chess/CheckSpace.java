@@ -74,5 +74,23 @@ public class CheckSpace {
         return true;
     }
 
+    public static void addPromotionMoves(Collection<ChessMove> validMoves, ChessPosition position, int row, int col) {
+        validMoves.add(new ChessMove(position, new ChessPosition(row, col), ChessPiece.PieceType.QUEEN));
+        validMoves.add(new ChessMove(position, new ChessPosition(row, col), ChessPiece.PieceType.BISHOP));
+        validMoves.add(new ChessMove(position, new ChessPosition(row, col), ChessPiece.PieceType.KNIGHT));
+        validMoves.add(new ChessMove(position, new ChessPosition(row, col), ChessPiece.PieceType.ROOK));
+    }
+
+    public  static void processMoveForCapture(ChessBoard board, ChessPosition position, int currRow, int currCol, Collection<ChessMove> validMoves, int promotionRow) {
+        ChessPosition newPos = new ChessPosition(currRow, currCol);
+        if (CheckSpace.inBounds(newPos) && !CheckSpace.isSpaceEmpty(board, newPos) && CheckSpace.checkTeamColor(board, newPos, position)) {
+            if (currRow == promotionRow) {
+                addPromotionMoves(validMoves, position, currRow, currCol);
+            } else {
+                validMoves.add(new ChessMove(position, newPos, null));
+            }
+        }
+    }
+
 
 }

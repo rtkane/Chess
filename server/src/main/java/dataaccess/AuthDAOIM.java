@@ -103,11 +103,4 @@ public class AuthDAOIM implements AuthDAO {
     public List<AuthDataModel> getAllTokens(){
         return new ArrayList<>(authTokenData);
     }
-
-//    public Boolean isEmpty(){
-//        if (authTokenData == null){
-//            return true;
-//        }
-//        return false;
-//    }
 }
