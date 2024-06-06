@@ -32,7 +32,7 @@ public class ListGameService {
             return new ListGameResult(false, "Error: unauthorized");
         }
 
-        result = new ListGameResult(gameDataDAO.simpleListGames(), true, "Game List: ");
+        result = new ListGameResult(gameDataDAO.listGames(), true, "Game List: ");
 
         return result;
 

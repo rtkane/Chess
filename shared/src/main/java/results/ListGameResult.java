@@ -1,15 +1,15 @@
 package results;
 
-import chess.ChessGame;
+import model.GameDataModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ListGameResult {
     Boolean success;
     String message;
-    ArrayList<ArrayList<String>> gameDataModelList;
-    public ListGameResult(ArrayList<ArrayList<String>> gameDataModelList, Boolean success, String message) {
-        this.gameDataModelList = gameDataModelList;
+    List<GameDataModel> games;
+    public ListGameResult(List<GameDataModel> gameDataModelList, Boolean success, String message) {
+        this.games = gameDataModelList;
         this.success = success;
         this.message = message;
     }

@@ -36,7 +36,7 @@ public class RegisterService {
             }
         }
 
-        //Checks not make sure every field is filled
+        // Checks not make sure every field is filled
         if (request.getUsername() == null || request.getPassword() == null || request.getEmail() == null){
             return new RegisterResult(false, "Fill in all fields");
         }

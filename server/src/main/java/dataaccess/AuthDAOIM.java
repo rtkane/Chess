@@ -24,9 +24,6 @@ public class AuthDAOIM implements AuthDAO {
     @Override
     public void createAuthToken(AuthDataModel authToken) throws DataAccessException {
         for (AuthDataModel inMemoryAuthToken: authTokenData){
-            if (inMemoryAuthToken.getUsername().equals(authToken.getUsername())){
-                throw new DataAccessException("Username Taken");
-            }
             if (inMemoryAuthToken.getAuthToken().equals(authToken.getAuthToken())){
                 throw new DataAccessException("Auth already exists");
             }

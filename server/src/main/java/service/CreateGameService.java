@@ -44,7 +44,7 @@ public class CreateGameService {
         Random rand = new Random();
 
 
-        GameDataModel gameDataModel = new GameDataModel(rand.nextInt(85054), "", "", gameName, new ChessGame());
+        GameDataModel gameDataModel = new GameDataModel(rand.nextInt(85054), null, null, gameName, new ChessGame());
 
         gameDataDAO.createGame(gameDataModel);
 

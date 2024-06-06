@@ -27,6 +27,7 @@ public class LoginService {
         authDAO.printAuthList();
 
         UserDataModel user = userDAO.getUser(username);
+
         // Check if the username is in the database
         if (user == null) {
             System.out.println("Username not found");
@@ -40,28 +41,14 @@ public class LoginService {
             return new LoginResult(false, "Password not correct");
         }
 
-        // Clear previous auth token if it exists
-        if (authDAO.getAllTokens().isEmpty()){
-            AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
-            authDAO.createAuthToken(authToken);
-            System.out.println("New auth token created for user: " + username);
+        AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
+        authDAO.createAuthToken(authToken);
+        System.out.println("New auth token created for user: " + username);
 
-            result = new LoginResult(username, authToken.getAuthToken(), true, "Login Success!");
-            System.out.println("Login successful for user: " + username);
-        }
-        else {
-            if (authDAO.getAuthByUser(username) != null) {
-                System.out.println("Clearing previous auth token for user: " + username);
-                authDAO.clearAuthByUser(username);
-            }
-            AuthDataModel authToken = new AuthDataModel(UUID.randomUUID().toString(), username);
-            authDAO.createAuthToken(authToken);
-            System.out.println("New auth token created for user: " + username);
+        result = new LoginResult(username, authToken.getAuthToken(), true, "Login Success!");
+        System.out.println("Login successful for user: " + username);
 
-            result = new LoginResult(username, authToken.getAuthToken(), true, "Login Success!");
-            System.out.println("Login successful for user: " + username);
 
-        }
 
         return result;
     }

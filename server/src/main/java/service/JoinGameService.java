@@ -41,12 +41,12 @@ public class JoinGameService {
             return new JoinGameResult(false, "Error: game not found");
         }
 
-        if (("WHITE".equals(teamColor) && game.getWhiteUsername().length() > 0)) {
+        if (("WHITE".equals(teamColor) && game.getWhiteUsername() != null)) {
             return new JoinGameResult(false, "Error: team color already taken");
         }
 
 
-        if (("BLACK".equals(teamColor) && game.getBlackUsername().length() > 0)) {
+        if (("BLACK".equals(teamColor) && game.getBlackUsername() != null)) {
             return new JoinGameResult(false, "Error: team color already taken");
         }
 
