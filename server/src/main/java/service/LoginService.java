@@ -3,6 +3,7 @@ package service;
 import dataaccess.*;
 import model.AuthDataModel;
 import model.UserDataModel;
+import org.mindrot.jbcrypt.BCrypt;
 import requests.LoginRequest;
 import results.LoginResult;
 
@@ -36,7 +37,7 @@ public class LoginService {
 
 
         // Check Password
-        if (!user.getPassword().equals(password)) {
+        if (!BCrypt.checkpw(password, user.getPassword())) {
             System.out.println("Password not correct");
             return new LoginResult(false, "Password not correct");
         }

@@ -3,6 +3,7 @@ package service;
 import dataaccess.*;
 import model.AuthDataModel;
 import model.UserDataModel;
+import org.mindrot.jbcrypt.BCrypt;
 import requests.RegisterRequest;
 import results.RegisterResult;
 
@@ -12,8 +13,6 @@ public class RegisterService {
 
     private SQLUserDAO userDAO;
     private SQLAuthDAO authDAO;
-
-    private DatabaseManager databaseManager = new DatabaseManager();
 
     public RegisterService(SQLUserDAO userDAO, SQLAuthDAO authDAO) {
         this.userDAO = userDAO;
@@ -38,7 +37,10 @@ public class RegisterService {
             return new RegisterResult(false, "Fill in all fields");
         }
 
-        UserDataModel userDataModel = new UserDataModel(request.getUsername(), request.getPassword(), request.getEmail());
+        String hashedPassword = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt());
+
+
+        UserDataModel userDataModel = new UserDataModel(request.getUsername(), hashedPassword, request.getEmail());
         AuthDataModel authDataModel = new AuthDataModel(UUID.randomUUID().toString(), request.getUsername());
 
         userDAO.createUser(userDataModel);
