@@ -22,8 +22,8 @@ public class RegisterServiceTest {
 
     @BeforeEach
     public void setUp() {
-        SQLUserDAO userDAO = new SQLUserDAO();
-        SQLAuthDAO authDAO = new SQLAuthDAO();
+        userDAO = new SQLUserDAO();
+        authDAO = new SQLAuthDAO();
         this.registerService = new RegisterService(userDAO, authDAO);     }
     @AfterEach
     public void tearDown() throws DataAccessException {

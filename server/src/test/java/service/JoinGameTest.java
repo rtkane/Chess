@@ -1,9 +1,6 @@
 package service;
 
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAOIM;
-import dataaccess.SQLAuthDAO;
+import dataaccess.*;
 import model.AuthDataModel;
 import model.GameDataModel;
 import org.junit.jupiter.api.AfterEach;
@@ -18,22 +15,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JoinGameTest {
 
-    private AuthDAOIM authDAO;
-    private GameDataDAOIM gameDataDAO;
+    private SQLAuthDAO authDAO;
+    private SQLGameDAO gameDAO;
     private CreateGameService createGameService;
     private JoinGameService joinGameService;
 
     @BeforeEach
     public void setUp() {
-        SQLAuthDAO authDAO = new SQLAuthDAO();
-        gameDataDAO = GameDataDAOIM.getInstance();
-        createGameService = new CreateGameService(authDAO, gameDataDAO);
-        joinGameService = new JoinGameService(authDAO, gameDataDAO);
+         authDAO = new SQLAuthDAO();
+         gameDAO = new SQLGameDAO();
+        createGameService = new CreateGameService(authDAO, gameDAO);
+        joinGameService = new JoinGameService(authDAO, gameDAO);
     }
 
     @AfterEach
     public void tearDown() throws DataAccessException {
-        gameDataDAO.clearAll();
+        gameDAO.clearAll();
         authDAO.clearAll();
     }
 
@@ -57,7 +54,7 @@ public class JoinGameTest {
         assertEquals("Game Created", createGameResult.getMessage());
 
         // Retrieve gameID
-        GameDataModel gameID = gameDataDAO.getGameByName("newGame");
+        GameDataModel gameID = gameDAO.getGameByName("newGame");
 
         // Join Game request
         JoinGameRequest joinGameRequest = new JoinGameRequest("WHITE", "auth", gameID.getGameID());
@@ -93,7 +90,7 @@ public class JoinGameTest {
         assertEquals("Game Created", createGameResult.getMessage());
 
         // Retrieve gameID
-        GameDataModel gameID = gameDataDAO.getGameByName("newGame");
+        GameDataModel gameID = gameDAO.getGameByName("newGame");
 
         // Join Game request
         JoinGameRequest joinGameRequest = new JoinGameRequest("", "auth", gameID.getGameID());

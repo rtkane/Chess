@@ -17,24 +17,22 @@ import results.RegisterResult;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ListGameServiceTest {
-    private AuthDAOIM authDAO;
-    private GameDataDAOIM gameDataDAO;
+    private SQLAuthDAO authDAO;
     private SQLGameDAO gameDAO;
     private CreateGameService createGameService;
     private ListGameService listGameService;
 
     @BeforeEach
     public void setUp() {
-        SQLAuthDAO authDAO = new SQLAuthDAO();
-        SQLGameDAO gameDAO1 = new SQLGameDAO();
-        gameDataDAO = GameDataDAOIM.getInstance();
-        createGameService = new CreateGameService(authDAO, gameDataDAO);
-        listGameService = new ListGameService(authDAO, gameDAO1);
+        authDAO = new SQLAuthDAO();
+        gameDAO = new SQLGameDAO();
+        createGameService = new CreateGameService(authDAO, gameDAO);
+        listGameService = new ListGameService(authDAO, gameDAO);
     }
 
     @AfterEach
     public void tearDown() throws DataAccessException {
-        gameDataDAO.clearAll();
+        gameDAO.clearAll();
         authDAO.clearAll();
     }
 

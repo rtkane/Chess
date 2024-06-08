@@ -1,21 +1,18 @@
 package service;
 
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAOIM;
-import dataaccess.SQLAuthDAO;
+import dataaccess.*;
 import model.AuthDataModel;
 import model.GameDataModel;
 import requests.JoinGameRequest;
 import results.JoinGameResult;
 
 public class JoinGameService {
-    private AuthDAOIM authDAO;
-    private GameDataDAOIM gameDataDAO;
+     SQLAuthDAO authDAO;
+     SQLGameDAO gameDAO;
 
-    public JoinGameService(SQLAuthDAO authDAO, GameDataDAOIM gameDataDAO) {
-        authDAO = new SQLAuthDAO();
-        this.gameDataDAO = gameDataDAO;
+    public JoinGameService(SQLAuthDAO authDAO, SQLGameDAO gameDAO) {
+        this.authDAO = new SQLAuthDAO();
+        this.gameDAO = new SQLGameDAO();
     }
 
     public JoinGameResult joinGame(JoinGameRequest request) throws DataAccessException {
@@ -37,7 +34,7 @@ public class JoinGameService {
             return new JoinGameResult(false, "Error: unauthorized");
         }
 
-        GameDataModel game = gameDataDAO.getGame(gameID);
+        GameDataModel game = gameDAO.getGame(gameID);
         if (game == null) {
             return new JoinGameResult(false, "Error: game not found");
         }
@@ -51,7 +48,7 @@ public class JoinGameService {
             return new JoinGameResult(false, "Error: team color already taken");
         }
 
-        gameDataDAO.updateGame(gameID, teamColor, token.getUsername());
+        gameDAO.updateGame(gameID, teamColor, token.getUsername());
 
         return new JoinGameResult(true, "");
     }

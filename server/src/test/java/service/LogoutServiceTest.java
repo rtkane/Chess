@@ -25,10 +25,11 @@ public class LogoutServiceTest {
 
     @BeforeEach
     public void setUp() {
-        SQLAuthDAO authDAO = new SQLAuthDAO();
-        SQLUserDAO userDAO = new SQLUserDAO();
-        this.registerService = new RegisterService(userDAO, authDAO);         loginService = new LoginService(userDAO, authDAO);
-//        logoutService = new LogoutService(userDAO,authDAO);
+        authDAO = new SQLAuthDAO();
+        userDAO = new SQLUserDAO();
+        this.registerService = new RegisterService(userDAO, authDAO);
+        loginService = new LoginService(userDAO, authDAO);
+        logoutService = new LogoutService(userDAO,authDAO);
     }
     @AfterEach
     public void tearDown() throws DataAccessException {

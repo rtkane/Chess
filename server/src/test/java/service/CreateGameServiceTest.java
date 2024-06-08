@@ -1,9 +1,6 @@
 package service;
 
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAOIM;
-import dataaccess.SQLAuthDAO;
+import dataaccess.*;
 import model.AuthDataModel;
 import model.GameDataModel;
 import org.junit.jupiter.api.AfterEach;
@@ -16,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateGameServiceTest {
 
-    private AuthDAOIM authDAO;
-    private GameDataDAOIM gameDataDAO;
+    private SQLAuthDAO authDAO;
+    private SQLGameDAO gameDataDAO;
     private CreateGameService createGameService;
 
     @BeforeEach
     public void setUp() {
-        SQLAuthDAO authDAO = new SQLAuthDAO();
-        gameDataDAO = GameDataDAOIM.getInstance();
+        authDAO = new SQLAuthDAO();
+        gameDataDAO = new SQLGameDAO();
         createGameService = new CreateGameService(authDAO, gameDataDAO);
     }
 

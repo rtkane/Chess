@@ -21,9 +21,10 @@ public class LoginServiceTest {
 
     @BeforeEach
     public void setUp() {
-        SQLAuthDAO authDAO = new SQLAuthDAO();
-        SQLUserDAO userDAO = new SQLUserDAO();
-        this.registerService = new RegisterService(userDAO, authDAO);        loginService = new LoginService(userDAO, authDAO);
+        authDAO = new SQLAuthDAO();
+        userDAO = new SQLUserDAO();
+        registerService = new RegisterService(userDAO, authDAO);
+        loginService = new LoginService(userDAO, authDAO);
     }
 
     @AfterEach

@@ -16,7 +16,8 @@ public class ClearHandler implements Route {
     public ClearHandler(){
         SQLUserDAO userDAO = new SQLUserDAO();
         SQLAuthDAO authDAO = new SQLAuthDAO();
-        this.clearService = new ClearService(userDAO, authDAO, GameDataDAOIM.getInstance());    }
+        SQLGameDAO gameDAO = new SQLGameDAO();
+        this.clearService = new ClearService(userDAO, authDAO, gameDAO);    }
 
     @Override
     public Object handle(Request request, Response response) throws Exception {

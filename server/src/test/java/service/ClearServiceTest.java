@@ -17,7 +17,7 @@ public class ClearServiceTest {
 
     private SQLUserDAO userDAO;
     private SQLAuthDAO authDAO;
-    private GameDataDAOIM gameDataDAO;
+    private SQLGameDAO gameDataDAO;
     private ClearService clearService;
     private CreateGameService createGameService;
     private RegisterService registerService;
@@ -26,7 +26,7 @@ public class ClearServiceTest {
     public void setUp() {
         userDAO = new SQLUserDAO();
         authDAO = new SQLAuthDAO();
-        gameDataDAO = GameDataDAOIM.getInstance();
+        gameDataDAO = new SQLGameDAO();
         clearService = new ClearService(userDAO, authDAO, gameDataDAO);
         createGameService = new CreateGameService(authDAO, gameDataDAO);
         SQLUserDAO userDAO = new SQLUserDAO();

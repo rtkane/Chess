@@ -2,10 +2,7 @@ package handlers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAOIM;
-import dataaccess.SQLAuthDAO;
+import dataaccess.*;
 import requests.CreateGameRequest;
 import results.CreateGameResult;
 import service.CreateGameService;
@@ -15,7 +12,9 @@ import spark.Route;
 
 public class CreateGameHandler implements Route {
     SQLAuthDAO authDAO = new SQLAuthDAO();
-    private final CreateGameService createGameService = new CreateGameService(authDAO, GameDataDAOIM.getInstance());
+    SQLGameDAO gameDAO = new SQLGameDAO();
+
+    private final CreateGameService createGameService = new CreateGameService(authDAO, gameDAO);
     private final Gson gson = new Gson();
 
     @Override

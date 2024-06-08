@@ -7,9 +7,9 @@ public class ClearService {
 
     private SQLUserDAO userDAO;
     private SQLAuthDAO authDAO;
-    private GameDataDAOIM gameDataDAO;
+    private SQLGameDAO gameDataDAO;
 
-    public ClearService(SQLUserDAO userDAO, SQLAuthDAO authDAO, GameDataDAOIM gameDataDAO){
+    public ClearService(SQLUserDAO userDAO, SQLAuthDAO authDAO, SQLGameDAO gameDataDAO){
         this.userDAO = userDAO;
         this.authDAO = authDAO;
         this.gameDataDAO = gameDataDAO;

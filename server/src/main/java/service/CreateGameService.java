@@ -15,9 +15,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class CreateGameService {
 
     private SQLAuthDAO authDAO;
-    private GameDataDAOIM gameDataDAO;
+    private SQLGameDAO gameDataDAO;
 
-    public CreateGameService(SQLAuthDAO authDAO, GameDataDAOIM gameDataDAO){
+    public CreateGameService(SQLAuthDAO authDAO, SQLGameDAO gameDataDAO){
         this.authDAO = authDAO;
         this.gameDataDAO = gameDataDAO;
     }
