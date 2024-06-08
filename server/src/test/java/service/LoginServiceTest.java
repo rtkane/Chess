@@ -20,7 +20,7 @@ public class LoginServiceTest {
     private LoginService loginService;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws DataAccessException {
         authDAO = new SQLAuthDAO();
         userDAO = new SQLUserDAO();
         registerService = new RegisterService(userDAO, authDAO);

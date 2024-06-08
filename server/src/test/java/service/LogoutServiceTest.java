@@ -24,7 +24,7 @@ public class LogoutServiceTest {
     private LogoutService logoutService;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws DataAccessException {
         authDAO = new SQLAuthDAO();
         userDAO = new SQLUserDAO();
         this.registerService = new RegisterService(userDAO, authDAO);

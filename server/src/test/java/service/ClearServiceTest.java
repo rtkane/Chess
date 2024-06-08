@@ -23,7 +23,7 @@ public class ClearServiceTest {
     private RegisterService registerService;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws DataAccessException {
         userDAO = new SQLUserDAO();
         authDAO = new SQLAuthDAO();
         gameDataDAO = new SQLGameDAO();

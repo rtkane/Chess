@@ -17,5 +17,3 @@ k
 -shared/src/main/java/model/AuthDataModel.java,7\9\79f9382d07ae77f7fb2ecc9675cd5741170a3c60
 Z
 *shared/src/main/java/chess/ChessBoard.java,d\f\dfc4ec84b5d57ac6e0266e9c319b728da99e0c51
-f
-6server/src/test/java/passoff/server/DatabaseTests.java,f\e\fe756adf1db32cf19b0ba4465213263dea6b150d
