@@ -16,12 +16,7 @@ public class Server {
     public int run(int desiredPort) {
 
         // Initialize the database
-        try {
-            DatabaseManager.createDatabase();
-        } catch (DataAccessException e) {
-            System.err.println("Failed to create database: " + e.getMessage());
-            return -1; // Indicate failure to start the server
-        }
+        DatabaseManager.createDatabase();
         Spark.port(desiredPort);
 
         Spark.staticFiles.location("web");

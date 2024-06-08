@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SQLGameDAO implements GameDataDAO {
+
+    public SQLGameDAO(){
+        DatabaseManager.createDatabase();
+    }
     private final Gson gson = new Gson();
 
     @Override

@@ -34,15 +34,16 @@ public class DatabaseManager {
     /**
      * Creates the database if it does not already exist.
      */
-    public static void createDatabase() throws DataAccessException {
+    public static void createDatabase() {
         try {
             var statement = "CREATE DATABASE IF NOT EXISTS " + DATABASE_NAME;
-            var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
-            try (var preparedStatement = conn.prepareStatement(statement)) {
+            try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
+                 var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
+            // Handle the exception here, e.g., log the error
+            System.err.println("Error creating database: " + e.getMessage());
         }
     }
 
