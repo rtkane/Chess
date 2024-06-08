@@ -1,9 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.UserDAOIM;
+import dataaccess.*;
 import requests.LoginRequest;
 import results.LoginResult;
 import service.LoginService;
@@ -12,7 +10,11 @@ import spark.Response;
 import spark.Route;
 
 public class LoginHandler implements Route {
-    private  LoginService loginService = new LoginService(UserDAOIM.getInstance(), AuthDAOIM.getInstance());
+    private SQLAuthDAO authDAO = new SQLAuthDAO();
+    private SQLUserDAO userDAO = new SQLUserDAO();
+
+
+    private  LoginService loginService = new LoginService(userDAO, authDAO);
     private final Gson gson = new Gson();
 
     @Override

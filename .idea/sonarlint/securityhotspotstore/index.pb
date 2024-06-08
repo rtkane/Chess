@@ -13,8 +13,6 @@ f
 6shared/src/test/java/passoff/chess/ChessMoveTests.java,d\0\d0976cffcef29072b835886c43fd62174459be03
 l
 <shared/src/test/java/passoff/chess/piece/QueenMoveTests.java,a\2\a2bd15f35595ddc78d142da6ccffd03c5a50bac2
-\
-,server/src/main/java/dataaccess/AuthDAO.java,3\2\32b7a2b97a8957e906a6d7e19358db18d9b6f1b5
 ]
 -shared/src/main/java/model/AuthDataModel.java,7\9\79f9382d07ae77f7fb2ecc9675cd5741170a3c60
 Z

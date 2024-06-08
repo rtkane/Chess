@@ -1,9 +1,6 @@
 package service;
 
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.DatabaseManager;
-import dataaccess.UserDAOIM;
+import dataaccess.*;
 import model.AuthDataModel;
 import model.UserDataModel;
 import requests.RegisterRequest;
@@ -13,12 +10,12 @@ import java.util.UUID;
 
 public class RegisterService {
 
-    private UserDAOIM userDAO;
-    private AuthDAOIM authDAO;
+    private SQLUserDAO userDAO;
+    private SQLAuthDAO authDAO;
 
     private DatabaseManager databaseManager = new DatabaseManager();
 
-    public RegisterService(UserDAOIM userDAO, AuthDAOIM authDAO) {
+    public RegisterService(SQLUserDAO userDAO, SQLAuthDAO authDAO) {
         this.userDAO = userDAO;
         this.authDAO = authDAO;
     }
@@ -36,7 +33,7 @@ public class RegisterService {
             }
         }
 
-        // Checks not make sure every field is filled
+        //Checks not make sure every field is filled
         if (request.getUsername() == null || request.getPassword() == null || request.getEmail() == null){
             return new RegisterResult(false, "Fill in all fields");
         }

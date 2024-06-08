@@ -5,11 +5,11 @@ import results.ClearResult;
 
 public class ClearService {
 
-    private UserDAOIM userDAO;
-    private AuthDAOIM authDAO;
+    private SQLUserDAO userDAO;
+    private SQLAuthDAO authDAO;
     private GameDataDAOIM gameDataDAO;
 
-    public ClearService(UserDAOIM userDAO, AuthDAOIM authDAO, GameDataDAOIM gameDataDAO){
+    public ClearService(SQLUserDAO userDAO, SQLAuthDAO authDAO, GameDataDAOIM gameDataDAO){
         this.userDAO = userDAO;
         this.authDAO = authDAO;
         this.gameDataDAO = gameDataDAO;

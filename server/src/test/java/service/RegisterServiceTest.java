@@ -1,9 +1,6 @@
 package service;
 
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAOIM;
-import dataaccess.UserDAOIM;
+import dataaccess.*;
 import model.AuthDataModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,18 +16,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RegisterServiceTest {
 
-    private UserDAOIM userDAO;
-    private AuthDAOIM authDAO;
+    private SQLUserDAO userDAO;
+    private SQLAuthDAO authDAO;
     private RegisterService registerService;
 
     @BeforeEach
     public void setUp() {
-        userDAO = UserDAOIM.getInstance();
-        authDAO = AuthDAOIM.getInstance();
-        registerService = new RegisterService(userDAO, authDAO);
-    }
+        SQLUserDAO userDAO = new SQLUserDAO();
+        SQLAuthDAO authDAO = new SQLAuthDAO();
+        this.registerService = new RegisterService(userDAO, authDAO);     }
     @AfterEach
-    public void tearDown() {
+    public void tearDown() throws DataAccessException {
         userDAO.clearAll();
         authDAO.clearAll();
     }

@@ -1,10 +1,7 @@
 package service;
 
 import chess.ChessGame;
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAO;
-import dataaccess.GameDataDAOIM;
+import dataaccess.*;
 import model.AuthDataModel;
 import model.GameDataModel;
 import requests.CreateGameRequest;
@@ -17,10 +14,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CreateGameService {
 
-    private AuthDAOIM authDAO;
+    private SQLAuthDAO authDAO;
     private GameDataDAOIM gameDataDAO;
 
-    public CreateGameService(AuthDAOIM authDAO, GameDataDAOIM gameDataDAO){
+    public CreateGameService(SQLAuthDAO authDAO, GameDataDAOIM gameDataDAO){
         this.authDAO = authDAO;
         this.gameDataDAO = gameDataDAO;
     }
@@ -47,8 +44,6 @@ public class CreateGameService {
         GameDataModel gameDataModel = new GameDataModel(rand.nextInt(85054), null, null, gameName, new ChessGame());
 
         gameDataDAO.createGame(gameDataModel);
-
-        gameDataDAO.addToSimpleList(Integer.toString(gameDataModel.getGameID()), gameDataModel.getWhiteUsername(), gameDataModel.getBlackUsername(), gameDataModel.getGameName());
 
         gameDataDAO.printGameList();
 

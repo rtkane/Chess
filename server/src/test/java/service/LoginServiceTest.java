@@ -1,8 +1,6 @@
 package service;
 
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.UserDAOIM;
+import dataaccess.*;
 import model.UserDataModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,21 +14,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginServiceTest {
 
-    private UserDAOIM userDAO;
-    private AuthDAOIM authDAO;
+    private SQLUserDAO userDAO;
+    private SQLAuthDAO authDAO;
     private RegisterService registerService;
     private LoginService loginService;
 
     @BeforeEach
     public void setUp() {
-        userDAO = UserDAOIM.getInstance();
-        authDAO = AuthDAOIM.getInstance();
-        registerService = new RegisterService(userDAO, authDAO);
-        loginService = new LoginService(userDAO, authDAO);
+        SQLAuthDAO authDAO = new SQLAuthDAO();
+        SQLUserDAO userDAO = new SQLUserDAO();
+        this.registerService = new RegisterService(userDAO, authDAO);        loginService = new LoginService(userDAO, authDAO);
     }
 
     @AfterEach
-    public void tearDown() {
+    public void tearDown() throws DataAccessException {
         userDAO.clearAll();
         authDAO.clearAll();
     }

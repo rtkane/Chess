@@ -10,10 +10,10 @@ import java.util.UUID;
 
 public class LoginService {
 
-    private UserDAOIM userDAO;
-    private AuthDAOIM authDAO;
+    private SQLUserDAO userDAO;
+    private SQLAuthDAO authDAO;
 
-    public LoginService(UserDAOIM userDAO, AuthDAOIM authDAO){
+    public LoginService(SQLUserDAO userDAO, SQLAuthDAO authDAO){
         this.userDAO = userDAO;
         this.authDAO = authDAO;
     }

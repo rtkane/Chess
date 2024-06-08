@@ -3,6 +3,7 @@ package service;
 import dataaccess.AuthDAOIM;
 import dataaccess.DataAccessException;
 import dataaccess.GameDataDAOIM;
+import dataaccess.SQLAuthDAO;
 import model.AuthDataModel;
 import model.GameDataModel;
 import requests.JoinGameRequest;
@@ -12,8 +13,8 @@ public class JoinGameService {
     private AuthDAOIM authDAO;
     private GameDataDAOIM gameDataDAO;
 
-    public JoinGameService(AuthDAOIM authDAO, GameDataDAOIM gameDataDAO) {
-        this.authDAO = authDAO;
+    public JoinGameService(SQLAuthDAO authDAO, GameDataDAOIM gameDataDAO) {
+        authDAO = new SQLAuthDAO();
         this.gameDataDAO = gameDataDAO;
     }
 
@@ -51,8 +52,6 @@ public class JoinGameService {
         }
 
         gameDataDAO.updateGame(gameID, teamColor, token.getUsername());
-        gameDataDAO.addToSimpleList(Integer.toString(gameID), token.getUsername(), game.getBlackUsername(), game.getGameName());
-        gameDataDAO.removeSimpleList(gameID);
 
         return new JoinGameResult(true, "");
     }

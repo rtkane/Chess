@@ -1,9 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.UserDAOIM;
+import dataaccess.*;
 import requests.LogoutRequest;
 import results.LogoutResult;
 import service.LogoutService;
@@ -12,7 +10,10 @@ import spark.Response;
 import spark.Route;
 
 public class LogoutHandler implements Route {
-    private LogoutService logoutService = new LogoutService(UserDAOIM.getInstance(), AuthDAOIM.getInstance());
+    private SQLAuthDAO authDAO = new SQLAuthDAO();
+    private SQLUserDAO userDAO = new SQLUserDAO();
+
+    private LogoutService logoutService = new LogoutService(userDAO, authDAO);
     private final Gson gson = new Gson();
 
 

@@ -1,9 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAOIM;
+import dataaccess.*;
 import requests.ListGameRequest;
 import results.ListGameResult;
 import service.ListGameService;
@@ -12,7 +10,10 @@ import spark.Response;
 import spark.Route;
 
 public class ListGameHandler implements Route {
-    private final ListGameService listGameService = new ListGameService(AuthDAOIM.getInstance(), GameDataDAOIM.getInstance());
+    SQLAuthDAO authDAO = new SQLAuthDAO();
+    SQLGameDAO gameDAO = new SQLGameDAO();
+
+    private final ListGameService listGameService = new ListGameService(authDAO, gameDAO);
 
     private final Gson gson = new Gson();
     @Override

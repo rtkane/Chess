@@ -74,20 +74,6 @@ public class GameDataDAOIM implements GameDataDAO {
         return gameData;
     }
 
-    public ArrayList<ArrayList<String>> simpleListGames() {
-        return simpleGameData;
-    }
-
-    @Override
-    public void updateGame(int gameID, ChessGame updatedGame) throws DataAccessException {
-        for (GameDataModel gameData : gameData) {
-            if (gameData.getGameID() == gameID) {
-                gameData.setGame(updatedGame);
-                break;
-            }
-        }
-        throw new DataAccessException("Game not found");
-    }
     @Override
     public void clearAll() throws DataAccessException {
         gameData.clear();

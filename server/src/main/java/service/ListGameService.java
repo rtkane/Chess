@@ -1,25 +1,18 @@
 package service;
 
-import dataaccess.AuthDAOIM;
-import dataaccess.DataAccessException;
-import dataaccess.GameDataDAOIM;
+import dataaccess.*;
 import model.AuthDataModel;
-import model.GameDataModel;
 import requests.ListGameRequest;
-import results.CreateGameResult;
 import results.ListGameResult;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ListGameService {
 
-    private AuthDAOIM authDAO;
-    private GameDataDAOIM gameDataDAO;
+    private SQLAuthDAO authDAO;
+    private SQLGameDAO gameDataDAO;
 
-    public ListGameService(AuthDAOIM authDAO, GameDataDAOIM gameDataDAO) {
-        this.authDAO = authDAO;
-        this.gameDataDAO = gameDataDAO;
+    public ListGameService(SQLAuthDAO authDAO, SQLGameDAO gameDataDAO) {
+        this.authDAO = new SQLAuthDAO();
+        this.gameDataDAO = new SQLGameDAO();
     }
 
     public ListGameResult listGame(ListGameRequest request) throws DataAccessException{
