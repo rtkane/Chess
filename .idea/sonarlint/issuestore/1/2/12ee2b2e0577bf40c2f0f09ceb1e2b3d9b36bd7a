@@ -1,0 +1,37 @@
+
+o
+java:S2293C"YReplace the type specification in this constructor call with the diamond operator ("<>").(åÁû‡
+n	java:S135K"YReduce the total number of break and continue statements in this loop to use at most one.(ª‹£À
+o	java:S135¨"YReduce the total number of break and continue statements in this loop to use at most one.(èíÕß
+K
+java:S1066Ã"/Merge this if statement with the enclosing one.(’îæÃúÿÿÿÿ
+K
+java:S1066å"/Merge this if statement with the enclosing one.(ÓÖ˜²øÿÿÿÿ
+F
+java:S1066ê"/Merge this if statement with the enclosing one.(œÇ¿ë
+l
+java:S1128"QRemove this unnecessary import: java.lang classes are always implicitly imported.(Š‘…ûıÿÿÿÿ
+h
+java:S3776>"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(¡äìß
+n
+java:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(¥ïÊûÿÿÿÿ
+i
+java:S3776ñ"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(ÉÜüâ
+2
+java:S3626ö"Remove this redundant jump.(ÉŠ©ƒ
+2
+java:S3626„"Remove this redundant jump.(ÉŠ©ƒ
+n
+java:S3776“"RRefactor this method to reduce its Cognitive Complexity from 54 to the 15 allowed.(¡ëãÖüÿÿÿÿ
+2
+java:S3626š"Remove this redundant jump.(ÉŠ©ƒ
+2
+java:S3626±"Remove this redundant jump.(ÉŠ©ƒ
+C
+java:S1125µ"'Remove the unnecessary boolean literal.(Íœ•üÿÿÿÿ
+i
+java:S3776Ç"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(ÅÍ†õ
+X
+java:S1126”"AReplace this if-then-else statement by a single return statement.(ªó¾Ì
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ

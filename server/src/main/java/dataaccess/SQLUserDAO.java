@@ -7,10 +7,6 @@ import java.util.List;
 
 public class SQLUserDAO implements UserDAO {
 
-    public SQLUserDAO(){
-        DatabaseManager.createDatabase();
-    }
-
     @Override
     public void createUser(UserDataModel user) throws DataAccessException {
         String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";

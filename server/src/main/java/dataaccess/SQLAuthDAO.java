@@ -11,9 +11,7 @@ import java.util.List;
 
 public class SQLAuthDAO implements AuthDAO {
 
-    public SQLAuthDAO(){
-        DatabaseManager.createDatabase();
-    }
+
 
     @Override
     public void createAuthToken(AuthDataModel authToken) throws DataAccessException {
