@@ -2,9 +2,7 @@ package webSocketMessages;
 
 public class Action {
     public enum Type {
-        ENTER,
-        REGISTER,
-        // other action types
+        ENTER, EXIT, REGISTER, LOGIN
     }
 
     private Type type;
@@ -18,11 +16,25 @@ public class Action {
         this.password = password;
         this.email = email;
     }
-
-    public Action(Type type, String username) {
+    public Action(Type type, String username, String password) {
         this.type = type;
         this.username = username;
+        this.password = password;
     }
 
-    // Getters and setters
+    public Type getType() {
+        return type;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

@@ -47,6 +47,15 @@ public class WebSocketFacade extends Endpoint {
         }
     }
 
+    public void login(String username, String password) throws ResponseException{
+        try {
+            var action = new Action(Action.Type.LOGIN, username, password);
+            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+        } catch (IOException e) {
+            throw new ResponseException(500, e.getMessage());
+        }
+    }
+
 
     @Override
     public void onOpen(Session session, EndpointConfig endpointConfig) {

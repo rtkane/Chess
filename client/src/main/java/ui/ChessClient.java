@@ -29,6 +29,8 @@ public class ChessClient {
 
         return switch (cmd){
             case "register" -> register(params);
+            case "login" -> login(params);
+            case "quit" -> quit();
             default -> help();
         };
     }
@@ -63,9 +65,26 @@ public class ChessClient {
             state = State.SIGNEDIN;
             ws = new WebSocketFacade(serverURL, notificationHandler);
             ws.register(username, password, email);
-            return String.format("Welcome %s.", username);
+            return String.format("Registered %s.", username);
         }
         throw new ResponseException(400, "Expected: <username> <password> <Email>");
+    }
+    public String login(String... params) throws ResponseException {
+        if (params.length == 2){
+            String username = params[0];
+            String password = params[1];
+            state = State.SIGNEDIN;
+            ws = new WebSocketFacade(serverURL, notificationHandler);
+            ws.login(username, password);
+            return String.format("Login %s.", username);
+        }
+        throw new ResponseException(400, "Expected: <username> <password>");
+    }
+
+    public String quit() throws ResponseException{
+        System.out.println("Application quitting");
+        System.out.println("...");
+        return "quit";
     }
 
 }

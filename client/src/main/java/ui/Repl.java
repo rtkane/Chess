@@ -15,7 +15,8 @@ public class Repl implements NotificationHandler {
     }
 
     public void run(){
-        System.out.println("Type 'Help' to get started: ");
+        System.out.println("Type 'Help' to get started ");
+        System.out.println("Type a command: ");
         Scanner scanner = new Scanner(System.in);
         var result = "";
         while (!result.toLowerCase().equals("quit")){

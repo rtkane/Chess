@@ -6,7 +6,10 @@ public record Notification(Type type, String message) {
     public enum Type {
         ARRIVAL,
         NOISE,
-        DEPARTURE
+        DEPARTURE,
+        ERROR,
+        REGISTRATION,
+        LOGIN
     }
 
     public String toString() {

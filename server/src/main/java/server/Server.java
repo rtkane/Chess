@@ -2,12 +2,13 @@ package server;
 
 import dataaccess.DataAccessException;
 import handlers.*;
-//import service.LoginService;
 import dataaccess.DatabaseManager;
 
+import server.websocket.WebsocketHandler;
 import spark.*;
 
 public class Server {
+    private WebsocketHandler websocketHandler; // Corrected variable declaration
 
     public static void  main (String []args){
         new Server().run(8080);
@@ -16,7 +17,13 @@ public class Server {
     public int run(int desiredPort) {
         Spark.port(desiredPort);
 
+        // Initialize the WebSocket handler
+        this.websocketHandler = new WebsocketHandler();
+
         Spark.staticFiles.location("web");
+
+        // Register WebSocket handler
+        Spark.webSocket("/ws", websocketHandler);
 
         // Register your endpoints and handle exceptions here.
         Spark.post("/user", new RegisterHandler());
