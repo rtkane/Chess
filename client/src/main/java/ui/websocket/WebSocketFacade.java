@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 import com.google.gson.Gson;
 import excpetion.ResponseException;
+import webSocketMessages.Action;
 import webSocketMessages.Notification;
 
 
@@ -36,6 +37,17 @@ public class WebSocketFacade extends Endpoint {
             throw new ResponseException(500, ex.getMessage());
         }
     }
+
+    public void register(String username, String password, String email) throws ResponseException{
+        try {
+            var action = new Action(Action.Type.REGISTER, username, password, email);
+            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+        } catch (IOException e) {
+            throw new ResponseException(500, e.getMessage());
+        }
+    }
+
+
     @Override
     public void onOpen(Session session, EndpointConfig endpointConfig) {
 

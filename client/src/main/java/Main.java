@@ -5,7 +5,7 @@ import ui.Repl;
 public class Main {
 
     public static void main(String[] args) {
-        var serverURL = "https://localhost:8080";
+        var serverURL = "http://localhost:8080";
         System.out.println("♕ 240 Chess Client: \n");
         if (args.length == 1) {
             serverURL = args[0];

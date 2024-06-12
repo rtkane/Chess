@@ -1,10 +1,12 @@
 package ui;
 
+import excpetion.ResponseException;
 import server.ServerFacade;
 import ui.websocket.NotificationHandler;
 import ui.websocket.WebSocketFacade;
 
 import java.net.http.WebSocket;
+import java.util.Arrays;
 
 public class ChessClient {
     private String visitorName = null;
@@ -20,6 +22,50 @@ public class ChessClient {
         this.notificationHandler = notificationHandler;
     }
 
-    
+    public String eval(String input) throws ResponseException {
+        var tokens = input.toLowerCase().split(" ");
+        var cmd = (tokens.length > 0) ? tokens[0] : "help";
+        var params = Arrays.copyOfRange(tokens, 1, tokens.length);
+
+        return switch (cmd){
+            case "register" -> register(params);
+            default -> help();
+        };
+    }
+
+    public String help(){
+        if (state == State.SIGNEDOUT) {
+            return """
+                            - Register <Username> <Password> <Email>
+                            - Login <Username> <Password>
+                            - Help  - All commands
+                            - Quit - quit playing chess
+                    """;
+        }
+        else {
+            return """
+                            - Create <Name> a game
+                            - List - all games
+                            - Join <ID> [WHITE | BLACK]
+                            - Observe <ID> - a game
+                            - Logout - When you are done
+                            - Help  - All commands
+                            - Quit - quit playing chess
+                    """;
+        }
+}
+
+    public String register(String... params) throws ResponseException {
+        if (params.length == 3){
+            String username = params[0];
+            String password = params[1];
+            String email = params[2];
+            state = State.SIGNEDIN;
+            ws = new WebSocketFacade(serverURL, notificationHandler);
+            ws.register(username, password, email);
+            return String.format("Welcome %s.", username);
+        }
+        throw new ResponseException(400, "Expected: <username> <password> <Email>");
+    }
 
 }

@@ -5,6 +5,8 @@ import ui.websocket.NotificationHandler;
 import javax.management.Notification;
 import java.util.Scanner;
 
+import static ui.EscapeSequences.*;
+
 public class Repl implements NotificationHandler {
     private final ChessClient client;
 
@@ -18,25 +20,26 @@ public class Repl implements NotificationHandler {
         var result = "";
         while (!result.toLowerCase().equals("quit")){
             String line = scanner.nextLine();
-            if (line.toLowerCase().equals("help")){
-                help();
+
+            try {
+                result = client.eval(line);
+                System.out.println(BLUE + result);
+            } catch (Throwable e) {
+                var msg = e.toString();
+                System.out.print(msg);
             }
         }
+        System.out.println();
     }
 
 
-    public void help(){
-        System.out.println("""
-                    - Register <Username> <Password> <Email>
-                    - Login <Username> <Password>
-                    - Help  - All commands
-                    - Quit - quit playing chess
-                    """);
-    }
+
 
 
     @Override
     public void notify(webSocketMessages.Notification notification) {
-
+        System.out.println(RED + notification.message());
     }
+
+
 }
