@@ -1,6 +1,12 @@
 package ui;
 
 import excpetion.ResponseException;
+import requests.LoginRequest;
+import requests.LogoutRequest;
+import requests.RegisterRequest;
+import results.LoginResult;
+import results.LogoutResult;
+import results.RegisterResult;
 import ui.ServerFacade;
 import ui.websocket.NotificationHandler;
 import ui.websocket.WebSocketFacade;
@@ -9,12 +15,14 @@ import java.net.http.WebSocket;
 import java.util.Arrays;
 
 public class ChessClient {
-    private String visitorName = null;
     private final ServerFacade server;
     private final String serverURL;
     private final NotificationHandler notificationHandler;
     private WebSocketFacade ws;
     private State state = State.SIGNEDOUT;
+    private RegisterResult registerResult;
+    private LoginResult loginResult;
+
 
     public ChessClient(String serverURL, NotificationHandler notificationHandler){
         server = new ServerFacade(serverURL);
@@ -31,7 +39,7 @@ public class ChessClient {
             case "register" -> register(params);
             case "login" -> login(params);
             case "quit" -> quit();
-            case "logout" -> logout(params);
+            case "logout" -> logout();
             default -> help();
         };
     }
@@ -59,25 +67,36 @@ public class ChessClient {
 }
 
     public String register(String... params) throws ResponseException {
-        if (params.length == 3){
+        if (params.length == 3 && state == State.SIGNEDOUT){
             String username = params[0];
             String password = params[1];
             String email = params[2];
-            state = State.SIGNEDIN;
-            ws = new WebSocketFacade(serverURL, notificationHandler);
-            ws.register(username, password, email);
-            return String.format("Registered %s.", username);
+            RegisterRequest registerRequest = new RegisterRequest(username, password, email);
+            try {
+                registerResult = server.register(registerRequest);
+                System.out.println("Proceed to Login");
+                return String.format("Registered %s.", username);
+            } catch (Exception e) {
+                throw new ResponseException(401, "Register failed");
+            }
         }
-        throw new ResponseException(400, "Expected: <username> <password> <Email>");
+        throw new ResponseException(400, "Expected: <username> <password> <email>");
     }
+
     public String login(String... params) throws ResponseException {
-        if (params.length == 2){
+        if (params.length == 2 && state == State.SIGNEDOUT) {
             String username = params[0];
             String password = params[1];
-            state = State.SIGNEDIN;
-            ws = new WebSocketFacade(serverURL, notificationHandler);
-            ws.login(username, password);
-            return String.format("Login %s.", username);
+            LoginRequest loginRequest = new LoginRequest(username, password);
+
+            try {
+                loginResult = server.login(loginRequest);
+                state = State.SIGNEDIN;
+                System.out.println("Type help for new options!");
+                return String.format("Login %s.", username);
+            } catch (Exception e) {
+                throw new ResponseException(401, "Login failed");
+            }
         }
         throw new ResponseException(400, "Expected: <username> <password>");
     }
@@ -88,16 +107,19 @@ public class ChessClient {
         return "quit";
     }
 
-    public String logout(String... params) throws ResponseException {
+    public String logout() throws ResponseException {
+        if (state == State.SIGNEDIN) {
             try {
+                server.logout(loginResult);
                 state = State.SIGNEDOUT;
-                ws = new WebSocketFacade(serverURL, notificationHandler);
-                ws.logout();
-                return String.format("Logout");
-            }catch (ResponseException responseException) {
-
-                throw new ResponseException(400, "Expected: <username> <password>");
+                return "Logged out!";
+            } catch (Exception e) {
+                throw new ResponseException(401, "Logout Failed");
             }
+        }
+        throw new ResponseException(400, "Expected 'logout' ");
     }
+
+
 
 }
