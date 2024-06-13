@@ -11,7 +11,6 @@ import webSocketMessages.Action;
 import webSocketMessages.Notification;
 
 
-
 public class WebSocketFacade extends Endpoint {
     Session session;
     NotificationHandler notificationHandler;
@@ -38,7 +37,7 @@ public class WebSocketFacade extends Endpoint {
         }
     }
 
-    public void register(String username, String password, String email) throws ResponseException{
+    public void register(String username, String password, String email) throws ResponseException {
         try {
             var action = new Action(Action.Type.REGISTER, username, password, email);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
@@ -47,9 +46,18 @@ public class WebSocketFacade extends Endpoint {
         }
     }
 
-    public void login(String username, String password) throws ResponseException{
+    public void login(String username, String password) throws ResponseException {
         try {
             var action = new Action(Action.Type.LOGIN, username, password);
+            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+        } catch (IOException e) {
+            throw new ResponseException(500, e.getMessage());
+        }
+    }
+
+    public void logout() throws ResponseException {
+        try {
+            var action = new Action(Action.Type.LOGOUT);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
         } catch (IOException e) {
             throw new ResponseException(500, e.getMessage());

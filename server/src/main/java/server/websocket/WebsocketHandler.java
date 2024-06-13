@@ -11,29 +11,38 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import requests.LoginRequest;
+import requests.LogoutRequest;
 import requests.RegisterRequest;
 import results.LoginResult;
+import results.LogoutResult;
 import results.RegisterResult;
 import service.LoginService;
+import service.LogoutService;
 import service.RegisterService;
 import webSocketMessages.Action;
 import webSocketMessages.Notification;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @WebSocket
 public class WebsocketHandler {
 
     private final ConnectionManager connections = new ConnectionManager();
+    private final ConnectionManager tokens = new ConnectionManager();
     private final Gson gson = new Gson();
-    private RegisterService registerService;
-    private LoginService loginService;
+    private final RegisterService registerService;
+    private final LoginService loginService;
+    private final LogoutService logoutService;
+
 
     public WebsocketHandler() {
         SQLUserDAO userDAO = new SQLUserDAO();
         SQLAuthDAO authDAO = new SQLAuthDAO();
         this.registerService = new RegisterService(userDAO, authDAO);
         this.loginService = new LoginService(userDAO, authDAO);
+        this.logoutService = new LogoutService(userDAO, authDAO);
     }
 
     @OnWebSocketConnect
@@ -43,35 +52,15 @@ public class WebsocketHandler {
     }
 
     @OnWebSocketMessage
-    public void onMessage(Session session, String message) throws IOException {
+    public void onMessage(Session session, String message) throws IOException, DataAccessException {
         Action action = gson.fromJson(message, Action.class);
         switch (action.getType()) {
-            case ENTER -> enter(action.getUsername(), session);
-            case EXIT -> exit(action.getUsername());
             case REGISTER -> register(action.getUsername(), action.getPassword(), action.getEmail(), session);
             case LOGIN -> login(action.getUsername(), action.getPassword(), session);
+            case LOGOUT -> logout(session);
         }
     }
 
-    @OnWebSocketClose
-    public void onClose(Session session, int statusCode, String reason) {
-        System.out.println("Closed: " + reason);
-        // Handle connection close if needed
-    }
-
-    private void enter(String visitorName, Session session) throws IOException {
-        connections.add(visitorName, session);
-        var message = String.format("%s is in the shop", visitorName);
-        var notification = new Notification(Notification.Type.ARRIVAL, message);
-        connections.broadcast(visitorName, notification);
-    }
-
-    private void exit(String visitorName) throws IOException {
-        connections.remove(visitorName);
-        var message = String.format("%s left the shop", visitorName);
-        var notification = new Notification(Notification.Type.DEPARTURE, message);
-        connections.broadcast(visitorName, notification);
-    }
 
     private void register(String username, String password, String email, Session session) throws IOException {
         RegisterRequest registerRequest = new RegisterRequest(username, password, email);
@@ -81,6 +70,7 @@ public class WebsocketHandler {
             registerResult = registerService.register(registerRequest);
             if (registerResult.getSuccess()) {
                 connections.add(username, session);
+                tokens.add(registerResult.getAuthToken(), session);
                 var message = String.format("Registered %s", username);
                 var notification = new Notification(Notification.Type.REGISTRATION, message);
                 connections.broadcast(username, notification);
@@ -100,6 +90,7 @@ public class WebsocketHandler {
             loginResult = loginService.login(loginRequest);
             if (loginResult.getSuccess()) {
                 connections.add(username, session);
+                tokens.add(loginResult.getAuthToken(), session);
                 var message = String.format("Login %s", username);
                 var notification = new Notification(Notification.Type.LOGIN, message);
                 connections.broadcast(username, notification);
@@ -107,17 +98,29 @@ public class WebsocketHandler {
                 session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, loginResult.getMessage())));
             }
         } catch (DataAccessException e) {
-            session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, "Registration error: " + e.getMessage())));
+            session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, "Login error: " + e.getMessage())));
         }
     }
 
-    public void makeNoise(String petName, String sound) throws ResponseException {
-        try {
-            var message = String.format("%s says %s", petName, sound);
-            var notification = new Notification(Notification.Type.NOISE, message);
-            connections.broadcast("", notification);
-        } catch (Exception ex) {
-            throw new ResponseException(500, ex.getMessage());
-        }
+    private void logout(Session session) throws IOException, DataAccessException {
+        String username = connections.findBySession(session);
+        String token = tokens.findBySession(session);
+        LogoutRequest logoutRequest = new LogoutRequest(token);
+        LogoutResult logoutResult;
+
+
+            logoutResult = logoutService.logout(logoutRequest);
+            if (logoutResult.getSuccess()) {
+                connections.remove(username);
+                connections.remove(username);
+                tokens.remove(token);
+                var message = String.format("Logout successful for %s", username);
+                var notification = new Notification(Notification.Type.LOGOUT, message);
+                session.getRemote().sendString(gson.toJson(notification));
+            }
+            else {
+                session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, "No user logged in with this session.")));
+            }
     }
+
 }

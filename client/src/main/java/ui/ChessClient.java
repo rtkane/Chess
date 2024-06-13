@@ -1,7 +1,7 @@
 package ui;
 
 import excpetion.ResponseException;
-import server.ServerFacade;
+import ui.ServerFacade;
 import ui.websocket.NotificationHandler;
 import ui.websocket.WebSocketFacade;
 
@@ -31,6 +31,7 @@ public class ChessClient {
             case "register" -> register(params);
             case "login" -> login(params);
             case "quit" -> quit();
+            case "logout" -> logout(params);
             default -> help();
         };
     }
@@ -85,6 +86,18 @@ public class ChessClient {
         System.out.println("Application quitting");
         System.out.println("...");
         return "quit";
+    }
+
+    public String logout(String... params) throws ResponseException {
+            try {
+                state = State.SIGNEDOUT;
+                ws = new WebSocketFacade(serverURL, notificationHandler);
+                ws.logout();
+                return String.format("Logout");
+            }catch (ResponseException responseException) {
+
+                throw new ResponseException(400, "Expected: <username> <password>");
+            }
     }
 
 }

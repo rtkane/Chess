@@ -18,6 +18,9 @@ public class ConnectionManager {
     public void remove(String visitorName) {
         connections.remove(visitorName);
     }
+    public String removeSession(Session session){connections.remove(session);
+        return null;
+    }
 
     public void broadcast(String excludeVisitorName, Notification notification) throws IOException {
         var removeList = new ArrayList<Connection>();
@@ -36,4 +39,14 @@ public class ConnectionManager {
             connections.remove(c.visitorName);
         }
     }
+
+    public String findBySession(Session session) {
+        for (Connection connection : connections.values()) {
+            if (connection.session.equals(session)) {
+                return connection.visitorName;
+            }
+        }
+        return null;  // Return null if no matching session is found
+    }
+
 }

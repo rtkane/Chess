@@ -2,13 +2,18 @@ package webSocketMessages;
 
 public class Action {
     public enum Type {
-        ENTER, EXIT, REGISTER, LOGIN
+        ENTER, EXIT, REGISTER, LOGIN, LOGOUT
     }
 
     private Type type;
     private String username;
     private String password;
     private String email;
+
+    public Action(Type type) {
+        this.type = type;
+    }
+
 
     public Action(Type type, String username, String password, String email) {
         this.type = type;

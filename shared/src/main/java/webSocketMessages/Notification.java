@@ -9,7 +9,8 @@ public record Notification(Type type, String message) {
         DEPARTURE,
         ERROR,
         REGISTRATION,
-        LOGIN
+        LOGIN,
+        LOGOUT
     }
 
     public String toString() {
