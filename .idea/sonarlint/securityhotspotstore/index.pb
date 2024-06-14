@@ -43,8 +43,6 @@ b
 2shared/src/main/java/chess/PawnMoveCalculator.java,4\4\441f57a99e4b66c2f771d2743bd69aea99ee0fe5
 d
 4shared/src/main/java/requests/CreateGameRequest.java,5\e\5ee48f0260568a64b6eba88b52c590e720a80b4b
-b
-2shared/src/main/java/requests/JoinGameRequest.java,1\5\15803bbcee5775f2ebeb7f6892b8e435fb3d0a0c
 _
 /shared/src/main/java/requests/LoginRequest.java,c\0\c0d86d83fd80ff25bff69b2e796ea3fc12289cc8
 `
@@ -65,8 +63,6 @@ b
 0shared/src/main/java/requests/LogoutRequest.java,9\b\9bef3781ee5d613ebbf428878c35f0eee6b5f59e
 b
 2shared/src/main/java/requests/ListGameRequest.java,8\7\8739ce18f6c52090f2b6ab5ee03f9cf0f72935e2
-`
-0shared/src/main/java/results/ListGameResult.java,8\a\8aa9e99e9a765a4e73ddb70b69546537fcd586d7
 i
 9server/src/test/java/passoff/server/StandardAPITests.java,9\4\94f243c94f4488610888d7e06be7837a9ed55c4d
 \
@@ -87,14 +83,10 @@ _
 /server/src/main/java/service/LogoutService.java,5\3\53c109b41fa7037c47790f3890f731222553be57
 b
 2server/src/main/java/handlers/ListGameHandler.java,9\6\964c2d0b6525812ec853ac98beee0d2ff8f4d9fe
-a
-1server/src/main/java/service/ListGameService.java,1\f\1f0f1be2a52d67f3aa0f2a564d05a360d0124335
 c
 3server/src/main/java/service/CreateGameService.java,0\e\0ec060389251fc13410a8c3304bab8702331f174
 d
 4server/src/main/java/handlers/CreateGameHandler.java,6\0\60d75adf50a567fe9d88a7b48cfedd4355261250
-b
-2server/src/main/java/handlers/JoinGameHandler.java,f\1\f1c9ca4013f60b1aaa7e06b3fd470e7bf47e636d
 b
 2server/src/test/java/service/ClearServiceTest.java,0\7\077a5a04e2f7d160761be627b48d8ba38373f6b2
 ^
@@ -109,8 +101,6 @@ _
 /server/src/main/java/handlers/ClearHandler.java,d\2\d2d996d9fed9b3707d5006bdbb6c3d78f1c32ba4
 e
 5server/src/test/java/service/ListGameServiceTest.java,7\4\74a5c8c308d3ebef8d69f8cea6327c9dbafa225a
-a
-1server/src/main/java/service/JoinGameService.java,8\4\84554d76379df4f91cabdfc4f6fecc6083ce5b49
 g
 7server/src/test/java/service/CreateGameServiceTest.java,c\3\c3d667bd8a3f1420dd8bb732cfe96e4e06a70cb6
 _

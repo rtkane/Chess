@@ -28,4 +28,13 @@ public class ListGameResult {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ListGameResult{");
+        sb.append(" games=").append(games);
+        sb.append('}');
+        return sb.toString();
+    }
 }

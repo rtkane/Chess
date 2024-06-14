@@ -1,9 +1,8 @@
 package ui;
 
 import excpetion.ResponseException;
-import requests.LoginRequest;
-import requests.LogoutRequest;
-import requests.RegisterRequest;
+import requests.*;
+import results.ListGameResult;
 import results.LoginResult;
 import results.LogoutResult;
 import results.RegisterResult;
@@ -20,7 +19,6 @@ public class ChessClient {
     private final NotificationHandler notificationHandler;
     private WebSocketFacade ws;
     private State state = State.SIGNEDOUT;
-    private RegisterResult registerResult;
     private LoginResult loginResult;
 
 
@@ -40,6 +38,9 @@ public class ChessClient {
             case "login" -> login(params);
             case "quit" -> quit();
             case "logout" -> logout();
+            case "list" -> list();
+            case "join" -> join(params);
+            case "observe" -> observe();
             default -> help();
         };
     }
@@ -73,7 +74,6 @@ public class ChessClient {
             String email = params[2];
             RegisterRequest registerRequest = new RegisterRequest(username, password, email);
             try {
-                registerResult = server.register(registerRequest);
                 System.out.println("Proceed to Login");
                 return String.format("Registered %s.", username);
             } catch (Exception e) {
@@ -100,6 +100,22 @@ public class ChessClient {
         }
         throw new ResponseException(400, "Expected: <username> <password>");
     }
+    public String join(String... params) throws ResponseException {
+        if (params.length == 2 && state == State.SIGNEDIN){
+            int gameID = Integer.parseInt(params[0]);
+            String teamColor = params[1];
+            JoinGameRequest joinGameRequest = new JoinGameRequest(teamColor, loginResult.getAuthToken(), gameID);
+
+            try {
+                server.join(joinGameRequest, loginResult);
+                return String.format("Joined game %s as %s!", gameID, teamColor);
+            } catch (Exception e) {
+                throw new ResponseException(401, "Join failed");
+            }
+        }
+        throw new ResponseException(400, "Expected: <gameID> <WHITE|BLACK>");
+        }
+
 
     public String quit() throws ResponseException{
         System.out.println("Application quitting");
@@ -119,6 +135,25 @@ public class ChessClient {
         }
         throw new ResponseException(400, "Expected 'logout' ");
     }
+
+    public String list() throws ResponseException{
+        if (state == State.SIGNEDIN){
+            try
+            {
+                server.list(loginResult);
+                return server.list(loginResult).toString();
+            }catch (Exception e){
+                throw new ResponseException(401, "List Failed");
+
+            }
+        }
+        throw new ResponseException(400, "Expected 'list' ");
+
+    }
+
+    public 
+
+
 
 
 

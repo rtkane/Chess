@@ -3,12 +3,8 @@ package ui;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import excpetion.ResponseException;
-import requests.LoginRequest;
-import requests.LogoutRequest;
-import requests.RegisterRequest;
-import results.LoginResult;
-import results.LogoutResult;
-import results.RegisterResult;
+import requests.*;
+import results.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -38,6 +34,16 @@ public class ServerFacade {
         return this.makeRequest("DELETE", path, login, LogoutResult.class, login.getAuthToken());
     }
 
+    public ListGameResult list(LoginResult list) throws ResponseException {
+        var path = "/game";
+        return this.makeRequest("GET", path, list, ListGameResult.class, list.getAuthToken());
+    }
+
+    public JoinGameResult join(JoinGameRequest join, LoginResult token) throws ResponseException {
+        var path = "/game";
+        return this.makeRequest("PUT", path, join, JoinGameResult.class, token.getAuthToken());
+    }
+
 
 
     private <T> T makeRequest(String method, String path, Object request, Class<T> responseClass, String authToken) throws ResponseException {
@@ -49,9 +55,12 @@ public class ServerFacade {
             if (authToken != null) {
                 http.addRequestProperty("authorization", authToken);
             }
-            http.setDoOutput(true);
 
-            writeBody(request, http);
+            if (method != "GET") {
+                http.setDoOutput(true);
+                writeBody(request, http);
+
+            }
             http.connect();
             throwIfNotSuccessful(http);
             return readBody(http, responseClass);

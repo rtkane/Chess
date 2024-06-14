@@ -16,8 +16,12 @@ public class JoinGameService {
     }
 
     public JoinGameResult joinGame(JoinGameRequest request) throws DataAccessException {
+        System.out.println(request.getGameID());
+        System.out.println(request.getTeamColor());
+        System.out.println(request.getAuthToken());
+
         String authToken = request.getAuthToken();
-        String teamColor = request.getTeamColor();
+        String teamColor = request.getTeamColor().toUpperCase();
         int gameID = request.getGameID();
 
         if (teamColor == null) {
