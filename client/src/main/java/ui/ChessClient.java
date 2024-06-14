@@ -151,10 +151,15 @@ public class ChessClient {
 
     }
 
-    public 
-
-
-
-
-
+    public String observe() throws ResponseException {
+        if (state == State.SIGNEDIN) {
+            try {
+                Example.main(new String[]{});
+                return "Observing the game.";
+            } catch (Exception e) {
+                throw new ResponseException(401, "Observe failed");
+            }
+        }
+        throw new ResponseException(400, "Expected 'observe' ");
+    }
 }
