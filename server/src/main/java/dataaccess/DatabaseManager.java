@@ -56,7 +56,7 @@ public class DatabaseManager {
                 "username VARCHAR(255) NOT NULL, " +
                 "authToken VARCHAR(255) NOT NULL)";
         try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD)) {
-            conn.setCatalog("chess"); // Set the catalog to the chess database
+            conn.setCatalog(DATABASE_NAME); // Set the catalog to the chess database
             try (var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.executeUpdate();
             }
@@ -72,7 +72,7 @@ public class DatabaseManager {
                 "password VARCHAR(255) NOT NULL," +
                 "email VARCHAR(255) NOT NULL)";
         try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD)) {
-            conn.setCatalog("chess"); // Set the catalog to the chess database
+            conn.setCatalog(DATABASE_NAME); // Set the catalog to the chess database
             try (var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.executeUpdate();
             }
@@ -89,7 +89,7 @@ public class DatabaseManager {
                 "gameName VARCHAR(255) NOT NULL," +
                 "game JSON NOT NULL)";
         try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD)) {
-            conn.setCatalog("chess"); // Set the catalog to the chess database
+            conn.setCatalog(DATABASE_NAME); // Set the catalog to the chess database
             try (var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.executeUpdate();
             }
