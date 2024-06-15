@@ -43,6 +43,10 @@ public class ServerFacade {
         var path = "/game";
         return this.makeRequest("PUT", path, join, JoinGameResult.class, token.getAuthToken());
     }
+    public CreateGameResult create(CreateGameRequest create, LoginResult token) throws ResponseException {
+        var path = "/game";
+        return this.makeRequest("POST", path, create, CreateGameResult.class, token.getAuthToken());
+    }
 
 
 

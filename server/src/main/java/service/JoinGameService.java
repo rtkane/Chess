@@ -21,12 +21,15 @@ public class JoinGameService {
         System.out.println(request.getAuthToken());
 
         String authToken = request.getAuthToken();
-        String teamColor = request.getTeamColor().toUpperCase();
+        String teamColor = request.getTeamColor();
         int gameID = request.getGameID();
 
         if (teamColor == null) {
             return new JoinGameResult(false, "Error: invalid team color");
         }
+
+         teamColor = request.getTeamColor().toUpperCase();
+
 
         if ((!"WHITE".equals(teamColor) && !"BLACK".equals(teamColor))){
             return new JoinGameResult(false, "Error: invalid team color");

@@ -36,6 +36,7 @@ public class ChessClient {
             case "list" -> list();
             case "join" -> join(params);
             case "observe" -> observe();
+            case "create" -> create(params);
             default -> help();
         };
     }
@@ -69,6 +70,7 @@ public class ChessClient {
             String email = params[2];
             RegisterRequest registerRequest = new RegisterRequest(username, password, email);
             try {
+                server.register(registerRequest);
                 System.out.println("Proceed to Login");
                 return String.format("Registered %s.", username);
             } catch (Exception e) {
@@ -111,6 +113,22 @@ public class ChessClient {
         throw new ResponseException(400, "Expected: <gameID> <WHITE|BLACK>");
         }
 
+    public String create(String... params) throws ResponseException {
+        if (params.length == 1 && state == State.SIGNEDIN){
+            String gameName = params[0];
+            CreateGameRequest createGameRequest = new CreateGameRequest(loginResult.getAuthToken(), gameName);
+
+            try {
+                server.create(createGameRequest, loginResult);
+                return String.format("Game created %s", gameName);
+            }catch (Exception e) {
+                throw new ResponseException(401, "Join failed");
+            }
+        }
+        throw new ResponseException(400, "Expected: <Name> Name of game");
+        }
+
+
 
     public String quit() throws ResponseException{
         System.out.println("Application quitting");
@@ -147,7 +165,7 @@ public class ChessClient {
     }
 
     public String observe() throws ResponseException {
-        if (state == State.SIGNEDOUT) {
+        if (state == State.SIGNEDIN) {
             try {
                 Observe.print();
                 return "Observing the game.";
@@ -157,4 +175,7 @@ public class ChessClient {
         }
         throw new ResponseException(400, "Expected 'observe' ");
     }
+
+
+
 }
