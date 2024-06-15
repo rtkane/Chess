@@ -8,6 +8,7 @@ public class DatabaseManager {
     private static final String USER;
     private static final String PASSWORD;
     private static final String CONNECTION_URL;
+    private static final String TABLE_NAME = "authTokens";
 
     /*
      * Load the database information for the db.properties file.
@@ -40,11 +41,56 @@ public class DatabaseManager {
             var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
             try (var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.executeUpdate();
+                conn.setCatalog(DATABASE_NAME);
+                createAuthTable();
+                createGameTable();
+                createUserTable();
             }
         } catch (SQLException e) {
             throw new DataAccessException(e.getMessage());
         }
     }
+
+    public static void createAuthTable() {
+        String statement = "CREATE TABLE IF NOT EXISTS authTokens (" +
+                "username VARCHAR(255) NOT NULL, " +
+                "authToken VARCHAR(255) NOT NULL)";
+        try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
+             var preparedStatement = conn.prepareStatement(statement)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void createUserTable() {
+        String statement = "CREATE TABLE IF NOT EXISTS users (" +
+                "username VARCHAR(255) NOT NULL, " +
+                "password VARCHAR(255) NOT NULL," +
+                "email VARCHAR(255) NOT NULL)";
+        try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
+             var preparedStatement = conn.prepareStatement(statement)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void createGameTable() {
+        String statement = "CREATE TABLE IF NOT EXISTS gamedata (" +
+                "gameID int NOT NULL, " +
+                "whiteUsername VARCHAR(255)," +
+                "blackUsername VARCHAR(255)," +
+                "gameName VARCHAR(255) NOT NULL," +
+                "game JSON NOT NULL)";
+        try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
+             var preparedStatement = conn.prepareStatement(statement)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     /**
      * Create a connection to the database and sets the catalog based upon the

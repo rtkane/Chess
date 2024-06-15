@@ -7,8 +7,8 @@ import java.net.URISyntaxException;
 
 import com.google.gson.Gson;
 import excpetion.ResponseException;
-import webSocketMessages.Action;
-import webSocketMessages.Notification;
+import websocketmessages.Action;
+import websocketmessages.Notification;
 
 
 public class WebSocketFacade extends Endpoint {

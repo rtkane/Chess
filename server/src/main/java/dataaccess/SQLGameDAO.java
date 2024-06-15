@@ -14,6 +14,18 @@ public class SQLGameDAO implements GameDataDAO {
 
     private final Gson gson = new Gson();
 
+    public SQLGameDAO() {
+        createDatabase();
+    }
+
+    private void createDatabase() {
+        try {
+            DatabaseManager.createDatabase();
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error (you can use a logging framework instead)
+        }
+    }
+
     @Override
     public void createGame(GameDataModel game) throws DataAccessException {
         String sql = "INSERT INTO gamedata (gameID, whiteUsername, blackUsername, gameName, game) VALUES (?,?,?,?,?)";

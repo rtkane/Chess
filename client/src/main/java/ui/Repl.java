@@ -2,7 +2,6 @@ package ui;
 
 import ui.websocket.NotificationHandler;
 
-import javax.management.Notification;
 import java.util.Scanner;
 
 import static ui.EscapeSequences.*;
@@ -38,7 +37,7 @@ public class Repl implements NotificationHandler {
 
 
     @Override
-    public void notify(webSocketMessages.Notification notification) {
+    public void notify(websocketmessages.Notification notification) {
         System.out.println(RED + notification.message());
     }
 

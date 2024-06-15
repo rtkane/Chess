@@ -1,4 +1,4 @@
-package webSocketMessages;
+package websocketmessages;
 
 public class Action {
     public enum Type {

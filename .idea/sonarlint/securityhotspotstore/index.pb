@@ -81,8 +81,6 @@ b
 2server/src/main/java/handlers/ListGameHandler.java,9\6\964c2d0b6525812ec853ac98beee0d2ff8f4d9fe
 c
 3server/src/main/java/service/CreateGameService.java,0\e\0ec060389251fc13410a8c3304bab8702331f174
-d
-4server/src/main/java/handlers/CreateGameHandler.java,6\0\60d75adf50a567fe9d88a7b48cfedd4355261250
 b
 2server/src/test/java/service/ClearServiceTest.java,0\7\077a5a04e2f7d160761be627b48d8ba38373f6b2
 ^
@@ -99,8 +97,6 @@ e
 5server/src/test/java/service/ListGameServiceTest.java,7\4\74a5c8c308d3ebef8d69f8cea6327c9dbafa225a
 g
 7server/src/test/java/service/CreateGameServiceTest.java,c\3\c3d667bd8a3f1420dd8bb732cfe96e4e06a70cb6
-_
-/server/src/main/java/handlers/LoginHandler.java,2\4\24ef2daf20f5f2fae5081332837e4e2b6e5ce16b
 ^
 .server/src/main/java/service/LoginService.java,2\1\21b887ffd983e0d4c23d3acc2f24243da9e156ce
 `

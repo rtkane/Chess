@@ -4,11 +4,9 @@ import com.google.gson.Gson;
 import dataaccess.DataAccessException;
 import dataaccess.SQLAuthDAO;
 import dataaccess.SQLUserDAO;
-import excpetion.ResponseException;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import requests.LoginRequest;
 import requests.LogoutRequest;
@@ -19,12 +17,10 @@ import results.RegisterResult;
 import service.LoginService;
 import service.LogoutService;
 import service.RegisterService;
-import webSocketMessages.Action;
-import webSocketMessages.Notification;
+import websocketmessages.Action;
+import websocketmessages.Notification;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @WebSocket
 public class WebsocketHandler {

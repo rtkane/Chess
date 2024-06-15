@@ -7,6 +7,18 @@ import java.util.List;
 
 public class SQLUserDAO implements UserDAO {
 
+    public SQLUserDAO() {
+        createDatabase();
+    }
+
+    private void createDatabase() {
+        try {
+            DatabaseManager.createDatabase();
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error (you can use a logging framework instead)
+        }
+    }
+
     @Override
     public void createUser(UserDataModel user) throws DataAccessException {
         String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";

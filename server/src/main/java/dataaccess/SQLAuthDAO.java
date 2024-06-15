@@ -10,7 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SQLAuthDAO implements AuthDAO {
+    public SQLAuthDAO() {
+        createDatabase();
+    }
 
+    private void createDatabase() {
+        try {
+            DatabaseManager.createDatabase();
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error (you can use a logging framework instead)
+        }
+    }
 
 
     @Override
