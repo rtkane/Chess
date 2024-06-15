@@ -72,6 +72,8 @@ public class ChessClient {
             try {
                 server.register(registerRequest);
                 System.out.println("Proceed to Login");
+                state = State.SIGNEDIN;
+
                 return String.format("Registered %s.", username);
             } catch (Exception e) {
                 throw new ResponseException(401, "Register failed");
