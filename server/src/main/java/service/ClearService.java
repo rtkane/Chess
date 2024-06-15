@@ -9,10 +9,10 @@ public class ClearService {
     private SQLAuthDAO authDAO;
     private SQLGameDAO gameDataDAO;
 
-    public ClearService(SQLUserDAO userDAO, SQLAuthDAO authDAO, SQLGameDAO gameDataDAO){
-        this.userDAO = userDAO;
-        this.authDAO = authDAO;
-        this.gameDataDAO = gameDataDAO;
+    public ClearService(){
+        this.userDAO = new SQLUserDAO();
+        this.authDAO = new SQLAuthDAO();
+        this.gameDataDAO = new SQLGameDAO();
     }
 
     public ClearResult clear() throws DataAccessException {

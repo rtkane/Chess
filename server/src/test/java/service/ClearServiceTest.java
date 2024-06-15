@@ -27,7 +27,7 @@ public class ClearServiceTest {
         userDAO = new SQLUserDAO();
         authDAO = new SQLAuthDAO();
         gameDataDAO = new SQLGameDAO();
-        clearService = new ClearService(userDAO, authDAO, gameDataDAO);
+        clearService = new ClearService();
         createGameService = new CreateGameService(authDAO, gameDataDAO);
         SQLUserDAO userDAO = new SQLUserDAO();
         SQLAuthDAO authDAO = new SQLAuthDAO();
