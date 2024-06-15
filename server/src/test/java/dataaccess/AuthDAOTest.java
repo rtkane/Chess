@@ -79,4 +79,4 @@ public class AuthDAOTest {
         AuthDataModel testUser = authDAO.getAuth(token.getAuthToken());
         assertNull(testUser);
     }
-}c
+}
