@@ -47,8 +47,6 @@ _
 /shared/src/main/java/requests/LoginRequest.java,c\0\c0d86d83fd80ff25bff69b2e796ea3fc12289cc8
 `
 0shared/src/main/java/results/JoinGameResult.java,9\4\9459fde042da23a9ca2571ff344dbbf79691d859
-b
-2shared/src/main/java/results/CreateGameResult.java,c\6\c61c5b274e0e6b30c3029fd05c133982353c0544
 ]
 -shared/src/main/java/results/ClearResult.java,7\a\7af70f808d9e94d0a5f3d8179ea347ee56ca77be
 ]

@@ -6,14 +6,8 @@ import dataaccess.SQLGameDAO;
 import dataaccess.SQLUserDAO;
 import excpetion.ResponseException;
 import org.junit.jupiter.api.*;
-import requests.ListGameRequest;
-import requests.LoginRequest;
-import requests.LogoutRequest;
-import requests.RegisterRequest;
-import results.ListGameResult;
-import results.LoginResult;
-import results.LogoutResult;
-import results.RegisterResult;
+import requests.*;
+import results.*;
 import server.Server;
 import ui.ServerFacade;
 
@@ -133,6 +127,46 @@ public class ServerFacadeTests {
 
     }
     @Test
+    void goodCreate() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest("player1", "password", "p1@email.com");
+
+        facade.register(registerRequest);
+
+        LoginRequest loginRequest = new LoginRequest("player1", "password");
+        LoginResult loginResult = facade.login(loginRequest);
+
+
+
+        CreateGameRequest createGameRequest = new CreateGameRequest(loginResult.getAuthToken(), "new Game");
+        CreateGameResult createGameResult = facade.create(createGameRequest, loginResult);
+
+        assertNotNull(createGameResult);
+        assertTrue(createGameResult.getSuccess());
+        assertEquals(true, createGameResult.getSuccess());
+
+    }
+
+    @Test
+    void badCreate() throws ResponseException {
+        RegisterRequest registerRequest = new RegisterRequest("player1", "password", "p1@email.com");
+
+        facade.register(registerRequest);
+
+        LoginRequest loginRequest = new LoginRequest("player1", "password");
+        LoginResult loginResult = facade.login(loginRequest);
+
+
+
+        CreateGameRequest createGameRequest = new CreateGameRequest(loginResult.getAuthToken(), "new Game");
+        facade.create(createGameRequest, loginResult);
+
+        assertThrows(ResponseException.class, () -> {
+            facade.create(createGameRequest, loginResult);
+        });
+
+    }
+
+    @Test
     void goodList() throws Exception {
         RegisterRequest registerRequest = new RegisterRequest("player1", "password", "p1@email.com");
 
@@ -141,18 +175,71 @@ public class ServerFacadeTests {
         LoginRequest loginRequest = new LoginRequest("player1", "password");
         LoginResult loginResult = facade.login(loginRequest);
 
+
+
+        CreateGameRequest createGameRequest = new CreateGameRequest(loginResult.getAuthToken(), "new Game");
+        facade.create(createGameRequest, loginResult);
+
         ListGameResult listGameResult = facade.list(loginResult);
 
         assertNotNull(listGameResult);
         assertTrue(listGameResult.getSuccess());
-        assertNull(listGameResult.getClass());
+        assertEquals(true, listGameResult.getSuccess());
+
     }
 
     @Test
     void badList() throws ResponseException {
         assertThrows(ResponseException.class, () -> {
-            facade.logout(new LoginResult("player1", "password", true, "success"));
+            facade.list(new LoginResult("bad", "token", true, ":)"));
         });
 
     }
+
+    @Test
+    void goodJoin() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest("player1", "password", "p1@email.com");
+
+        facade.register(registerRequest);
+
+        LoginRequest loginRequest = new LoginRequest("player1", "password");
+        LoginResult loginResult = facade.login(loginRequest);
+
+
+
+        CreateGameRequest createGameRequest = new CreateGameRequest(loginResult.getAuthToken(), "new Game");
+        CreateGameResult createGameResult = facade.create(createGameRequest, loginResult);
+
+        JoinGameRequest joinGameRequest = new JoinGameRequest("WHITE", loginResult.getAuthToken(), createGameResult.getGameID());
+        JoinGameResult joinGameResult = facade.join(joinGameRequest, loginResult);
+
+        assertNotNull(joinGameResult);
+        assertTrue(joinGameResult.getSuccess());
+        assertEquals(true, createGameResult.getSuccess());
+
+    }
+
+    @Test
+    void badJoin() throws ResponseException {
+        RegisterRequest registerRequest = new RegisterRequest("player1", "password", "p1@email.com");
+
+        facade.register(registerRequest);
+
+        LoginRequest loginRequest = new LoginRequest("player1", "password");
+        LoginResult loginResult = facade.login(loginRequest);
+
+
+        CreateGameRequest createGameRequest = new CreateGameRequest(loginResult.getAuthToken(), "new Game");
+        CreateGameResult createGameResult = facade.create(createGameRequest, loginResult);
+
+        JoinGameRequest joinGameRequest = new JoinGameRequest("WHITE", loginResult.getAuthToken(), createGameResult.getGameID());
+
+
+        assertThrows(ResponseException.class, () -> {
+            facade.join(joinGameRequest, new LoginResult("fake", "token", true, ":)"));
+        });
+
+    }
+
+
 }

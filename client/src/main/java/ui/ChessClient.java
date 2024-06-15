@@ -122,7 +122,7 @@ public class ChessClient {
                 server.create(createGameRequest, loginResult);
                 return String.format("Game created %s", gameName);
             }catch (Exception e) {
-                throw new ResponseException(401, "Join failed");
+                throw new ResponseException(401, "Create failed");
             }
         }
         throw new ResponseException(400, "Expected: <Name> Name of game");

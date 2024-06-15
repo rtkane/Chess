@@ -24,4 +24,7 @@ package results;public class CreateGameResult {
         return message;
     }
 
+    public Integer getGameID() {
+        return gameID;
+    }
 }
