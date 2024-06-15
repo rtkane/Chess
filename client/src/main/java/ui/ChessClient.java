@@ -1,12 +1,16 @@
 package ui;
 
 import excpetion.ResponseException;
+import model.GameDataModel;
 import requests.*;
+import results.ListGameResult;
 import results.LoginResult;
+import results.RegisterResult;
 import ui.websocket.NotificationHandler;
 import ui.websocket.WebSocketFacade;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ChessClient {
     private final ServerFacade server;
@@ -15,6 +19,8 @@ public class ChessClient {
     private WebSocketFacade ws;
     private State state = State.SIGNEDOUT;
     private LoginResult loginResult;
+    private ListGameResult gameList;
+//    private List<GameDataModel> gameList;
 
 
     public ChessClient(String serverURL, NotificationHandler notificationHandler){
@@ -70,10 +76,9 @@ public class ChessClient {
             String email = params[2];
             RegisterRequest registerRequest = new RegisterRequest(username, password, email);
             try {
-                server.register(registerRequest);
-                System.out.println("Proceed to Login");
+                RegisterResult register = server.register(registerRequest);
+                loginResult = new LoginResult(register.getUsername(), register.getAuthToken(), true, "Login Success!");
                 state = State.SIGNEDIN;
-
                 return String.format("Registered %s.", username);
             } catch (Exception e) {
                 throw new ResponseException(401, "Register failed");
@@ -100,10 +105,14 @@ public class ChessClient {
         throw new ResponseException(400, "Expected: <username> <password>");
     }
     public String join(String... params) throws ResponseException {
+        if (gameList == null){
+            gameList = server.list(loginResult);
+        }
         if (params.length == 2 && state == State.SIGNEDIN){
-            int gameID = Integer.parseInt(params[0]);
+            int gameID = gameList.getGame().get(Integer.parseInt(params[0]) - 1).getGameID();
             String teamColor = params[1];
             JoinGameRequest joinGameRequest = new JoinGameRequest(teamColor, loginResult.getAuthToken(), gameID);
+            System.out.println(gameID);
 
             try {
                 server.join(joinGameRequest, loginResult);
@@ -155,7 +164,8 @@ public class ChessClient {
         if (state == State.SIGNEDIN){
             try
             {
-                server.list(loginResult);
+               gameList = server.list(loginResult);
+//                gameList = list.getGame();
                 return server.list(loginResult).toString();
             }catch (Exception e){
                 throw new ResponseException(401, "List Failed");

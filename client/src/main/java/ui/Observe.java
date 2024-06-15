@@ -8,17 +8,17 @@ public class Observe {
     }
 
     private static final String BLACK_ROOK = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_ROOK + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String BLACK_KNIGHT = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_ROOK + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String BLACK_BISHOP = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_ROOK + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String BLACK_KING = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_ROOK + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String BLACK_QUEEN = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_ROOK + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String BLACK_PAWN = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_ROOK + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String BLACK_KNIGHT = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_KNIGHT + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String BLACK_BISHOP = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_BISHOP + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String BLACK_KING = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_KING + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String BLACK_QUEEN = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_QUEEN + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String BLACK_PAWN = EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_PAWN + EscapeSequences.RESET_TEXT_COLOR;
     private static final String WHITE_PAWN = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_PAWN + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String WHITE_ROOK = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_PAWN + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String WHITE_KNIGHT = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_PAWN + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String WHITE_QUEEN = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_PAWN + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String WHITE_KING = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_PAWN + EscapeSequences.RESET_TEXT_COLOR;
-    private static final String WHITE_BISHOP = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_PAWN + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String WHITE_ROOK = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_ROOK + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String WHITE_KNIGHT = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_KNIGHT + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String WHITE_QUEEN = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_QUEEN + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String WHITE_KING = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_KING + EscapeSequences.RESET_TEXT_COLOR;
+    private static final String WHITE_BISHOP = EscapeSequences.SET_TEXT_COLOR_RED + EscapeSequences.WHITE_BISHOP + EscapeSequences.RESET_TEXT_COLOR;
 
     private static final  String EMPTY = EscapeSequences.EMPTY;
     private static String whiteHeader = "   a  b  c  d  e  f  g  h\n";

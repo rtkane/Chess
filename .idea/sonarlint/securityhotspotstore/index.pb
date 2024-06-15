@@ -49,8 +49,6 @@ _
 0shared/src/main/java/results/JoinGameResult.java,9\4\9459fde042da23a9ca2571ff344dbbf79691d859
 ]
 -shared/src/main/java/results/ClearResult.java,7\a\7af70f808d9e94d0a5f3d8179ea347ee56ca77be
-]
--shared/src/main/java/results/LoginResult.java,1\1\1124addc2e3af17966cd058d583a8170639a4655
 `
 0shared/src/main/java/results/RegisterResult.java,6\8\68a4eabf86970380afc92e53fecb52142edf03b2
 ^
@@ -83,8 +81,6 @@ c
 3server/src/main/java/service/CreateGameService.java,0\e\0ec060389251fc13410a8c3304bab8702331f174
 ^
 .server/src/test/java/service/JoinGameTest.java,a\9\a94c8f40884831ca6df42abd6a128911a8f8573a
-b
-2server/src/test/java/service/LoginServiceTest.java,a\f\af88b544b54bd409e8e5837d6fcb6c983aec3ee7
 c
 3server/src/test/java/service/LogoutServiceTest.java,7\0\7046ccc3a2d59cc4565e9136c121ade8b9c98487
 e
