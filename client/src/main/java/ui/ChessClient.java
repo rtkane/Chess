@@ -2,15 +2,10 @@ package ui;
 
 import excpetion.ResponseException;
 import requests.*;
-import results.ListGameResult;
 import results.LoginResult;
-import results.LogoutResult;
-import results.RegisterResult;
-import ui.ServerFacade;
 import ui.websocket.NotificationHandler;
 import ui.websocket.WebSocketFacade;
 
-import java.net.http.WebSocket;
 import java.util.Arrays;
 
 public class ChessClient {
@@ -152,9 +147,9 @@ public class ChessClient {
     }
 
     public String observe() throws ResponseException {
-        if (state == State.SIGNEDIN) {
+        if (state == State.SIGNEDOUT) {
             try {
-                Example.main(new String[]{});
+                Observe.print();
                 return "Observing the game.";
             } catch (Exception e) {
                 throw new ResponseException(401, "Observe failed");
