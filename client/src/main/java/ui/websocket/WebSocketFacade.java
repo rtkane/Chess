@@ -7,6 +7,8 @@ import java.net.URISyntaxException;
 
 import com.google.gson.Gson;
 import excpetion.ResponseException;
+import websocket.commands.UserGameCommand;
+import websocket.messages.ServerMessage;
 import websocketmessages.Action;
 import websocketmessages.Notification;
 
@@ -28,7 +30,7 @@ public class WebSocketFacade extends Endpoint {
             this.session.addMessageHandler(new MessageHandler.Whole<String>() {
                 @Override
                 public void onMessage(String message) {
-                    Notification notification = new Gson().fromJson(message, Notification.class);
+                    ServerMessage notification = new Gson().fromJson(message, ServerMessage.class);
                     notificationHandler.notify(notification);
                 }
             });
@@ -55,10 +57,11 @@ public class WebSocketFacade extends Endpoint {
         }
     }
 
-    public void logout() throws ResponseException {
+
+    public void join(String username, String authToken, String teamColor, int gameID) throws ResponseException {
         try {
-            var action = new Action(Action.Type.LOGOUT);
-            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+            var userGameCommand = new UserGameCommand(UserGameCommand.CommandType.CONNECT, username, authToken, teamColor, gameID);
+            this.session.getBasicRemote().sendText(new Gson().toJson(userGameCommand));
         } catch (IOException e) {
             throw new ResponseException(500, e.getMessage());
         }

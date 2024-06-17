@@ -112,10 +112,10 @@ public class ChessClient {
             int gameID = gameList.getGame().get(Integer.parseInt(params[0]) - 1).getGameID();
             String teamColor = params[1];
             JoinGameRequest joinGameRequest = new JoinGameRequest(teamColor, loginResult.getAuthToken(), gameID);
-            System.out.println(gameID);
-
             try {
                 server.join(joinGameRequest, loginResult);
+                ws = new WebSocketFacade(serverURL, notificationHandler);
+                ws.join(loginResult.getUsername(), loginResult.getAuthToken(), joinGameRequest.getTeamColor(), joinGameRequest.getGameID());
                 return String.format("Joined game %s as %s!", gameID, teamColor);
             } catch (Exception e) {
                 throw new ResponseException(401, "Join failed");

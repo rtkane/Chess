@@ -1,9 +1,14 @@
 package server.websocket;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import dataaccess.DataAccessException;
 import dataaccess.SQLAuthDAO;
+import dataaccess.SQLGameDAO;
 import dataaccess.SQLUserDAO;
+import model.AuthDataModel;
+import model.GameDataModel;
+import model.UserDataModel;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
@@ -17,6 +22,9 @@ import results.RegisterResult;
 import service.LoginService;
 import service.LogoutService;
 import service.RegisterService;
+import websocket.commands.UserGameCommand;
+import websocket.messages.LoadGameMessage;
+import websocket.messages.ServerMessage;
 import websocketmessages.Action;
 import websocketmessages.Notification;
 
@@ -31,11 +39,13 @@ public class WebsocketHandler {
     private final RegisterService registerService;
     private final LoginService loginService;
     private final LogoutService logoutService;
+    private SQLGameDAO gameDAO = new SQLGameDAO();
+    private SQLUserDAO userDAO = new SQLUserDAO();
+    private SQLAuthDAO authDAO = new SQLAuthDAO();
 
 
     public WebsocketHandler() {
-        SQLUserDAO userDAO = new SQLUserDAO();
-        SQLAuthDAO authDAO = new SQLAuthDAO();
+
         this.registerService = new RegisterService(userDAO, authDAO);
         this.loginService = new LoginService(userDAO, authDAO);
         this.logoutService = new LogoutService(userDAO, authDAO);
@@ -49,74 +59,73 @@ public class WebsocketHandler {
 
     @OnWebSocketMessage
     public void onMessage(Session session, String message) throws IOException, DataAccessException {
-        Action action = gson.fromJson(message, Action.class);
-        switch (action.getType()) {
-            case REGISTER -> register(action.getUsername(), action.getPassword(), action.getEmail(), session);
-            case LOGIN -> login(action.getUsername(), action.getPassword(), session);
-            case LOGOUT -> logout(session);
-        }
-    }
-
-
-    private void register(String username, String password, String email, Session session) throws IOException {
-        RegisterRequest registerRequest = new RegisterRequest(username, password, email);
-        RegisterResult registerResult;
-
         try {
-            registerResult = registerService.register(registerRequest);
-            if (registerResult.getSuccess()) {
-                connections.add(username, session);
-                tokens.add(registerResult.getAuthToken(), session);
-                var message = String.format("Registered %s", username);
-                var notification = new Notification(Notification.Type.REGISTRATION, message);
-                connections.broadcast(username, notification);
+            UserGameCommand userGameCommand = gson.fromJson(message, UserGameCommand.class);
+
+            if (userGameCommand != null && userGameCommand.getCommandType() != null) {
+                switch (userGameCommand.getCommandType()) {
+                    case CONNECT:
+                        connect(userGameCommand.getUsername(), userGameCommand.getAuthToken(), userGameCommand.getTeamColor(), userGameCommand.getGameID(), session);
+                        break;
+                    default:
+                        // Handle other commands if needed
+                        break;
+                }
             } else {
-                session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, registerResult.getMessage())));
+                throw new IllegalArgumentException("Invalid or null command received");
             }
-        } catch (DataAccessException e) {
-            session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, "Registration error: " + e.getMessage())));
+        } catch (JsonSyntaxException e) {
+            // Handle JSON parsing errors
+            e.printStackTrace(); // Log or handle the exception appropriately
+        } catch (Exception e) {
+            // Handle any unexpected exceptions
+            e.printStackTrace(); // Log or handle the exception appropriately
         }
     }
 
-    private void login(String username, String password, Session session) throws IOException {
-        LoginRequest loginRequest = new LoginRequest(username, password);
-        LoginResult loginResult;
 
-        try {
-            loginResult = loginService.login(loginRequest);
-            if (loginResult.getSuccess()) {
-                connections.add(username, session);
-                tokens.add(loginResult.getAuthToken(), session);
-                var message = String.format("Login %s", username);
-                var notification = new Notification(Notification.Type.LOGIN, message);
-                connections.broadcast(username, notification);
+
+    private void connect(String username, String authToken, String teamColor, int gameID, Session session) throws DataAccessException, IOException {
+        // Validate authToken and gameID
+        GameDataModel currGame = gameDAO.getGame(gameID);
+        boolean authorized = false;
+
+        System.out.println("recieved");
+        if (currGame != null) {
+            System.out.println(teamColor);
+
+            if (teamColor.equalsIgnoreCase("WHITE")) {
+                AuthDataModel user = authDAO.getAuthByUser(currGame.getWhiteUsername());
+                if (user != null && authToken.equals(user.getAuthToken())) {
+                    authorized = true;
+                }
+            } else if (teamColor.equalsIgnoreCase("BLACK")) {
+                AuthDataModel user = authDAO.getAuthByUser(currGame.getBlackUsername());
+                if (user != null && authToken.equals(user.getAuthToken())) {
+                    authorized = true;
+                }
+            }
+            System.out.println("passeed auth: " + authorized);
+
+            if (authorized && gameID == currGame.getGameID()) {
+                // Authorization and game ID validation passed
+                System.out.println("passed id");
+
+                LoadGameMessage loadGameMessage = new LoadGameMessage(ServerMessage.ServerMessageType.LOAD_GAME,  new Gson()
+                        .toJson(gameDAO.getGame(currGame.getGameID())));
+                session.getRemote().sendString(gson.toJson(loadGameMessage));
             } else {
-                session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, loginResult.getMessage())));
+                System.out.println("error");
+
+                // Send error message due to failed validation
+                session.getRemote().sendString(gson.toJson(new ServerMessage(ServerMessage.ServerMessageType.ERROR)));
             }
-        } catch (DataAccessException e) {
-            session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, "Login error: " + e.getMessage())));
+        } else {
+            System.out.println("error 2");
+
+            // Game with given ID not found
+            session.getRemote().sendString(gson.toJson(new ServerMessage(ServerMessage.ServerMessageType.ERROR)));
         }
-    }
-
-    private void logout(Session session) throws IOException, DataAccessException {
-        String username = connections.findBySession(session);
-        String token = tokens.findBySession(session);
-        LogoutRequest logoutRequest = new LogoutRequest(token);
-        LogoutResult logoutResult;
-
-
-            logoutResult = logoutService.logout(logoutRequest);
-            if (logoutResult.getSuccess()) {
-                connections.remove(username);
-                connections.remove(username);
-                tokens.remove(token);
-                var message = String.format("Logout successful for %s", username);
-                var notification = new Notification(Notification.Type.LOGOUT, message);
-                session.getRemote().sendString(gson.toJson(notification));
-            }
-            else {
-                session.getRemote().sendString(gson.toJson(new Notification(Notification.Type.ERROR, "No user logged in with this session.")));
-            }
     }
 
 }

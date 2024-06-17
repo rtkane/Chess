@@ -1,4 +1,4 @@
-package server;
+package passoff.server;
 
 import chess.ChessGame;
 import chess.ChessMove;
@@ -6,7 +6,6 @@ import chess.ChessPosition;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.*;
 import passoff.model.*;
-import passoff.server.TestServerFacade;
 import passoff.websocket.TestCommand;
 import passoff.websocket.TestMessage;
 import passoff.websocket.WebsocketTestingEnvironment;
@@ -360,7 +359,7 @@ public class WebSocketTests {
     }
 
     private void resign(WebsocketUser sender, int gameID, boolean expectSuccess,
-                               Set<WebsocketUser> inGame, Set<WebsocketUser> otherClients) {
+                        Set<WebsocketUser> inGame, Set<WebsocketUser> otherClients) {
         TestCommand resignCommand = new TestCommand(UserGameCommand.CommandType.RESIGN, sender.authToken(), gameID);
         var numExpectedMessages = expectedMessages(sender, 1, inGame, (expectSuccess ? 1 : 0), otherClients);
         var actualMessages = environment.exchange(sender.username(), resignCommand, numExpectedMessages, waitTime);
@@ -439,7 +438,7 @@ public class WebSocketTests {
             assertLoadGame(username, messages.get(0));
             assertNotification(username, messages.get(1));
         } catch(AssertionError e) {
-            Assertions.fail("Expected a LOAD_GAME and a NOTIFICATION for %s, got %s".formatted(username, messages.reversed()), e);
+            Assertions.fail("Expected a LOAD_GAME and a NOTIFICATION for %s, got %s".formatted(username, messages), e);
         }
     }
 
@@ -451,7 +450,7 @@ public class WebSocketTests {
             assertNotification(username, messages.get(1));
             if (messages.size() == 3) assertNotification(username, messages.get(2));
         } catch(AssertionError e) {
-            Assertions.fail("Expected a LOAD_GAME and 1 or 2 NOTIFICATION's for %s, got %s".formatted(username, messages.reversed()), e);
+            Assertions.fail("Expected a LOAD_GAME and 1 or 2 NOTIFICATION's for %s, got %s".formatted(username, messages), e);
         }
     }
 
@@ -462,12 +461,12 @@ public class WebSocketTests {
             assertLoadGame(username, messages.get(0));
             if (messages.size() == 2) assertNotification(username, messages.get(1));
         } catch(AssertionError e) {
-            Assertions.fail("Expected a LOAD_GAME and an optional NOTIFICATION for %s, got %s".formatted(username, messages.reversed()), e);
+            Assertions.fail("Expected a LOAD_GAME and an optional NOTIFICATION for %s, got %s".formatted(username, messages), e);
         }
     }
 
     private void assertNoMessages(String username, List<TestMessage> messages, String description) {
-            Assertions.assertTrue(messages.isEmpty(), "%s got a message after %s. messages: %s".formatted(username, description, messages));
+        Assertions.assertTrue(messages.isEmpty(), "%s got a message after %s. messages: %s".formatted(username, description, messages));
     }
 
     private void assertNoMessagesInvalid(String username, List<TestMessage> messages) {

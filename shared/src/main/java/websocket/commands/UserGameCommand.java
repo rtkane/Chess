@@ -3,16 +3,9 @@ package websocket.commands;
 import java.util.Objects;
 
 /**
- * Represents a command a user can send the server over a websocket
- * 
- * Note: You can add to this class, but you should not alter the existing
- * methods.
+ * Represents a command a user can send to the server over a WebSocket.
  */
 public class UserGameCommand {
-
-    public UserGameCommand(String authToken) {
-        this.authToken = authToken;
-    }
 
     public enum CommandType {
         CONNECT,
@@ -21,30 +14,54 @@ public class UserGameCommand {
         RESIGN
     }
 
-    protected CommandType commandType;
-
+    private final CommandType commandType;
     private final String authToken;
+    private final String username;
+    private final String teamColor;
+    private final int gameID;
 
-    public String getAuthString() {
+    public UserGameCommand(CommandType commandType, String username, String authToken, String teamColor, int gameID) {
+        this.commandType = commandType;
+        this.authToken = authToken;
+        this.username = username;
+        this.teamColor = teamColor;
+        this.gameID = gameID;
+    }
+
+    public String getAuthToken() {
         return authToken;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getTeamColor() {
+        return teamColor;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
     public CommandType getCommandType() {
-        return this.commandType;
+        return commandType;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof UserGameCommand))
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         UserGameCommand that = (UserGameCommand) o;
-        return getCommandType() == that.getCommandType() && Objects.equals(getAuthString(), that.getAuthString());
+        return gameID == that.gameID &&
+                commandType == that.commandType &&
+                Objects.equals(authToken, that.authToken) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(teamColor, that.teamColor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCommandType(), getAuthString());
+        return Objects.hash(commandType, authToken, username, teamColor, gameID);
     }
 }

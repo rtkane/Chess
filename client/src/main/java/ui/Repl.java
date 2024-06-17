@@ -1,6 +1,7 @@
 package ui;
 
 import ui.websocket.NotificationHandler;
+import websocket.messages.ServerMessage;
 
 import java.util.Scanner;
 
@@ -36,10 +37,10 @@ public class Repl implements NotificationHandler {
 
 
 
+
+
     @Override
-    public void notify(websocketmessages.Notification notification) {
-        System.out.println(RED + notification.message());
+    public void notify(ServerMessage notification) {
+
     }
-
-
 }
